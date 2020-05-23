@@ -25,6 +25,6 @@
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.power",
   "url": "https://github.com/E1Camino/foundryvtt-vtm-20th/",
-  "manifest": "https://raw.githubusercontent.com/E1Camino/foundryvtt-vtm-20th/master/system.json",
+  "manifest": "https://github.com/E1Camino/foundryvtt-vtm-20th/master/system.json",
   "download": "https://github.com/E1Camino/foundryvtt-vtm-20th/archive/master.zip"
 }
