@@ -1,0 +1,12 @@
+{
+    "CHAR.STRENGTH": "Körperkraft",
+    "CHAR.DEXTERITY": "Geschick",
+    "CHAR.STAMINA": "Widerstandsfähigkeit",
+    "CHAR.CHARISMA": "Charisma",
+    "CHAR.MANIPULATION": "Manipulation",
+    "CHAR.APPEARANCE": "Erscheinungsbild ",
+    "CHAR.INTELLIGENCE": "Intelligenz",
+    "CHAR.PERCEPTION": "Wahrnehmung",
+    "CHAR.WITS": "Geistesschärfe",
+    "Vampire": "Vampir"
+}

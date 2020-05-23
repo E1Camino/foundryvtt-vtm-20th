@@ -1,0 +1,55 @@
+{
+  "Actor": {
+    "types": ["character"],
+    "character": {
+      "name": "",
+      "attributes": {
+        "strength": {
+          "type": "number",
+          "label": "CHAR.STRENGTH",
+          "value": 0
+        },
+        "dexterity": {
+          "type": "Number",
+          "label": "CHAR.DEXTERITY",
+          "value": 0
+        },
+        "stamina": {
+          "type": "Number",
+          "label": "CHAR.STAMINA",
+          "value": 0
+        },
+        "charisma": {
+          "type": "Number",
+          "label": "CHAR.CHARISMA",
+          "value": 0
+        },
+        "manipuation": {
+          "type": "Number",
+          "label": "CHAR.MANIPULATION",
+          "initial": 0
+        },
+        "appearance": {
+          "type": "Number",
+          "label": "CHAR.APPEARANCE",
+          "value": 0
+        },
+        "Intelligence": {
+          "type": "Number",
+          "label": "CHAR.INTELLIGENCE",
+          "value": 0
+        },
+        "Perception": {
+          "type": "Number",
+          "label": "CHAR.PERCEPTION",
+          "initial": 0
+        },
+        "Wits": {
+          "type": "Number",
+          "label": "CHAR.WITS",
+          "initial": 0
+        }
+      }
+    }
+  }
+}

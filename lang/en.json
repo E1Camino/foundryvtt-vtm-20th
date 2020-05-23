@@ -1,0 +1,12 @@
+{
+    "CHAR.STRENGTH": "Strength",
+    "CHAR.DEXTERITY": "Dexterity",
+    "CHAR.STAMINA": "Stamina",
+    "CHAR.CHARISMA": "Charisma",
+    "CHAR.MANIPULATION": "Manipulation",
+    "CHAR.APPEARANCE": "Appearance ",
+    "CHAR.INTELLIGENCE": "Intelligence",
+    "CHAR.PERCEPTION": "Perception",
+    "CHAR.WITS": "Wits",
+    "Vampire": "Vampire"
+}
