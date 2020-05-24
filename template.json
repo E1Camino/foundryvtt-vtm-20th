@@ -27,7 +27,7 @@
         "manipuation": {
           "type": "Number",
           "label": "CHAR.MANIPULATION",
-          "initial": 0
+          "value": 0
         },
         "appearance": {
           "type": "Number",
@@ -42,12 +42,12 @@
         "perception": {
           "type": "Number",
           "label": "CHAR.PERCEPTION",
-          "initial": 0
+          "value": 0
         },
         "wits": {
           "type": "Number",
           "label": "CHAR.WITS",
-          "initial": 0
+          "value": 0
         }
       }
     }
