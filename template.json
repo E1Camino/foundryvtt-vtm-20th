@@ -4,50 +4,214 @@
     "character": {
       "name": "",
       "attributes": {
-        "strength": {
-          "type": "number",
-          "label": "CHAR.STRENGTH",
-          "value": 0
+        "physical": {
+          "strength": {
+            "type": "number",
+            "label": "CHAR.STRENGTH",
+            "value": 0
+          },
+          "dexterity": {
+            "type": "Number",
+            "label": "CHAR.DEXTERITY",
+            "value": 0
+          },
+          "stamina": {
+            "type": "Number",
+            "label": "CHAR.STAMINA",
+            "value": 0
+          }
         },
-        "dexterity": {
-          "type": "Number",
-          "label": "CHAR.DEXTERITY",
-          "value": 0
+        "social": {    
+          "charisma": {
+            "type": "Number",
+            "label": "CHAR.CHARISMA",
+            "value": 0
+          },
+          "manipuation": {
+            "type": "Number",
+            "label": "CHAR.MANIPULATION",
+            "value": 0
+          },
+          "appearance": {
+            "type": "Number",
+            "label": "CHAR.APPEARANCE",
+            "value": 0
+          }
         },
-        "stamina": {
-          "type": "Number",
-          "label": "CHAR.STAMINA",
-          "value": 0
+        "mental": {
+          "intelligence": {
+            "type": "Number",
+            "label": "CHAR.INTELLIGENCE",
+            "value": 0
+          },
+          "perception": {
+            "type": "Number",
+            "label": "CHAR.PERCEPTION",
+            "value": 0
+          },
+          "wits": {
+            "type": "Number",
+            "label": "CHAR.WITS",
+            "value": 0
+          }
+        }
+      },
+      "abilities": {
+        "talents": {
+          "alertness": {
+            "type": "number",
+            "label": "TALENTS.ALTERTNESS",
+            "value": 0
+          },
+          "athletics": {
+            "type": "number",
+            "label": "TALENTS.ATHLETICS",
+            "value": 0
+          },
+          "awareness": {
+            "type": "number",
+            "label": "TALENTS.AWARENESS",
+            "value": 0
+          },
+          "brawl": {
+            "type": "number",
+            "label": "TALENTS.BRAWL",
+            "value": 0
+          },
+          "empathy": {
+            "type": "number",
+            "label": "TALENTS.EMPATHY",
+            "value": 0
+          },
+          "expression": {
+            "type": "number",
+            "label": "TALENTS.EXPRESSION",
+            "value": 0
+          },
+          "intimidation": {
+            "type": "number",
+            "label": "TALENTS.INTIMIDATION",
+            "value": 0
+          },
+          "leadership": {
+            "type": "number",
+            "label": "TALENTS.LEADERSHIP",
+            "value": 0
+          },
+          "streetwise": {
+            "type": "number",
+            "label": "TALENTS.STREETWISE",
+            "value": 0
+          },
+          "subterfuge": {
+            "type": "number",
+            "label": "TALENTS.SUBTERFUGE",
+            "value": 0
+          }
         },
-        "charisma": {
-          "type": "Number",
-          "label": "CHAR.CHARISMA",
-          "value": 0
+        "skills": {
+          "animal_ken": {
+            "type": "number",
+            "label": "SKILLS.ANIMALKEN",
+            "value": 0
+          },
+          "crafts": {
+            "type": "number",
+            "label": "SKILLS.CRAFT",
+            "value": 0
+          },
+          "drive": {
+            "type": "number",
+            "label": "SKILLS.DRIVE",
+            "value": 0
+          },
+          "etiquette": {
+            "type": "number",
+            "label": "SKILLS.ETIQUETTE",
+            "value": 0
+          },
+          "firearms": {
+            "type": "number",
+            "label": "SKILLS.FIREARMS",
+            "value": 0
+          },
+          "larceny": {
+            "type": "number",
+            "label": "SKILLS.LARCENY",
+            "value": 0
+          },
+          "melee": {
+            "type": "number",
+            "label": "SKILLS.MELEE",
+            "value": 0
+          },
+          "performance": {
+            "type": "number",
+            "label": "SKILLS.PERFORMANCE",
+            "value": 0
+          },
+          "stealth": {
+            "type": "number",
+            "label": "SKILLS.STEALTH",
+            "value": 0
+          },
+          "survival": {
+            "type": "number",
+            "label": "SKILLS.SURVIVAL",
+            "value": 0
+          }
         },
-        "manipuation": {
-          "type": "Number",
-          "label": "CHAR.MANIPULATION",
-          "value": 0
-        },
-        "appearance": {
-          "type": "Number",
-          "label": "CHAR.APPEARANCE",
-          "value": 0
-        },
-        "intelligence": {
-          "type": "Number",
-          "label": "CHAR.INTELLIGENCE",
-          "value": 0
-        },
-        "perception": {
-          "type": "Number",
-          "label": "CHAR.PERCEPTION",
-          "value": 0
-        },
-        "wits": {
-          "type": "Number",
-          "label": "CHAR.WITS",
-          "value": 0
+        "knowledges": {
+          "academics": {
+            "type": "number",
+            "label": "KNOWLEDGE.ACADEMICS",
+            "value": 0
+          },
+          "computer": {
+            "type": "number",
+            "label": "KNOWLEDGE.COMPUTER",
+            "value": 0
+          },
+          "finance": {
+            "type": "number",
+            "label": "KNOWLEDGE.FINANCE",
+            "value": 0
+          },
+          "investigation": {
+            "type": "number",
+            "label": "KNOWLEDGE.INVESTIGATION",
+            "value": 0
+          },
+          "law": {
+            "type": "number",
+            "label": "KNOWLEDGE.LAW",
+            "value": 0
+          },
+          "medicine": {
+            "type": "number",
+            "label": "KNOWLEDGE.MEDICINE",
+            "value": 0
+          },
+          "occult": {
+            "type": "number",
+            "label": "KNOWLEDGE.OCCULT",
+            "value": 0
+          },
+          "politics": {
+            "type": "number",
+            "label": "KNOWLEDGE.POLITICS",
+            "value": 0
+          },
+          "science": {
+            "type": "number",
+            "label": "KNOWLEDGE.SCIENCE",
+            "value": 0
+          },
+          "technology": {
+            "type": "number",
+            "label": "KNOWLEDGE.TECHNOLOGY",
+            "value": 0
+          }
         }
       }
     }

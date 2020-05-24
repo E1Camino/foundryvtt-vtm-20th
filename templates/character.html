@@ -1,11 +1,38 @@
 <form class="{{cssClass}}" autocomplete="off">
 
     <header class="sheet-header">
-        {{ localize "Vampire"}}
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="66" width="66"/>
+        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
-    <div class="characteristics">
-        {{#each actor.data.attributes as |attribute key|}}
-            {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
-        {{/each}}
-    </div>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="attributes">{{localize "SHEET.ATTRIBUTES"}}</a>
+        <a class="item" data-tab="description">{{localize "SHEET.DESCRIPTION"}}</a>
+        <a class="item" data-tab="items">Items</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+            <h3>{{localize "SHEET.ATTRIBUTES"}}</h2>
+            
+            <div>
+                <h4>{{localize "SHEET.PHYSICAL"}}</h4>
+                {{#each actor.data.attributes.physical as |attribute key|}}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                {{/each}}
+            </div>
+            <div>
+                <h4>{{localize "SHEET.SOCIAL"}}</h4>
+                {{#each actor.data.attributes.social as |attribute key|}}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                {{/each}}
+            </div>
+            <div>
+                <h4>{{localize "SHEET.MENTAL"}}</h4>
+                {{#each actor.data.attributes.mental as |attribute key|}}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                {{/each}}
+            </div>
+            
+        </div>
+        <div class="tab biography" data-group="primary" data-tab="description"></div>
+    </section>
 </form>
