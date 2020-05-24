@@ -4,8 +4,8 @@
         {{ localize "Vampire"}}
     </header>
     <div class="characteristics">
-        {{#each actor.data.attributes as |ch c|}}
-            {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html}}
+        {{#each actor.data.attributes as |attribute key|}}
+            {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
         {{/each}}
     </div>
 </form>

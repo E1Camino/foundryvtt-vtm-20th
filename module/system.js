@@ -45,4 +45,8 @@ Hooks.once("init", async function() {
     default: true,
     config: true
   });
+  // Pre-load templates
+  loadTemplates([
+    "systems/foundryvtt-vtm-20th/templates/attribute-input.html"
+  ]);
 });
