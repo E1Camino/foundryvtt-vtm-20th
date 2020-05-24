@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { systemHandle, systemName } from "./utils";
+import { systemHandle, systemName } from "./utils.js";
 
 export class VampireActorSheet extends ActorSheet {
   /** @override */
