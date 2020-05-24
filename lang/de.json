@@ -15,7 +15,10 @@
     "CHAR.CONCEPT": "Konzept",
     "CHAR.SIRE": "Erzeuger",
     "CHAR.GENERATION": "Generation",
+    "CHAR.PLAYER": "Spieler",
+    "CHAR.CLAN": "Klan",
     
+    "SHEET.PRIMARY": "Allgemein",
     "SHEET.ATTRIBUTES": "Attribute",
     "SHEET.PHYSICAL": "Körperlich",
     "SHEET.SOCIAL": "Gesellschaftlich",

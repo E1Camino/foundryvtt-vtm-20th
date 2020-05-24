@@ -15,7 +15,10 @@
     "CHAR.CONCEPT": "Concept",
     "CHAR.SIRE": "Sire",
     "CHAR.GENERATION": "Generation",
+    "CHAR.PLAYER": "Player",
+    "CHAR.CLAN": "Clan",
     
+    "SHEET.PRIMARY": "Primary",
     "SHEET.ATTRIBUTES": "Attributes",
     "SHEET.PHYSICAL": "Physical",
     "SHEET.SOCIAL": "Social",
@@ -25,7 +28,7 @@
     "SHEET.SKILLS": "Skills",
     "SHEET.KNOWLEDGES": "Knowledges",
     "SHEET.DESCRIPTION": "Description",
-    
+
     "TALENTS.ALTERTNESS": "Alertness",
     "TALENTS.ATHLETICS": "Athletics",
     "TALENTS.AWARENESS": "Awareness",

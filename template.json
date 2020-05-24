@@ -3,6 +3,14 @@
     "types": ["character"],
     "character": {
       "name": "",
+      "player": "",
+      "chronicle": "",
+      "nature": "",
+      "demeanor": "",
+      "concept": "",
+      "clan": "",
+      "generation": "",
+      "sire": "",
       "biography": "",
       "attributes": {
         "physical": {

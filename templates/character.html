@@ -1,49 +1,101 @@
 <form class="{{cssClass}}" autocomplete="off">
-
-    <header class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="66" width="66"/>
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-    </header>
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="attributes">{{localize "SHEET.ATTRIBUTES"}}</a>
         <a class="item" data-tab="description">{{localize "SHEET.DESCRIPTION"}}</a>
         <a class="item" data-tab="items">Items</a>
     </nav>
+
+    <header class="sheet-header primary">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="66" width="66"/>
+        <div class="primary-column">
+            <label>
+                <h3>{{localize "CHAR.NAME"}}:</h3>
+                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'CHAR.NAME'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.PLAYER"}}:</h3>
+                <input name="player" type="text" value="{{actor.player}}" placeholder="{{localize 'CHAR.PLAYER'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.CHRONICLE"}}:</h3>
+                <input name="chronicle" type="text" value="{{actor.chronicle}}" placeholder="{{localize 'CHAR.CHRONICLE'}}"/>
+            </label>
+        </div>
+        <div class="primary-column">
+            <label>
+                <h3>{{localize "CHAR.NATURE"}}:</h3>
+                <input name="nature" type="text" value="{{actor.nature}}" placeholder="{{localize 'CHAR.NATURE'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.DEMEANOR"}}:</h3>
+                <input name="demeanor" type="text" value="{{actor.demeanor}}" placeholder="{{localize 'CHAR.DEMEANOR'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.CONCEPT"}}:</h3>
+                <input name="concept" type="text" value="{{actor.concept}}" placeholder="{{localize 'CHAR.CONCEPT'}}"/>
+            </label>
+        </div>
+        <div class="primary-column">
+            <label>
+                <h3>{{localize "CHAR.CLAN"}}:</h3>
+                <input name="clan" type="text" value="{{actor.clan}}" placeholder="{{localize 'CHAR.CLAN'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.GENERATION"}}:</h3>
+                <input name="generation" type="text" value="{{actor.generation}}" placeholder="{{localize 'CHAR.GENERATION'}}"/>
+            </label>
+            <label>
+                <h3>{{localize "CHAR.SIRE"}}:</h3>
+                <input name="sire" type="text" value="{{actor.sire}}" placeholder="{{localize 'CHAR.SIRE'}}"/>
+            </label>
+        </div>
+    </header>
     <section class="sheet-body">
         <div class="tab attributes" data-group="primary" data-tab="attributes">
-            <h3>{{localize "SHEET.ATTRIBUTES"}}</h2>
-            
-            <div>
-                <h4>{{localize "SHEET.PHYSICAL"}}</h4>
-                <ul>
-                    {{#each data.attributes.physical as |attribute key|}}
-                    <li>
-                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="physical" }}
-                    </li>
-                    {{/each}}
-                </ul>
+            <div class="primary">
+
+                <div class="sheet-header-big">
+                    <h2>{{localize "SHEET.ATTRIBUTES"}}</h2>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <h4>{{localize "SHEET.PHYSICAL"}}</h4>
+                        <ul>
+                            {{#each data.attributes.physical as |attribute key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="physical" }}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>{{localize "SHEET.SOCIAL"}}</h4>
+                        <ul>
+                            {{#each data.attributes.social as |attribute key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="social" }}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>{{localize "SHEET.MENTAL"}}</h4>
+                        <ul>
+                            {{#each data.attributes.mental as |attribute key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="mental"}}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sheet-header-big">
+                    <h2>{{localize "SHEET.ABILITIES"}}</h2>
+                </div>
+                <div class="row">
+                </div>
             </div>
-            <div>
-                <h4>{{localize "SHEET.SOCIAL"}}</h4>
-                <ul>
-                    {{#each data.attributes.social as |attribute key|}}
-                    <li>
-                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="social" }}
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div>
-                <h4>{{localize "SHEET.MENTAL"}}</h4>
-                <ul>
-                    {{#each data.attributes.mental as |attribute key|}}
-                    <li>
-                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key type="mental"}}
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
-            
         </div>
         <div class="tab biography" data-group="primary" data-tab="description">
             {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
