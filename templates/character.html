@@ -94,6 +94,36 @@
                     <h2>{{localize "SHEET.ABILITIES"}}</h2>
                 </div>
                 <div class="row">
+                    <div class="column">
+                        <h4>{{localize "SHEET.TALENTS"}}</h4>
+                        <ul>
+                            {{#each data.abilities.talents as |ability key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="talent" }}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>{{localize "SHEET.SKILLS"}}</h4>
+                        <ul>
+                            {{#each data.abilities.skills as |ability key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="skill" }}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>{{localize "SHEET.KNOWLEDGES"}}</h4>
+                        <ul>
+                            {{#each data.abilities.knowledges as |ability key|}}
+                            <li>
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="knowledge" }}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
