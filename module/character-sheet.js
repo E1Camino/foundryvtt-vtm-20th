@@ -12,13 +12,13 @@ export class VampireActorSheet extends ActorSheet {
       template: `systems/${systemName}/templates/character.html`,
       width: 600,
       height: 600,
-      // tabs: [
-      //   {
-      //     navSelector: ".sheet-tabs",
-      //     contentSelector: ".sheet-body",
-      //     initial: "description",
-      //   },
-      // ],
+      tabs: [
+        {
+          navSelector: ".sheet-tabs",
+          contentSelector: ".sheet-body",
+          initial: "attributes",
+        },
+      ],
       // dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
     });
   }
@@ -81,9 +81,9 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   setPosition(options = {}) {
     const position = super.setPosition(options);
-    // const sheetBody = this.element.find(".sheet-body");
-    // const bodyHeight = position.height - 192;
-    // sheetBody.css("height", bodyHeight);
+    const sheetBody = this.element.find(".sheet-body");
+    const bodyHeight = position.height - 192;
+    sheetBody.css("height", bodyHeight);
     return position;
   }
 

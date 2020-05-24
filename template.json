@@ -3,6 +3,7 @@
     "types": ["character"],
     "character": {
       "name": "",
+      "biography": "",
       "attributes": {
         "physical": {
           "strength": {
