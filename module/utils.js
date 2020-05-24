@@ -1,4 +1,4 @@
-export default {
-    systemHandle: "vtm20",
-    systemName: "foundryvtt-vtm-20th"
-};
+const systemHandle = "vtm20";
+const systemName = "foundryvtt-vtm-20th";
+
+export { systemHandle, systemName };
