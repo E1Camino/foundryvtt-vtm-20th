@@ -48,7 +48,10 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-
+    html.find('input[type="radio"]').change(event => {
+      console.log(event);
+      this._onSubmit(event);
+    });
     // // Everything below here is only needed if the sheet is editable
     // if (!this.options.editable) return;
 

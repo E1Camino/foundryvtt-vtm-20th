@@ -1,4 +1,11 @@
 <label for="input-{{id}}-{{key}}">
     {{localize label}}
-    <input id="input-{{id}}-{{key}}" name="data.attributes.{{type}}.{{key}}.value" type="number" value="{{value}}" data-dtype="Number">
+    {{#times max}}
+        {{#iff @index "==" ../value}}
+        <input name="{{../prefix}}.{{../key}}.value" type="radio" value={{@index}} data-dtype="Number" checked="checked">
+        {{/iff}}
+        {{#iff @index "!=" ../value}}
+        <input name="{{../prefix}}.{{../key}}.value" type="radio" value={{@index}} data-dtype="Number">
+        {{/iff}}
+    {{/times}}
 </label>

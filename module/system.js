@@ -48,6 +48,44 @@ Hooks.once("init", async function() {
   // Pre-load templates
   loadTemplates([
     "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
-    "systems/foundryvtt-vtm-20th/templates/ability-input.html",
   ]);
+
+
+  Handlebars.registerHelper('times', function(n, block) {
+    var accum = '';
+    // this will iterate from 0 to n -> so it will do it n+1 times
+    for (var i = 0; i <= n; ++i) {
+      block.data.index = i;
+      block.data.first = i === 0;
+      block.data.last = i === (n - 1);
+      accum += block.fn(i);
+    }
+    return accum;
+  });
+  // Allows {if X = Y} type syntax in html using handlebars
+  Handlebars.registerHelper("iff", function (a, operator, b, opts) {
+    var bool = false;
+    switch (operator) {
+      case "==":
+        bool = a == b;
+        break;
+      case ">":
+        bool = a > b;
+        break;
+      case "<":
+        bool = a < b;
+        break;
+      case "!=":
+        bool = a != b;
+        break;
+      default:
+        throw "Unknown operator " + operator;
+    }
+
+    if (bool) {
+      return opts.fn(this);
+    } else {
+      return opts.inverse(this);
+    }
+  });
 });
