@@ -34,17 +34,17 @@
           "label": "CHAR.APPEARANCE",
           "value": 0
         },
-        "Intelligence": {
+        "intelligence": {
           "type": "Number",
           "label": "CHAR.INTELLIGENCE",
           "value": 0
         },
-        "Perception": {
+        "perception": {
           "type": "Number",
           "label": "CHAR.PERCEPTION",
           "initial": 0
         },
-        "Wits": {
+        "wits": {
           "type": "Number",
           "label": "CHAR.WITS",
           "initial": 0

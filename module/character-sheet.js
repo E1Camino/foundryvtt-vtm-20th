@@ -32,9 +32,17 @@ export class VampireActorSheet extends ActorSheet {
     // for (let attr of Object.values(data.data.attributes)) {
     //   attr.isCheckbox = attr.dtype === "Boolean";
     // }
+    console.log("data", { data });
     return data;
   }
 
+  /* -------------------------------------------- */
+
+  /** @override */
+  render() {
+    super.render(arguments);
+    console.log(arguments);
+  }
   /* -------------------------------------------- */
 
   /** @override */
