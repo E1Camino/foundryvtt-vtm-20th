@@ -16,23 +16,28 @@
             <div>
                 <h4>{{localize "SHEET.PHYSICAL"}}</h4>
                 {{#each actor.data.attributes.physical as |attribute key|}}
-                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key type="physical" }}
                 {{/each}}
             </div>
             <div>
                 <h4>{{localize "SHEET.SOCIAL"}}</h4>
                 {{#each actor.data.attributes.social as |attribute key|}}
-                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key type="social" }}
                 {{/each}}
             </div>
             <div>
                 <h4>{{localize "SHEET.MENTAL"}}</h4>
                 {{#each actor.data.attributes.mental as |attribute key|}}
-                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key }}
+                    {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=actor.datat._id key=key type="mental"}}
                 {{/each}}
             </div>
             
         </div>
         <div class="tab biography" data-group="primary" data-tab="description"></div>
+        <div class="tab items" data-group="primary" data-tab="items">
+            <ul>
+                <li>Stuff</li>
+            </ul>
+        </div>
     </section>
 </form>
