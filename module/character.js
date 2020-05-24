@@ -4,7 +4,7 @@
  */
 import { systemHandle }from "./utils";
 
-export class Character extends Actor {
+export class VampireActor extends Actor {
 
     /** @override */
     getRollData() {

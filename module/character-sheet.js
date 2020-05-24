@@ -2,14 +2,14 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { systemHandle } from "./utils";
+import { systemHandle, systemName } from "./utils";
 
-export class SimpleActorSheet extends ActorSheet {
+export class VampireActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: [systemHandle, "sheet", "actor"],
-      template: `systems/${systemHandle}/templates/character-sheet.html`,
+      template: `systems/${systemName}/templates/character-sheet.html`,
       width: 600,
       height: 600,
       tabs: [

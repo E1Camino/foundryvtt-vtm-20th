@@ -1,3 +1,4 @@
 export default {
-    systemHandle: "foundryvtt-vtm-20th"
+    systemHandle: "vtm20",
+    systemName: "foundryvtt-vtm-20th"
 };

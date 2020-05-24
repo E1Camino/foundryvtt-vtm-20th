@@ -7,9 +7,9 @@
 import { systemHandle }from "./utils";
 
 // Import Modules
-import { Character } from "./character.js";
+import { VampireActor } from "./character.js";
 // import { SimpleItemSheet } from "./item-sheet.js";
-import { SimpleCharacterSheet } from "./character-sheet.js";
+import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -28,11 +28,11 @@ Hooks.once("init", async function() {
   };
 
 	// Define custom Entity classes
-  CONFIG.Actor.entityClass = Character;
+  CONFIG.Actor.entityClass = VampireActor;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(systemHandle, SimpleCharacterSheet, { makeDefault: true });
+  Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
 //   Items.unregisterSheet("core", ItemSheet);
 //   Items.registerSheet(systemHandle, SimpleItemSheet, {makeDefault: true});
 
