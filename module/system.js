@@ -4,7 +4,7 @@
  * Software License: GNU GPLv3
  */
 
-import { systemHandle }from "./utils";
+import { systemHandle }from "./utils.js";
 
 // Import Modules
 import { VampireActor } from "./character.js";
