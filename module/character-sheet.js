@@ -9,17 +9,17 @@ export class VampireActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: [systemHandle, "sheet", "actor"],
-      template: `systems/${systemName}/templates/character-sheet.html`,
+      template: `systems/${systemName}/templates/character.html`,
       width: 600,
       height: 600,
-      tabs: [
-        {
-          navSelector: ".sheet-tabs",
-          contentSelector: ".sheet-body",
-          initial: "description",
-        },
-      ],
-      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
+      // tabs: [
+      //   {
+      //     navSelector: ".sheet-tabs",
+      //     contentSelector: ".sheet-body",
+      //     initial: "description",
+      //   },
+      // ],
+      // dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
     });
   }
 
@@ -28,10 +28,10 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.dtypes = ["String", "Number", "Boolean"];
-    for (let attr of Object.values(data.data.attributes)) {
-      attr.isCheckbox = attr.dtype === "Boolean";
-    }
+    // data.dtypes = ["String", "Number", "Boolean"];
+    // for (let attr of Object.values(data.data.attributes)) {
+    //   attr.isCheckbox = attr.dtype === "Boolean";
+    // }
     return data;
   }
 
@@ -41,31 +41,31 @@ export class VampireActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
+    // // Everything below here is only needed if the sheet is editable
+    // if (!this.options.editable) return;
 
-    // Update Inventory Item
-    html.find(".item-edit").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
-      item.sheet.render(true);
-    });
+    // // Update Inventory Item
+    // html.find(".item-edit").click((ev) => {
+    //   const li = $(ev.currentTarget).parents(".item");
+    //   const item = this.actor.getOwnedItem(li.data("itemId"));
+    //   item.sheet.render(true);
+    // });
 
-    // Delete Inventory Item
-    html.find(".item-delete").click((ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
-      li.slideUp(200, () => this.render(false));
-    });
+    // // Delete Inventory Item
+    // html.find(".item-delete").click((ev) => {
+    //   const li = $(ev.currentTarget).parents(".item");
+    //   this.actor.deleteOwnedItem(li.data("itemId"));
+    //   li.slideUp(200, () => this.render(false));
+    // });
 
-    // Add or Remove Attribute
-    html
-      .find(".attributes")
-      .on(
-        "click",
-        ".attribute-control",
-        this._onClickAttributeControl.bind(this)
-      );
+    // // Add or Remove Attribute
+    // html
+    //   .find(".attributes")
+    //   .on(
+    //     "click",
+    //     ".attribute-control",
+    //     this._onClickAttributeControl.bind(this)
+    //   );
   }
 
   /* -------------------------------------------- */
@@ -73,9 +73,9 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   setPosition(options = {}) {
     const position = super.setPosition(options);
-    const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
-    sheetBody.css("height", bodyHeight);
+    // const sheetBody = this.element.find(".sheet-body");
+    // const bodyHeight = position.height - 192;
+    // sheetBody.css("height", bodyHeight);
     return position;
   }
 

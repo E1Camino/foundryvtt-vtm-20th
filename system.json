@@ -2,7 +2,7 @@
   "name": "foundryvtt-vtm-20th",
   "title": "Vampire the masquerade 20th anniversary editon",
   "description": "A comprehensive system for running games of Vampire the Masquerade in the Foundry VTT environment.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "minimumCoreVersion" : "0.5.6",
   "compatibleCoreVersion" : "0.5.7",
   "templateVersion": 2,
@@ -31,5 +31,6 @@
   "secondaryTokenAttribute": "resources.power",
   "url": "https://github.com/E1Camino/foundryvtt-vtm-20th/",
   "manifest": "https://raw.githubusercontent.com/E1Camino/foundryvtt-vtm-20th/master/system.json",
-  "download": "https://github.com/E1Camino/foundryvtt-vtm-20th/archive/master.zip"
+  "download": "https://github.com/E1Camino/foundryvtt-vtm-20th/archive/master.zip",
+  "license": "LICENSE.md"
 }
