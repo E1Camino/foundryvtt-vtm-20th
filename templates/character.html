@@ -99,7 +99,7 @@
                         <ul>
                             {{#each data.abilities.talents as |ability key|}}
                             <li>
-                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="talent" }}
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="talents" }}
                             </li>
                             {{/each}}
                         </ul>
@@ -109,7 +109,7 @@
                         <ul>
                             {{#each data.abilities.skills as |ability key|}}
                             <li>
-                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="skill" }}
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="skills" }}
                             </li>
                             {{/each}}
                         </ul>
@@ -119,7 +119,7 @@
                         <ul>
                             {{#each data.abilities.knowledges as |ability key|}}
                             <li>
-                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="knowledge" }}
+                                {{> systems/foundryvtt-vtm-20th/templates/ability-input.html value=ability.value label=ability.label id=../actor._id key=key type="knowledges" }}
                             </li>
                             {{/each}}
                         </ul>
