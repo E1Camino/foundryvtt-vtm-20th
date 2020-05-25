@@ -1,11 +1,17 @@
 <label for="input-{{id}}-{{key}}">
-    {{localize label}}
-    {{#times max}}
+    <span>
+        {{localize label}}
+    </span>
+    <span>
+        {{#times max}}
         {{#iff @index "==" ../value}}
-        <input name="{{../prefix}}.{{../key}}.value" type="radio" value={{@index}} data-dtype="Number" checked="checked">
+        <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{@index}} value={{@index}} data-dtype="Number" checked="checked">
+        <span></span>
         {{/iff}}
         {{#iff @index "!=" ../value}}
-        <input name="{{../prefix}}.{{../key}}.value" type="radio" value={{@index}} data-dtype="Number">
+        <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{@index}} value={{@index}} data-dtype="Number">
+        <span></span>
         {{/iff}}
-    {{/times}}
+        {{/times}}
+    </span>
 </label>

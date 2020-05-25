@@ -62,7 +62,7 @@
                         <h4>{{localize "SHEET.PHYSICAL"}}</h4>
                         <ul>
                             {{#each data.attributes.physical as |attribute key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" max=5}}
                             </li>
                             {{/each}}
@@ -72,7 +72,7 @@
                         <h4>{{localize "SHEET.SOCIAL"}}</h4>
                         <ul>
                             {{#each data.attributes.social as |attribute key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.social" max=5}}
                             </li>
                             {{/each}}
@@ -82,7 +82,7 @@
                         <h4>{{localize "SHEET.MENTAL"}}</h4>
                         <ul>
                             {{#each data.attributes.mental as |attribute key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" max=5}}
                             </li>
                             {{/each}}
@@ -98,7 +98,7 @@
                         <h4>{{localize "SHEET.TALENTS"}}</h4>
                         <ul>
                             {{#each data.abilities.talents as |ability key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.talents" max=5}}
                             </li>
                             {{/each}}
@@ -108,7 +108,7 @@
                         <h4>{{localize "SHEET.SKILLS"}}</h4>
                         <ul>
                             {{#each data.abilities.skills as |ability key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.skills" max=5}}
                             </li>
                             {{/each}}
@@ -118,7 +118,7 @@
                         <h4>{{localize "SHEET.KNOWLEDGES"}}</h4>
                         <ul>
                             {{#each data.abilities.knowledges as |ability key|}}
-                            <li>
+                            <li class="radio-input">
                                 {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.knowledges" max=5}}
                             </li>
                             {{/each}}
@@ -132,7 +132,7 @@
         </div>
         <div class="tab items" data-group="primary" data-tab="items">
             <ul>
-                <li>Stuff</li>
+                <li class="radio-input">Stuff</li>
             </ul>
         </div>
     </section>

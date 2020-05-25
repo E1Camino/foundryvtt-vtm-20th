@@ -132,7 +132,7 @@
   border: none;
 }
 .vtm20.sheet.actor {
-  min-width: 600px;
+  min-width: 700px;
   min-height: 420px;
 }
 .vtm20.sheet.item {
@@ -217,3 +217,38 @@
     flex-direction: column;
     justify-content: center;
 }
+.vtm20.sheet .radio-input label {
+  display: flex;
+  justify-content: space-between;
+  width: 190px;
+}
+.vtm20.sheet .radio-input label input{
+  align-self: flex-end;
+}
+.vtm20.sheet .radio-input label > span{
+  max-width: 120px;
+}
+.vtm20.sheet input[type="radio"] {
+    opacity: 0;
+    width: 11px;
+    height: 11px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    margin: -9px;
+    left: 6px;
+    top: 0;
+}
+.vtm20.sheet input[type="radio"] + span::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  display: inline-block;
+  background: #333;
+}
+.vtm20.sheet input[type="radio"]:checked ~ input[type="radio"] + span::before {
+  background: #fdfdfd;
+}
+
