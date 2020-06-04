@@ -7,8 +7,12 @@
   "compatibleCoreVersion" : "0.5.7",
   "templateVersion": 2,
   "author": "elcamino",
-  "scripts": [],
-  "esmodules": ["module/system.js"],
+  "scripts": [
+    "./rolls/dice-pool.js"
+  ],
+  "esmodules": [
+    "module/system.js"
+  ],
   "styles": ["ui/styles.css"],
   "packs": [],
   "languages": [

@@ -48,6 +48,7 @@ Hooks.once("init", async function() {
   // Pre-load templates
   loadTemplates([
     "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
+    "systems/foundryvtt-vtm-20th/templates/chat/select.html"
   ]);
 
 
