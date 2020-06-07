@@ -1,7 +1,7 @@
 {
     "CHAR.STRENGTH": "Körperkraft",
     "CHAR.DEXTERITY": "Geschick",
-    "CHAR.STAMINA": "Widerstandsfähigkeit",
+    "CHAR.STAMINA": "Widerstands-fähigkeit",
     "CHAR.CHARISMA": "Charisma",
     "CHAR.MANIPULATION": "Manipulation",
     "CHAR.APPEARANCE": "Erscheinungsbild ",
@@ -36,7 +36,7 @@
     "TALENTS.EMPATHY": "Empathie",
     "TALENTS.EXPRESSION": "Ausdruck",
     "TALENTS.INTIMIDATION": "Einschüchtern",
-    "TALENTS.LEADERSHIP": "Führungsqualitäten",
+    "TALENTS.LEADERSHIP": "Führungs-qualitäten",
     "TALENTS.STREETWISE": "Szenekenntnis",
     "TALENTS.SUBTERFUGE": "Ausflüchte",
 
@@ -59,7 +59,7 @@
     "KNOWLEDGE.MEDICINE": "Medizin",
     "KNOWLEDGE.OCCULT": "Okkultismus",
     "KNOWLEDGE.POLITICS": "Politik",
-    "KNOWLEDGE.SCIENCE": "Naturwissenschaften",
+    "KNOWLEDGE.SCIENCE": "Naturwissen-schaften",
     "KNOWLEDGE.TECHNOLOGY":"Technologie",
     
     "Vampire": "Vampir"

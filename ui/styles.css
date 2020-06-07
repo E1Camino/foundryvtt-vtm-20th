@@ -187,13 +187,20 @@
 }
 .vtm20.sheet .primary ul {
   margin: 0;
-  padding: 0 16px;
+  padding: 0 14px;
   list-style-type: none;
+}
+.vtm20.sheet .primary ul > li {
+  padding: 0.2rem;
+}
+.vtm20.sheet .primary ul > li:not(:last-child) {
+  border-bottom: 1px solid #ddd;
 }
 .vtm20.sheet .primary label {
   display: flex;
   justify-content: space-between;
   width: 160px;
+  align-items: center;
 }
 .vtm20.sheet input[type="text"]{
     color: #333;
@@ -222,11 +229,19 @@
   justify-content: space-between;
   width: 190px;
 }
-.vtm20.sheet .radio-input label input{
+.vtm20.sheet .radio-input label input {
   align-self: flex-end;
 }
-.vtm20.sheet .radio-input label > span{
+.vtm20.sheet .radio-input label > span {
   max-width: 120px;
+}
+.vtm20.sheet .radio-input label > span:first-child {
+  flex: 1 1 auto;
+  margin-right: 0.5rem;
+}
+.vtm20.sheet .radio-input label > span:last-child {
+  flex: 0 0 auto;
+  margin-top: 3px;
 }
 .vtm20.sheet input[type="radio"] {
     opacity: 0;
