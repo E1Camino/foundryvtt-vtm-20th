@@ -270,6 +270,28 @@
 .vtm20.sheet input[type="radio"]:checked ~ input[type="radio"] + span::before {
   background: #fdfdfd;
 }
+.vtm20.sheet input[type="radio"]:first-of-type + span {
+  position: relative;
+  opacity: 0;
+}
+.vtm20.sheet .radio-input:hover input[type="radio"]:first-of-type + span {
+  opacity: 1;
+}
+.vtm20.sheet input[type="radio"]:first-of-type + span::before {
+  background: none;
+}
+.vtm20.sheet input[type="radio"]:first-of-type + span::after {
+  content: '+';
+  background: none;
+  font-size: 19px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #aaa;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%)rotate(45deg);
+ }
 
 .vtm20.sheet .attribute-roll-button,
 .vtm20.sheet .ability-roll-button {
