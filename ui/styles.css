@@ -190,17 +190,10 @@
   padding: 0 14px;
   list-style-type: none;
 }
-.vtm20.sheet .primary ul > li {
-  padding: 0.2rem;
-}
-.vtm20.sheet .primary ul > li:not(:last-child) {
-  border-bottom: 1px solid #ddd;
-}
 .vtm20.sheet .primary label {
   display: flex;
   justify-content: space-between;
   width: 160px;
-  align-items: center;
 }
 .vtm20.sheet input[type="text"]{
     color: #333;
@@ -228,18 +221,29 @@
   display: flex;
   justify-content: space-between;
   width: 210px;
+  align-items: center;
+}
+.vtm20.sheet .radio-input label > button {
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 .vtm20.sheet .radio-input label input {
   align-self: flex-end;
 }
 .vtm20.sheet .radio-input label > span {
-  max-width: 120px;
+  flex: 1 1 auto;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
 }
-.vtm20.sheet .radio-input label > span:first-child {
+.vtm20.sheet .primary ul > li:not(:last-child) > label > span {
+  border-bottom: 1px solid #ddd;
+}
+.vtm20.sheet .radio-input label > span > span:first-of-type {
   flex: 1 1 auto;
   margin-right: 0.5rem;
 }
-.vtm20.sheet .radio-input label > span:last-child {
+.vtm20.sheet .radio-input label > span > span:last-of-type {
   flex: 0 0 auto;
   margin-top: 3px;
 }
@@ -274,11 +278,11 @@
   padding: 0;
   margin: 0;
   font-size: 13px;
-  width: 13px;
+  flex: 0 0 13px;
   line-height: 13px;
-  opacity: 1;
   color: #777;
   opacity: 0;
+  box-shadow: none;
 }
 
 .vtm20.sheet .attribute-roll-button:hover,
