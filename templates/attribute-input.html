@@ -1,7 +1,10 @@
-<label for="input-{{id}}-{{key}}">
-    <span>
-        {{localize label}}
-    </span>
+<label for="input-{{id}}-{{key}}" class="item" data-item-label="{{localize label}}">
+    <div>
+        <button class="{{type}}-roll-button"><i class="fa fa-dice-d20"></i></button>
+        <span class="{{type}}-label">
+            {{localize label}}
+        </span>
+    </div>
     <span>
         {{#times max}}
         {{#iff @index "==" ../value}}

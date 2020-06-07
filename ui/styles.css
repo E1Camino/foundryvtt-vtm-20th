@@ -132,7 +132,7 @@
   border: none;
 }
 .vtm20.sheet.actor {
-  min-width: 700px;
+  min-width: 740px;
   min-height: 420px;
 }
 .vtm20.sheet.item {
@@ -227,7 +227,7 @@
 .vtm20.sheet .radio-input label {
   display: flex;
   justify-content: space-between;
-  width: 190px;
+  width: 210px;
 }
 .vtm20.sheet .radio-input label input {
   align-self: flex-end;
@@ -267,3 +267,21 @@
   background: #fdfdfd;
 }
 
+.vtm20.sheet .attribute-roll-button,
+.vtm20.sheet .ability-roll-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  width: 13px;
+  line-height: 13px;
+  opacity: 1;
+  color: #777;
+}
+
+.vtm20.sheet .attribute-roll-button:hover,
+.vtm20.sheet .ability-roll-button:hover {
+  color: #333;
+  cursor: pointer;
+}

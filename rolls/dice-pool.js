@@ -14,10 +14,10 @@ class DicePoolVTM20 {
   //         });
   //     });
   // }
-  static rollTest(testData = {}) {
-    const attribute = game.i18n.localize("CHAR.STRENGTH");
-    const ability = game.i18n.localize("TALENTS.ATHLETICS");
-    const actor = game.user.character;
+  static rollTest(testData = {}, onlyAttribute = false) {
+    const { attribute = game.i18n.localize("CHAR.STRENGTH") } = testData;
+    const { ability = game.i18n.localize("TALENTS.ATHLETICS") } = testData;
+    const { actor = game.user.character } = testData;
     const difficulty = 6;
     const modifier = 0;
 
@@ -25,7 +25,8 @@ class DicePoolVTM20 {
     const attributeDice = actor.getAttribute(attribute) || nan;
     const abilityDice = actor.getAbility(ability) || nan;
 
-    const diceCount =
+    const diceCount = onlyAttribute ?
+      parseInt(attributeDice.value) + modifier :
       parseInt(attributeDice.value) + parseInt(abilityDice.value) + modifier;
 
     const formula = `${diceCount}d10`;
@@ -96,5 +97,9 @@ class DicePoolVTM20 {
         ChatMessage.create(chatData);
       }
     });
+  }
+
+  static prepareTest(testData = {}, onlyAttribute = false) {
+    DicePoolVTM20.rollTest(testData, onlyAttribute);
   }
 }

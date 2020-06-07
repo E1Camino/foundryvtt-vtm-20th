@@ -77,6 +77,25 @@ export class VampireActorSheet extends ActorSheet {
     //     ".attribute-control",
     //     this._onClickAttributeControl.bind(this)
     //   );
+      
+    // Skill Tests (right click to open skill sheet)
+    html.find('.attribute-roll-button').mousedown(ev => {
+      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+      const attribute = this.actor.getAttribute(label);
+      DicePoolVTM20.rollTest({
+        actor: this.actor,
+        attribute: game.i18n.localize(attribute.label)
+      }, true);
+    });
+      
+    // html.find('.attribute-label').mousedown(ev => {
+    //   const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+    //   const attribute = this.actor.getAttribute(label);
+    //   DicePoolVTM20.prepareTest({
+    //     actor: this.actor,
+    //     attribute: game.i18n.localize(attribute.label)
+    //   }, true);
+    // });
   }
 
   /* -------------------------------------------- */
