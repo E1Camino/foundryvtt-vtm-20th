@@ -68,7 +68,7 @@ class DicePoolVTM20 {
     // Render the roll for the results button that Foundry provides.
     const chatData = {
       user: game.user._id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      speaker: ChatMessage.getSpeaker({ actor }),
       content: `<p>${message}</p>`,
       rollMode: "selfroll",
     };
