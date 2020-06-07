@@ -278,10 +278,16 @@
   line-height: 13px;
   opacity: 1;
   color: #777;
+  opacity: 0;
 }
 
 .vtm20.sheet .attribute-roll-button:hover,
 .vtm20.sheet .ability-roll-button:hover {
   color: #333;
   cursor: pointer;
+}
+
+.vtm20.sheet .radio-input:hover .attribute-roll-button,
+.vtm20.sheet .radio-input:hover .ability-roll-button {
+  opacity: 1;
 }
