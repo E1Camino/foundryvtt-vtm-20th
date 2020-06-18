@@ -17,51 +17,51 @@
           "strength": {
             "type": "number",
             "label": "CHAR.STRENGTH",
-            "value": 0
+            "value": 1
           },
           "dexterity": {
             "type": "Number",
             "label": "CHAR.DEXTERITY",
-            "value": 0
+            "value": 1
           },
           "stamina": {
             "type": "Number",
             "label": "CHAR.STAMINA",
-            "value": 0
+            "value": 1
           }
         },
         "social": {    
           "charisma": {
             "type": "Number",
             "label": "CHAR.CHARISMA",
-            "value": 0
+            "value": 1
           },
           "manipuation": {
             "type": "Number",
             "label": "CHAR.MANIPULATION",
-            "value": 0
+            "value": 1
           },
           "appearance": {
             "type": "Number",
             "label": "CHAR.APPEARANCE",
-            "value": 0
+            "value": 1
           }
         },
         "mental": {
           "intelligence": {
             "type": "Number",
             "label": "CHAR.INTELLIGENCE",
-            "value": 0
+            "value": 1
           },
           "perception": {
             "type": "Number",
             "label": "CHAR.PERCEPTION",
-            "value": 0
+            "value": 1
           },
           "wits": {
             "type": "Number",
             "label": "CHAR.WITS",
-            "value": 0
+            "value": 1
           }
         }
       },

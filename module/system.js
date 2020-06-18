@@ -63,6 +63,18 @@ Hooks.once("init", async function() {
     }
     return accum;
   });
+  Handlebars.registerHelper("calc", function (value, operator, value2) {
+    var v1 = parseInt(value);
+    var v2 = parseInt(value2);
+    switch (operator) {
+      case "+":
+        return v1 + v2; 
+      case "-":
+        return v1 - v2
+      default:
+        return v1;
+    }
+  });
   // Allows {if X = Y} type syntax in html using handlebars
   Handlebars.registerHelper("iff", function (a, operator, b, opts) {
     var bool = false;

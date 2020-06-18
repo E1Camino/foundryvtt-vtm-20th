@@ -270,17 +270,17 @@
 .vtm20.sheet input[type="radio"]:checked ~ input[type="radio"] + span::before {
   background: #fdfdfd;
 }
-.vtm20.sheet input[type="radio"]:first-of-type + span {
+.vtm20.sheet .input-min-0 input[type="radio"]:first-of-type + span {
   position: relative;
   opacity: 0;
 }
 .vtm20.sheet .radio-input:hover input[type="radio"]:first-of-type + span {
   opacity: 1;
 }
-.vtm20.sheet input[type="radio"]:first-of-type + span::before {
+.vtm20.sheet .input-min-0 input[type="radio"]:first-of-type + span::before {
   background: none;
 }
-.vtm20.sheet input[type="radio"]:first-of-type + span::after {
+.vtm20.sheet .input-min-0 input[type="radio"]:first-of-type + span::after {
   content: '+';
   background: none;
   font-size: 19px;

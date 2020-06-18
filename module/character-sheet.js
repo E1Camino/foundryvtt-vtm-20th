@@ -10,7 +10,7 @@ export class VampireActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: [systemHandle, "sheet", "actor"],
       template: `systems/${systemName}/templates/character.html`,
-      width: 600,
+      width: 740,
       height: 600,
       tabs: [
         {

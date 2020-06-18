@@ -4,14 +4,14 @@
         <span class="{{type}}-label">
             {{localize label}}
         </span>
-        <span>
-            {{#times max}}
-            {{#iff @index "==" ../value}}
-            <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{@index}} value={{@index}} data-dtype="Number" checked="checked">
+        <span class="input-min-{{min}}">
+            {{#times (calc max "-" min)}}
+            {{#iff (calc @index "+" ../min) "==" ../value}}
+            <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number" checked="checked">
             <span></span>
             {{/iff}}
-            {{#iff @index "!=" ../value}}
-            <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{@index}} value={{@index}} data-dtype="Number">
+            {{#iff (calc @index "+" ../min) "!=" ../value}}
+            <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number">
             <span></span>
             {{/iff}}
             {{/times}}
