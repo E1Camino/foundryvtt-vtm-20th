@@ -82,7 +82,7 @@ export class VampireActorSheet extends ActorSheet {
     html.find('.attribute-roll-button').mousedown(ev => {
       const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
       const attribute = this.actor.getAttribute(label);
-      DicePoolVTM20.rollTest({
+      DicePoolVTM20.prepareTest({
         actor: this.actor,
         attribute: game.i18n.localize(attribute.label)
       }, true);
@@ -101,15 +101,20 @@ export class VampireActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  setPosition(options = {}) {
-    const position = super.setPosition(options);
-    const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
-    sheetBody.css("height", bodyHeight);
-    return position;
-  }
+  // setPosition(options = {}) {
+  //   const position = super.setPosition(options);
+  //   const sheetBody = this.element.find(".sheet-body");
+  //   const bodyHeight = position.height - 192;
+  //   sheetBody.css("height", bodyHeight);
+  //   return position;
+  // }
 
   /* -------------------------------------------- */
+
+  render() {
+    console.log("render it now")
+    super.render(...arguments);
+  }
 
   /**
    * Listen for click events on an attribute control to modify the composition of attributes in the sheet

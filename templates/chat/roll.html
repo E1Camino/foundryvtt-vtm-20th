@@ -1,9 +1,37 @@
 <section class="dw-chat-card">
   <div class="cell cell--chat">
     <h2 class="cell__title">{{title}}</h2>
-    {{#if flavor}}<div class="row"><em>{{flavor}}</em></div>{{/if}}
-    {{#if trigger}}<div class="row"><strong>Trigger:</strong> {{trigger}}</div>{{/if}}
-    {{#if details}}<div class="row">{{{details}}}</div>{{/if}}
-    {{#if roll}}<div class="roll">{{{roll}}}</div>{{/if}}
+    <div class="row"><em>{{{message}}}</em></div>
+    <div class="roll">
+      <div class="dice-roll">
+        <div class="dice-result">
+          <div class="dice-formula">{{result}}</div>
+          <div class="dice-tooltip">
+            <section class="tooltip-part">
+              <div class="dice">
+                <p class="part-formula">
+                  <span class="part-total">{{degrees}}</span>
+                </p>
+                <ol class="dice-rolls">
+                  {{#each rolls}}
+                    {{#iff this.roll "==" 1}}
+                      <li class="roll die d10 min">{{this.roll}}</li>
+                    {{/iff}}
+                    {{#iff this.roll ">=" ../difficulty}}
+                     <li class="roll die d10 max">{{this.roll}}</li>
+                    {{/iff}}
+                    {{#iff this.roll ">" 1}}
+                      {{#iff this.roll "<" ../difficulty}}
+                        <li class="roll die d10">{{this.roll}}</li>
+                      {{/iff}}
+                    {{/iff}}
+                  {{/each}}
+                </ol>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

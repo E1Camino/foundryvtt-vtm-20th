@@ -48,7 +48,8 @@ Hooks.once("init", async function() {
   // Pre-load templates
   loadTemplates([
     "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
-    "systems/foundryvtt-vtm-20th/templates/chat/select.html"
+    "systems/foundryvtt-vtm-20th/templates/chat/select.html",
+    "systems/foundryvtt-vtm-20th/templates/chat/roll.html",
   ]);
 
 
@@ -88,13 +89,18 @@ Hooks.once("init", async function() {
       case "<":
         bool = a < b;
         break;
+      case ">=":
+        bool = a >= b;
+        break;
+      case "<=":
+        bool = a <= b;
+        break;
       case "!=":
         bool = a != b;
         break;
       default:
         throw "Unknown operator " + operator;
     }
-
     if (bool) {
       return opts.fn(this);
     } else {
