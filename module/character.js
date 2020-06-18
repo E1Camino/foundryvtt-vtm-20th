@@ -2,9 +2,20 @@
  * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
-import { systemHandle } from "./utils.js";
+import { systemHandle, systemName } from "./utils.js";
 
 export class VampireActor extends Actor {
+
+  selectAttribute(value) {
+    return super.setFlag(systemName, "selectedAttribute", value);
+  }
+  unselectAttributes() {
+    return this.selectAttribute(null);
+  }
+
+  getSelectedAttribute() {
+    return super.getFlag(systemName, "selectedAttribute");
+  }
 
   getAttribute(label) {
     let attr = null;

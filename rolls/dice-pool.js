@@ -39,7 +39,7 @@ class DicePoolVTM20 {
     const isCritFail = wins === 0 && fails > 0;
     const degrees = wins - fails;
 
-    let message =  `${actor.name} erzielt einen`;
+    let message = `${actor.name} erzielt einen`;
     let result;
     if (isCritFail) {
       message = `${actor.name} legt einen <b>sauberen Patzer</b> hin!`;
@@ -78,7 +78,7 @@ class DicePoolVTM20 {
     };
     let template = 'systems/foundryvtt-vtm-20th/templates/chat/roll.html';
     let templateData = {
-      title: `${attribute} & ${ability}`,
+      title: onlyAttribute ? attribute : `${attribute} & ${ability}`,
       message,
       rolls: roll.parts[0].rolls,
       formula,

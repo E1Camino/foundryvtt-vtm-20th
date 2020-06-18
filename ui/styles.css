@@ -313,6 +313,7 @@
   cursor: pointer;
 }
 
+.vtm20.sheet .selected .attribute-roll-button,
 .vtm20.sheet .radio-input:hover .attribute-roll-button,
 .vtm20.sheet .radio-input:hover .ability-roll-button {
   opacity: 1;

@@ -86,6 +86,22 @@ export class VampireActorSheet extends ActorSheet {
         actor: this.actor,
         attribute: game.i18n.localize(attribute.label)
       }, true);
+      this.actor.unselectAttributes();
+    });
+    html.find('.ability-roll-button').mousedown(ev => {
+      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+      const ability = this.actor.getAbility(label);
+      const attribute = this.actor.getSelectedAttribute();
+      DicePoolVTM20.prepareTest({
+        actor: this.actor,
+        attribute,
+        ability: game.i18n.localize(ability.label)
+      });
+      this.actor.unselectAttributes();
+    });
+    html.find('.attribute-label').mousedown(ev => {
+      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+      this.actor.selectAttribute(label);
     });
       
     // html.find('.attribute-label').mousedown(ev => {
