@@ -32,10 +32,10 @@ class DicePoolVTM20 {
 
     const formula = `${diceCount}d10`;
     const roll = new Roll(formula).roll();
-    const dice = roll.parts[0].rolls;
+    const dice = roll.dice[0].results;
 
-    const fails = dice.filter((d) => d.roll === 1).length;
-    const wins = dice.filter((d) => d.roll >= difficulty).length;
+    const fails = dice.filter((d) => d.result === 1).length;
+    const wins = dice.filter((d) => d.result >= difficulty).length;
     const isCritFail = wins === 0 && fails > 0;
     const degrees = wins - fails;
 
@@ -80,7 +80,7 @@ class DicePoolVTM20 {
     let templateData = {
       title: onlyAttribute ? attribute : `${attribute} & ${ability}`,
       message,
-      rolls: roll.parts[0].rolls,
+      rolls: roll.dice[0].results,
       formula,
       difficulty,
       result,

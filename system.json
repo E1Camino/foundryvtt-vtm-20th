@@ -4,7 +4,7 @@
   "description": "A comprehensive system for running games of Vampire the Masquerade in the Foundry VTT environment.",
   "version": "0.0.28",
   "minimumCoreVersion" : "0.5.6",
-  "compatibleCoreVersion" : "0.5.7",
+  "compatibleCoreVersion" : "0.7.5",
   "templateVersion": 2,
   "author": "elcamino",
   "scripts": [

@@ -14,15 +14,15 @@
                 </p>
                 <ol class="dice-rolls">
                   {{#each rolls}}
-                    {{#iff this.roll "==" 1}}
-                      <li class="roll die d10 min">{{this.roll}}</li>
+                    {{#iff this.result "==" 1}}
+                      <li class="roll die d10 min">{{this.result}}</li>
                     {{/iff}}
-                    {{#iff this.roll ">=" ../difficulty}}
-                     <li class="roll die d10 max">{{this.roll}}</li>
+                    {{#iff this.result ">=" ../difficulty}}
+                     <li class="roll die d10 max">{{this.result}}</li>
                     {{/iff}}
-                    {{#iff this.roll ">" 1}}
-                      {{#iff this.roll "<" ../difficulty}}
-                        <li class="roll die d10">{{this.roll}}</li>
+                    {{#iff this.result ">" 1}}
+                      {{#iff this.result "<" ../difficulty}}
+                        <li class="roll die d10">{{this.result}}</li>
                       {{/iff}}
                     {{/iff}}
                   {{/each}}
