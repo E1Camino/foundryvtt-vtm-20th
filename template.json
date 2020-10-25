@@ -222,6 +222,299 @@
             "value": 0
           }
         }
+      },
+      "advantages": {
+        "disciplines": {
+          "animalism": {
+            "type": "number",
+            "label": "DISCIPLINES.ANIMALISM",
+            "value": 0,
+            "activated": false
+          },
+          "auspex": {
+            "type": "number",
+            "label": "DISCIPLINES.AUSPEX",
+            "value": 0,
+            "activated": false
+          },
+          "bardo": {
+            "type": "number",
+            "label": "DISCIPLINES.BARDO",
+            "value": 0,
+            "activated": false
+          },
+          "celerity": {
+            "type": "number",
+            "label": "DISCIPLINES.CELERITY",
+            "value": 0,
+            "activated": false
+          },
+          "chimestry": {
+            "type": "number",
+            "label": "DISCIPLINES.CHIMESTRY",
+            "value": 0,
+            "activated": false
+          },
+          "daimonion": {
+            "type": "number",
+            "label": "DISCIPLINES.DAIMONION",
+            "value": 0,
+            "activated": false
+          },
+          "dementation": {
+            "type": "number",
+            "label": "DISCIPLINES.DEMENTATION",
+            "value": 0,
+            "activated": false
+          },
+          "dominate": {
+            "type": "number",
+            "label": "DISCIPLINES.DOMINATE",
+            "value": 0,
+            "activated": false
+          },
+          "flight": {
+            "type": "number",
+            "label": "DISCIPLINES.FLIGHT",
+            "value": 0,
+            "activated": false
+          },
+          "fortitude": {
+            "type": "number",
+            "label": "DISCIPLINES.FORTITUDE",
+            "value": 0,
+            "activated": false
+          },
+          "koldunic_sorcery": {
+            "type": "number",
+            "label": "DISCIPLINES.KOLDUNICSORCERY",
+            "value": 0,
+            "activated": false
+          },
+          "melpominee": {
+            "type": "number",
+            "label": "DISCIPLINES.MELPOMINEE",
+            "value": 0,
+            "activated": false
+          },
+          "mytherceria": {
+            "type": "number",
+            "label": "DISCIPLINES.MYTHERCERIA",
+            "value": 0,
+            "activated": false
+          },
+          "necromancy": {
+            "type": "number",
+            "label": "DISCIPLINES.NECROMANCY",
+            "value": 0,
+            "activated": false
+          },
+          "obeah": {
+            "type": "number",
+            "label": "DISCIPLINES.OBEAH",
+            "value": 0,
+            "activated": false
+          },
+          "obfuscate": {
+            "type": "number",
+            "label": "DISCIPLINES.OBFUSCATE",
+            "value": 0,
+            "activated": false
+          },
+          "obtenebration": {
+            "type": "number",
+            "label": "DISCIPLINES.OBTENEBRATION",
+            "value": 0,
+            "activated": false
+          },
+          "ogham": {
+            "type": "number",
+            "label": "DISCIPLINES.OGHAM",
+            "value": 0,
+            "activated": false
+          },
+          "potence": {
+            "type": "number",
+            "label": "DISCIPLINES.POTENCE",
+            "value": 0,
+            "activated": false
+          },
+          "presence": {
+            "type": "number",
+            "label": "DISCIPLINES.PRESENCE",
+            "value": 0,
+            "activated": false
+          },
+          "protean": {
+            "type": "number",
+            "label": "DISCIPLINES.PROTEAN",
+            "value": 0,
+            "activated": false
+          },
+          "quietus": {
+            "type": "number",
+            "label": "DISCIPLINES.QUIETUS",
+            "value": 0,
+            "activated": false
+          },
+          "sanguinus": {
+            "type": "number",
+            "label": "DISCIPLINES.SANGUINUS",
+            "value": 0,
+            "activated": false
+          },
+          "serpentis": {
+            "type": "number",
+            "label": "DISCIPLINES.SERPENTIS",
+            "value": 0,
+            "activated": false
+          },
+          "spiritus": {
+            "type": "number",
+            "label": "DISCIPLINES.SPIRITUS",
+            "value": 0,
+            "activated": false
+          },
+          "temporis": {
+            "type": "number",
+            "label": "DISCIPLINES.TEMPORIS",
+            "value": 0,
+            "activated": false
+          },
+          "thanatosis": {
+            "type": "number",
+            "label": "DISCIPLINES.THANATOSIS",
+            "value": 0,
+            "activated": false
+          },
+          "thaumaturgy": {
+            "type": "number",
+            "label": "DISCIPLINES.THAUMATURGY",
+            "value": 0,
+            "activated": false
+          },
+          "valeren": {
+            "type": "number",
+            "label": "DISCIPLINES.VALEREN",
+            "value": 0,
+            "activated": false
+          },
+          "vicissitude": {
+            "type": "number",
+            "label": "DISCIPLINES.VICISSITUDE",
+            "value": 0,
+            "activated": false
+          },
+          "visceratika": {
+            "type": "number",
+            "label": "DISCIPLINES.VISCERATIKA",
+            "value": 0,
+            "activated": false
+          }
+        },
+        "backgrounds": {
+          "allies": {
+            "type": "number",
+            "label": "BACKGROUNDS.ALLIES",
+            "value": 0,
+            "activated": false
+          },
+          "alternative_identity": {
+            "type": "number",
+            "label": "BACKGROUNDS.ALTERNATIVEIDENTITY",
+            "value": 0,
+            "activated": false
+          },
+          "black_hand_membership": {
+            "type": "number",
+            "label": "BACKGROUNDS.BLACKHANDMEMEBERSHIP",
+            "value": 0,
+            "activated": false
+          },
+          "contacts": {
+            "type": "number",
+            "label": "BACKGROUNDS.CONTACTS",
+            "value": 0,
+            "activated": false
+          },
+          "domain": {
+            "type": "number",
+            "label": "BACKGROUNDS.DOMAIN",
+            "value": 0,
+            "activated": false
+          },
+          "fame": {
+            "type": "number",
+            "label": "BACKGROUNDS.FAME",
+            "value": 0,
+            "activated": false
+          },
+          "generation": {
+            "type": "number",
+            "label": "BACKGROUNDS.GENERATION",
+            "value": 0,
+            "activated": false
+          },
+          "herd": {
+            "type": "number",
+            "label": "BACKGROUNDS.HERD",
+            "value": 0,
+            "activated": false
+          },
+          "influence": {
+            "type": "number",
+            "label": "BACKGROUNDS.INFLUENCE",
+            "value": 0,
+            "activated": false
+          },
+          "mentor": {
+            "type": "number",
+            "label": "BACKGROUNDS.MENTOR",
+            "value": 0,
+            "activated": false
+          },
+          "resources": {
+            "type": "number",
+            "label": "BACKGROUNDS.RESOURCES",
+            "value": 0,
+            "activated": false
+          },
+          "retainers": {
+            "type": "number",
+            "label": "BACKGROUNDS.RETAINERS",
+            "value": 0,
+            "activated": false
+          },
+          "rituals": {
+            "type": "number",
+            "label": "BACKGROUNDS.RITUALS",
+            "value": 0,
+            "activated": false
+          },
+          "status": {
+            "type": "number",
+            "label": "BACKGROUNDS.STATUS",
+            "value": 0,
+            "activated": false
+          }
+        },
+        "virtues": {
+          "conscience_conviction": {
+            "type": "number",
+            "label": "VIRTUES.CONSIENCECONVICTION",
+            "value": 0
+          },
+          "self_control_instinct": {
+            "type": "number",
+            "label": "VIRTUES.SELFCONTROLINSTINCT",
+            "value": 0
+          },
+          "courage": {
+            "type": "number",
+            "label": "VIRTUES.COURAGE",
+            "value": 0
+          }
+        }
       }
     }
   }
