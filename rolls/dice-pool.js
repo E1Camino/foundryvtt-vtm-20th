@@ -68,11 +68,12 @@ class DicePoolVTM20 {
     }
 
     // Render the roll for the results button that Foundry provides.
+    let rollMode = game.settings.get("core", "rollMode") || "roll";
     const chatData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor }),
       content: `<p>${message}</p>`,
-      rollMode: "selfroll",
+      rollMode: rollMode,
       details: message,
       roll,
     };
@@ -88,12 +89,11 @@ class DicePoolVTM20 {
     };
     
     // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.
-    let rollMode = game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode))
       chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
     if (rollMode === "blindroll") chatData["blind"] = true;
-    console.log(roll);
+
     roll.render().then((r) => {
       templateData.roll = r;
       chatData.roll = JSON.stringify(r);
@@ -104,9 +104,8 @@ class DicePoolVTM20 {
         // Hook into Dice So Nice!
         if (game.dice3d) {
           game.dice3d
-            .showForRoll(roll, chatData.whisper, chatData.blind)
+            .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
             .then((displayed) => {
-              console.log(chatData);
               ChatMessage.create(chatData);
             });
         }
