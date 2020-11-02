@@ -8,7 +8,8 @@ import { systemHandle }from "./utils.js";
 
 // Import Modules
 import { VampireActor } from "./character.js";
-// import { SimpleItemSheet } from "./item-sheet.js";
+import { VampireItemSheet } from "./items/item-sheet.js";
+import { VampireItem } from "./items/item.js";
 import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
@@ -18,6 +19,11 @@ import { VampireActorSheet } from "./character-sheet.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Vampire the Masquerade 20th System`);
 
+  game[systemHandle] = {
+    VampireActor,
+    VampireItem,
+    rollItemMacro
+  }
 	/**
 	 * Set an initiative formula for the system
 	 * @type {String}
@@ -33,8 +39,8 @@ Hooks.once("init", async function() {
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
-//   Items.unregisterSheet("core", ItemSheet);
-//   Items.registerSheet(systemHandle, SimpleItemSheet, {makeDefault: true});
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet(systemHandle, VampireItemSheet, { makeDefault: true });
 
   // Register system settings
   game.settings.register(systemHandle, "macroShorthand", {
@@ -108,3 +114,69 @@ Hooks.once("init", async function() {
     }
   });
 });
+
+Hooks.once("ready", async function() {
+  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+  Hooks.on("hotbarDrop", (bar, data, slot) => createBoilerplateMacro(data, slot));
+});
+/* -------------------------------------------- */
+/*  Hotbar Macros                               */
+/* -------------------------------------------- */
+
+/**
+ * Create a Macro from an Item drop.
+ * Get an existing item macro if one exists, otherwise create a new one.
+ * @param {Object} data     The dropped data
+ * @param {number} slot     The hotbar slot to use
+ * @returns {Promise}
+ */
+async function createBoilerplateMacro(data, slot) {
+  console.log(data, slot);
+  if (data.type !== "Item") return;
+  
+  if (!("data" in data) && !("id" in data)) return ui.notifications.warn("You can only create macro buttons for owned Items");
+  const item = data.data || game.items.get(data.id);
+
+  // Create the macro command
+  const command = `game.${systemHandle}.rollItemMacro("${item.name}");`;
+  let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
+  if (!macro) {
+    const flags = {};
+    flags[`${systemHandle}.itemMacro`] = true;
+    macro = await Macro.create({
+      name: item.name,
+      type: "script",
+      img: item.img,
+      command: command,
+      flags: flags
+    });
+  }
+  game.user.assignHotbarMacro(macro, slot);
+  return false;
+}
+
+/**
+ * Create a Macro from an Item drop.
+ * Get an existing item macro if one exists, otherwise create a new one.
+ * @param {string} itemName
+ * @return {Promise}
+ */
+function rollItemMacro(itemName) {
+  const speaker = ChatMessage.getSpeaker();
+  let actor;
+  if (speaker.token) actor = game.actors.tokens[speaker.token];
+  if (!actor) actor = game.actors.get(speaker.actor);
+  const item = actor ? actor.items.find(i => i.name === itemName) : null;
+
+  const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+  const ability = this.itemName.getAbility(label);
+  const attribute = this.actor.getSelectedAttribute();
+  DicePoolVTM20.prepareTest({
+    actor,
+    attribute,
+    ability: game.i18n.localize(ability.label)
+  });
+
+  // Trigger the item roll
+  return item.roll();
+}

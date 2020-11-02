@@ -31,6 +31,30 @@ export class VampireActor extends Actor {
     }
     return attr;
   }
+  getAttributeKey(label) {
+    let attrKey = null;
+    const { attributes } = super.getRollData();
+    for (let [groupKey, group] of Object.entries(attributes)) {
+      for (let [key, attribute] of Object.entries(group)) {
+        if (game.i18n.localize(attribute.label) === label) {
+          attrKey = attribute.label;
+        }
+      }
+    }
+    return attrKey;
+  }
+  getAbilityKey(label) {
+    let abilKey = null;
+    const { abilities } = super.getRollData();
+    for (let [groupKey, group] of Object.entries(abilities)) {
+      for (let [key, ability] of Object.entries(group)) {
+        if (game.i18n.localize(ability.label) === label) {
+          abilKey = ability.label;
+        }
+      }
+    }
+    return abilKey;
+  }
 
   getAbility(label) {
     let ab = null;

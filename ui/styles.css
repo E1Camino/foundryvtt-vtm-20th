@@ -365,3 +365,15 @@
 .vtm20.sheet .roll-status-2 .difficulty-dialog {
   display: flex;
 }
+
+
+.vtm20.item.sheet {
+  background: none;
+}
+.vtm20.item.sheet .columns {
+  display: flex;
+  justify-content: space-evenly;
+}
+.vtm20.item.sheet .description {
+  height: 150px;
+}
