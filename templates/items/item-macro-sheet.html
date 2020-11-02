@@ -1,0 +1,39 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+        </div>
+    </header>
+
+    <section class="columns selected">
+        <h2>Attribute</h2>
+        <div class="attribute">
+            <select>
+                <select>
+                    {{#each data.attribute}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
+            </select>
+        </div>
+        <h2>Ability</h2>
+        <div class="ability">
+            <select>
+                {{#each data.ability}}
+                    <option>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button class="attribute-roll-button">
+            <i class="selected fa fa-dice-d20"></i>
+        </button>
+    </section>
+
+    <section>
+        <h2>Description</h2>
+        <div class="description">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>

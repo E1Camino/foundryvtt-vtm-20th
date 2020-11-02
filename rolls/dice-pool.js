@@ -17,16 +17,20 @@ class DicePoolVTM20 {
   // }
 
   static rollTest(testData = {}, onlyAttribute = false) {
-    const { attribute = game.i18n.localize("CHAR.STRENGTH") } = testData;
-    const { ability = game.i18n.localize("TALENTS.ATHLETICS") } = testData;
-    const { actor = game.user.character } = testData;
-    const difficulty = testData.difficulty || 6;
+    const {
+      attribute = "strength",
+      ability = "athletics",
+      actor = game.user.character,
+      difficulty = 6,
+      title
+    } = testData;
+    
+   
     const modifier = 0;
 
     const nan = { value: 0 };
     const attributeDice = actor.getAttribute(attribute) || nan;
     const abilityDice = actor.getAbility(ability) || nan;
-
     const diceCount = onlyAttribute ?
       parseInt(attributeDice.value) + modifier :
       parseInt(attributeDice.value) + parseInt(abilityDice.value) + modifier;
@@ -40,32 +44,20 @@ class DicePoolVTM20 {
     const isCritFail = wins === 0 && fails > 0;
     const degrees = wins - fails;
 
-    let message = `${actor.name} erzielt einen`;
+
+    let message = `${actor.name} ${game.i18n.localize("DEGREES.GET")} `;
     let result;
     if (isCritFail) {
-      message = `${actor.name} legt einen <b>sauberen Patzer</b> hin!`;
-      result = "Sauberer Patzer";
+      message = `${actor.name} ${game.i18n.localize("DEGREES.GETBOTCH")}`;
+      result = game.i18n.localize("DEGREES.BOTCH");
     } else if (degrees <= 0) {
-      message = `${actor.name} <b>scheitert</b> bei dem Versuch`;
-      result = "Gescheitert";
+      message = `${actor.name} ${game.i18n.localize("DEGREES.GETFAILURE")}`;
+      result = game.i18n.localize("DEGREES.FAILURE");
     } else {
-      switch (degrees) {
-        case 1:
-          result = "knappen Erfolg";
-          break;
-        case 2:
-          result = "bescheidenen Erfolg";
-          break;
-        case 3:
-          result = "vollen Erfolg";
-          break;
-        case 4:
-          result = "außergewöhnlichen Erfolg";
-          break;
-        default:
-          result = "phänomenalen Erfolg";
-          break;
-      }
+      const success = game.i18n.localize("DEGREES.SUCCESS");
+      const localizeDegree = degrees > 5 ? 5 : degrees;
+      const degreeLabel = game.i18n.localize(`DEGREES.${localizeDegree}`);
+      result = `${degreeLabel} ${success}`;
     }
 
     // Render the roll for the results button that Foundry provides.
@@ -79,14 +71,22 @@ class DicePoolVTM20 {
       roll,
     };
     let template = 'systems/foundryvtt-vtm-20th/templates/chat/roll.html';
+    const attributeLabel = game.i18n.localize(attributeDice.label);
+    const abilityLabel = game.i18n.localize(abilityDice.label);
+    const difficultyLabel = game.i18n.localize(`DIFFICULTY.${difficulty}`);
+    const difficultyMessage = `${game.i18n.localize("DIFFICULTY.WAS")} ${difficultyLabel}`;
+
+    const poolConfig = onlyAttribute ? attributeLabel : `${attributeLabel} & ${abilityLabel}`
     let templateData = {
-      title: onlyAttribute ? attribute : `${attribute} & ${ability}`,
+      title: title ? title : poolConfig,
       message,
       rolls: roll.dice[0].results,
       formula,
       difficulty,
+      difficultyMessage,
       result,
-      degrees
+      degrees,
+      poolConfig: title ? poolConfig : ""
     };
     
     // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.
@@ -120,6 +120,7 @@ class DicePoolVTM20 {
   }
 
   static prepareTest(testData = {}, onlyAttribute = false) {
+    console.log({testData})
     DicePoolVTM20.rollTest(testData, onlyAttribute);
   }
 }

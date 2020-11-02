@@ -5,8 +5,8 @@
 import { systemHandle, systemName } from "./utils.js";
 
 export class VampireActor extends Actor {
-
   selectAttribute(value) {
+    console.log("select attribute ", value);
     return super.setFlag(systemName, "selectedAttribute", value);
   }
   unselectAttributes() {
@@ -17,36 +17,64 @@ export class VampireActor extends Actor {
     return super.getFlag(systemName, "selectedAttribute");
   }
 
-  getAttribute(label) {
+  getAttribute(key) {
+    console.log("get attribute: ", key);
     let attr = null;
     const { attributes } = super.getRollData();
     for (let [groupKey, group] of Object.entries(attributes)) {
-      for (let [key, attribute] of Object.entries(group)) {
-        if (game.i18n.localize(attribute.label) === label) {
-          attr = attribute;
-          attr.attribute_type = groupKey;
-          attr.attribute_key = key;
-        }
-      }
+      const attribute = group[key]
+      if (!attribute) continue;
+
+      attr = attribute;
+      attr.attribute_type = groupKey;
+      attr.attribute_key = key;
+      break;
     }
+    console.log({attr});
     return attr;
   }
+  getAllAttributes() {
+    const attributeList = [];
+    const { attributes } = super.getRollData();
+    for (let [groupKey, group] of Object.entries(attributes)) {
+      for (let [key, attribute] of Object.entries(group)) {
+        const attr = attribute;
+        attr.attribut_type = groupKey;
+        attr.
+        attributeList.push(attribute);
+      }
+    }
+    console.log({attributeList});
+    return attributeList;
+  }
 
-  getAbility(label) {
+  getAbility(key) {
+    console.log("get ability: ", key);
     let ab = null;
     const { abilities } = super.getRollData();
     for (let [groupKey, group] of Object.entries(abilities)) {
-      for (let [key, ability] of Object.entries(group)) {
-        if (game.i18n.localize(ability.label) === label) {
-          ab = ability;
-          ab.ability_type = groupKey;
-          ab.ability_key = key;
-        }
-      }
+      const ability = group[key];
+      if (!ability) continue;
+
+      ab = ability;
+      ab.ability_type = groupKey;
+      ab.ability_key = key;
+      break;
     }
+    console.log({ab});
     return ab; 
   }
-
+  getAllAbilities() {
+    const abilityList = [];
+    const { abilities } = super.getRollData();
+    for (let [groupKey, group] of Object.entries(abilities)) {
+      for (let [key, ability] of Object.entries(group)) {
+        abilityList.push(ability);
+      }
+    }
+    console.log({abilityList});
+    return abilityList;
+  }
   selectAbility(value) {
     super.setFlag(systemName, 'selectedAbility', value);
   }
@@ -74,5 +102,7 @@ export class VampireActor extends Actor {
   getRollDifficulty() {
     return super.getFlag(systemName, 'rollDifficulty');
   }
+
+
 
 }
