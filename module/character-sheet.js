@@ -48,7 +48,7 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find('input[type="radio"]').change(event => {
+    html.find('.item').find('input[type="radio"]').change(event => {
       console.log(event);
       this._onSubmit(event);
     });
@@ -79,7 +79,7 @@ export class VampireActorSheet extends ActorSheet {
     //   );
       
     // Skill Tests (right click to open skill sheet)
-    html.find('.attribute-roll-button').mousedown(ev => {
+    html.find('.attribute-roll-button').mouseup(ev => {
       const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
       const attribute = this.actor.getAttribute(label);
       DicePoolVTM20.prepareTest({
@@ -87,8 +87,14 @@ export class VampireActorSheet extends ActorSheet {
         attribute: game.i18n.localize(attribute.label)
       }, true);
       this.actor.unselectAttributes();
+      this.actor.setRollStatus(0);
     });
-    html.find('.ability-roll-button').mousedown(ev => {
+
+    html.find('.ability-roll-button').mouseup(ev => {
+      // skip if wrong roll status
+      if (this.actor.getRollStatus() !== 1) {
+        return;
+      }
       const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
       const ability = this.actor.getAbility(label);
       const attribute = this.actor.getSelectedAttribute();
@@ -98,20 +104,66 @@ export class VampireActorSheet extends ActorSheet {
         ability: game.i18n.localize(ability.label)
       });
       this.actor.unselectAttributes();
+      this.actor.setRollStatus(0);
     });
-    html.find('.attribute-label').mousedown(ev => {
+
+    // click on attribute label -> toggle attribute
+    html.find('.attribute-label').mouseup(ev => {
       const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-      this.actor.selectAttribute(label);
+      if (label === this.actor.getSelectedAttribute()) {
+        this.actor.unselectAttributes();
+        this.actor.setRollStatus(0);
+      } else {
+        this.actor.selectAttribute(label);
+        this.actor.setRollStatus(1);
+      }
     });
-      
-    // html.find('.attribute-label').mousedown(ev => {
-    //   const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-    //   const attribute = this.actor.getAttribute(label);
-    //   DicePoolVTM20.prepareTest({
-    //     actor: this.actor,
-    //     attribute: game.i18n.localize(attribute.label)
-    //   }, true);
-    // });
+
+    // click on ability label -> open difficulty dialog
+    html.find('.ability-label').mouseup(ev => {
+      // skip if wrong roll status
+      if (this.actor.getRollStatus() !== 1) {
+        return;
+      }
+      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
+      this.actor.selectAbility(label);
+      if (!this.actor.getRollDifficulty()) {
+        this.actor.setRollDifficulty(6);
+      }
+      this.actor.setRollStatus(2);
+    });
+
+    // submit difficulty dialog
+    html.find('#btn-roll-submit').click(() => {
+      const difficulty = parseInt(html.find('#input-roll-difficulty').find('input').val());
+      this.actor.setRollDifficulty(difficulty);
+      DicePoolVTM20.prepareTest({
+        actor: this.actor,
+        attribute: this.actor.getSelectedAttribute(),
+        ability: this.actor.getSelectedAbility(),
+        difficulty
+      });
+      this.actor.unselectAbility();
+      this.actor.unselectAttributes();
+      this.actor.setRollStatus(0);
+    });
+
+    // close difficulty dialog
+    html.find('#btn-roll-cancel').click(() => {
+      this.actor.unselectAbility();
+      this.actor.setRollStatus(1);
+    });
+
+    // listen to slider changes
+    html.find('#input-roll-difficulty').find('input').on('input', ev => {
+      const value = $(ev.currentTarget).val();
+      html.find('#input-roll-difficulty').find('h2').text(value);
+    });
+    html.find('#input-roll-difficulty').find('input').on('change', ev => {
+      const value = parseInt($(ev.currentTarget).val());
+      this.actor.setRollDifficulty(value);
+    });
+
   }
 
   /* -------------------------------------------- */

@@ -15,11 +15,12 @@ class DicePoolVTM20 {
   //         });
   //     });
   // }
+
   static rollTest(testData = {}, onlyAttribute = false) {
     const { attribute = game.i18n.localize("CHAR.STRENGTH") } = testData;
     const { ability = game.i18n.localize("TALENTS.ATHLETICS") } = testData;
     const { actor = game.user.character } = testData;
-    const difficulty = 6;
+    const difficulty = testData.difficulty || 6;
     const modifier = 0;
 
     const nan = { value: 0 };

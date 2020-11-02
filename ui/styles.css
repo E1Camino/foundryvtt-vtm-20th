@@ -310,11 +310,58 @@
 .vtm20.sheet .attribute-roll-button:hover,
 .vtm20.sheet .ability-roll-button:hover {
   color: #333;
-  cursor: pointer;
 }
 
 .vtm20.sheet .selected .attribute-roll-button,
 .vtm20.sheet .radio-input:hover .attribute-roll-button,
-.vtm20.sheet .radio-input:hover .ability-roll-button {
+.vtm20.sheet .roll-status-1 .radio-input:hover .ability-roll-button,
+.vtm20.sheet .roll-status-2 .radio-input:hover .ability-roll-button {
   opacity: 1;
+  cursor: pointer;
+}
+
+.vtm20.sheet .attribute-label,
+.vtm20.sheet .roll-status-1 .ability-label,
+.vtm20.sheet .roll-status-2 .ability-label,
+.vtm20.sheet .selectable .ability-label {
+  cursor: pointer;
+}
+
+.vtm20.sheet .attribute-label:hover,
+.vtm20.sheet .roll-status-1 .ability-label:hover,
+.vtm20.sheet .roll-status-2 .ability-label:hover {
+  text-shadow: 0 0 4px #808080;
+}
+
+.vtm20.sheet .selected .attribute-label,
+.vtm20.sheet .selected .ability-label {
+  text-shadow: 0 0 4px #e22c00;
+}
+
+/* difficulty dialog */
+.vtm20.sheet .difficulty-dialog {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+.vtm20.sheet .difficulty-dialog > div {
+  background: white;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid black;
+}
+
+/* difficulty dialog active */
+.vtm20.sheet .roll-status-2 > .primary {
+  position: relative;
+}
+.vtm20.sheet .roll-status-2 .difficulty-dialog {
+  display: flex;
 }
