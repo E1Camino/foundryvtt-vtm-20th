@@ -51,7 +51,7 @@
         </div>
     </header>
     <section class="sheet-body">
-        <div class="tab attributes" data-group="primary" data-tab="attributes">
+        <div class="tab attributes roll-status-{{actor.flags.foundryvtt-vtm-20th.rollStatus}}" data-group="primary" data-tab="attributes">
             <div class="primary">
 
                 <div class="sheet-header-big">
@@ -125,15 +125,34 @@
                         </ul>
                     </div>
                 </div>
+
+				<div class="difficulty-dialog">
+					<div>
+						<h2>{{actor.flags.foundryvtt-vtm-20th.selectedAttribute}} &amp; {{actor.flags.foundryvtt-vtm-20th.selectedAbility}}</h2>
+						<p>Choose Difficulty</p>
+						<div id="input-roll-difficulty">
+							<input type="range" step="1" min="2" max="10" value="{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}">
+							<h2>{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}</h2>
+						</div>
+						<p class="row">
+							<button id="btn-roll-submit"><i class="fa fa-dice-d20"></i> Roll</button>
+							<button id="btn-roll-cancel"><i class="fa fa-times"></i> Cancel</button>
+						</p>
+					</div>
+				</div>
+
             </div>
         </div>
+
         <div class="tab biography" data-group="primary" data-tab="description">
             {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
         </div>
+
         <div class="tab items" data-group="primary" data-tab="items">
             <ul>
                 <li class="radio-input">Stuff</li>
             </ul>
         </div>
+
     </section>
 </form>

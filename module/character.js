@@ -46,4 +46,33 @@ export class VampireActor extends Actor {
     }
     return ab; 
   }
+
+  selectAbility(value) {
+    super.setFlag(systemName, 'selectedAbility', value);
+  }
+
+  unselectAbility() {
+    super.setFlag(systemName, 'selectedAbility', null);
+  }
+
+  getSelectedAbility() {
+    return super.getFlag(systemName, 'selectedAbility');
+  }
+
+  setRollStatus(value) {
+    super.setFlag(systemName, 'rollStatus', value);
+  }
+
+  getRollStatus() {
+    return super.getFlag(systemName, 'rollStatus');
+  }
+
+  setRollDifficulty(value) {
+    super.setFlag(systemName, 'rollDifficulty', value);
+  }
+
+  getRollDifficulty() {
+    return super.getFlag(systemName, 'rollDifficulty');
+  }
+
 }
