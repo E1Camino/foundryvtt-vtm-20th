@@ -9,11 +9,21 @@
     <section class="columns selected">
         <h2>Attribute</h2>
         <div class="attribute">
-            {{!-- As you add new fields, add them in here! --}}
+            <select>
+                <select>
+                    {{#each data.attribute}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
+            </select>
         </div>
         <h2>Ability</h2>
         <div class="ability">
-            {{!-- As you add new fields, add them in here! --}}
+            <select>
+                {{#each data.ability}}
+                    <option>{{this}}</option>
+                {{/each}}
+            </select>
         </div>
         <button class="attribute-roll-button">
             <i class="selected fa fa-dice-d20"></i>

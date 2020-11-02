@@ -19,7 +19,7 @@ export class VampireActorSheet extends ActorSheet {
           initial: "attributes",
         },
       ],
-      // dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
+      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
     });
   }
 
@@ -33,6 +33,33 @@ export class VampireActorSheet extends ActorSheet {
     //   attr.isCheckbox = attr.dtype === "Boolean";
     // }
     console.log("data", { data });
+    const advantages = { ...data.data.advantages };
+
+    const filterActivated = (obj) => {
+      const newObject = {}
+      for (const key in obj) {
+        if (obj[key].activated) {
+          newObject[key] = obj[key];
+        }
+      }
+      return newObject;
+    }
+    advantages.disciplines = filterActivated(advantages.disciplines);
+    advantages.background = filterActivated(advantages.backround);
+
+    data.data.advantages = advantages;
+
+    // get localized strings of selected attribute and ability (if set)
+    const selectedAttributeKey = this.actor.getSelectedAttribute();
+    const selectedAttribute = this.actor.getAttribute(selectedAttributeKey);
+    if (selectedAttribute) {
+      data.selectedAttributeLabel = game.i18n.localize(selectedAttribute.label);
+    }
+    const selectedAbilityKey = this.actor.getSelectedAbility();
+    const selectedAbility = this.actor.getAbility(selectedAbilityKey);
+    if (selectedAbility) {
+      data.selectedAbilityLabel = game.i18n.localize(selectedAbility.label);
+    }
     return data;
   }
 
@@ -40,8 +67,8 @@ export class VampireActorSheet extends ActorSheet {
 
   /** @override */
   render() {
+    console.log({arguments});
     super.render(arguments);
-    console.log(arguments);
   }
   /* -------------------------------------------- */
 
@@ -80,11 +107,10 @@ export class VampireActorSheet extends ActorSheet {
       
     // Skill Tests (right click to open skill sheet)
     html.find('.attribute-roll-button').mouseup(ev => {
-      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-      const attribute = this.actor.getAttribute(label);
+      const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
       DicePoolVTM20.prepareTest({
         actor: this.actor,
-        attribute: game.i18n.localize(attribute.label)
+        attribute
       }, true);
       this.actor.unselectAttributes();
       this.actor.setRollStatus(0);
@@ -95,13 +121,13 @@ export class VampireActorSheet extends ActorSheet {
       if (this.actor.getRollStatus() !== 1) {
         return;
       }
-      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-      const ability = this.actor.getAbility(label);
+      const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      console.log({ability})
       const attribute = this.actor.getSelectedAttribute();
       DicePoolVTM20.prepareTest({
         actor: this.actor,
         attribute,
-        ability: game.i18n.localize(ability.label)
+        ability
       });
       this.actor.unselectAttributes();
       this.actor.setRollStatus(0);
@@ -109,12 +135,12 @@ export class VampireActorSheet extends ActorSheet {
 
     // click on attribute label -> toggle attribute
     html.find('.attribute-label').mouseup(ev => {
-      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-      if (label === this.actor.getSelectedAttribute()) {
+      const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      if (attribute === this.actor.getSelectedAttribute()) {
         this.actor.unselectAttributes();
         this.actor.setRollStatus(0);
       } else {
-        this.actor.selectAttribute(label);
+        this.actor.selectAttribute(attribute);
         this.actor.setRollStatus(1);
       }
     });
@@ -125,8 +151,8 @@ export class VampireActorSheet extends ActorSheet {
       if (this.actor.getRollStatus() !== 1) {
         return;
       }
-      const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-      this.actor.selectAbility(label);
+      const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      this.actor.selectAbility(ability);
       if (!this.actor.getRollDifficulty()) {
         this.actor.setRollDifficulty(6);
       }

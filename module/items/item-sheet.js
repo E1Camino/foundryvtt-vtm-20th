@@ -27,6 +27,10 @@ export class VampireItemSheet extends ItemSheet {
     /** @override */
     getData() {
       const data = super.getData();
+      console.log("item sheet data", data);
+      const actorData = this.actor ? this.actor.data : {};
+      console.log("item sheet actor data", actorData);
+
       return data;
     }
   

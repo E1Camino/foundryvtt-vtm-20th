@@ -63,7 +63,7 @@
                         <ul>
                             {{#each data.attributes.physical as |attribute key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -73,7 +73,7 @@
                         <ul>
                             {{#each data.attributes.social as |attribute key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.social" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.social" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -83,7 +83,7 @@
                         <ul>
                             {{#each data.attributes.mental as |attribute key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -99,7 +99,7 @@
                         <ul>
                             {{#each data.abilities.talents as |ability key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.talents" min=0 max=5 type="ability"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.talents" min=0 max=5 type="ability"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -109,7 +109,7 @@
                         <ul>
                             {{#each data.abilities.skills as |ability key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.skills" min=0 max=5 type="ability"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.skills" min=0 max=5 type="ability"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -119,7 +119,7 @@
                         <ul>
                             {{#each data.abilities.knowledges as |ability key|}}
                             <li class="radio-input">
-                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value label=ability.label id=../actor._id key=key prefix="data.abilities.knowledges" min=0 max=5 type="ability"}}
+                                {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.knowledges" min=0 max=5 type="ability"}}
                             </li>
                             {{/each}}
                         </ul>
@@ -128,19 +128,61 @@
 
 				<div class="difficulty-dialog">
 					<div>
-						<h2>{{actor.flags.foundryvtt-vtm-20th.selectedAttribute}} &amp; {{actor.flags.foundryvtt-vtm-20th.selectedAbility}}</h2>
-						<p>Choose Difficulty</p>
+						<h2>
+                            {{localize selectedAttributeLabel}}
+                            &amp;
+                            {{localize selectedAbilityLabel}}
+                        </h2>
+						<p>{{localize "DIFFICULTY.CHOOSE"}}</p>
 						<div id="input-roll-difficulty">
 							<input type="range" step="1" min="2" max="10" value="{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}">
 							<h2>{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}</h2>
 						</div>
 						<p class="row">
-							<button id="btn-roll-submit"><i class="fa fa-dice-d20"></i> Roll</button>
-							<button id="btn-roll-cancel"><i class="fa fa-times"></i> Cancel</button>
+							<button id="btn-roll-submit"><i class="fa fa-dice-d20"></i> {{localize "DIFFICULTY.ROLL"}}</button>
+							<button id="btn-roll-cancel"><i class="fa fa-times"></i> {{localize "DIFFICULTY.CANCEL"}}</button>
 						</p>
 					</div>
 				</div>
 
+                <!-- ADVANTAGES ARE NOT READY YET AND VERY LIKELY TO CHANGE IN NEAR FUTURE
+
+                        <div class="sheet-header-big">
+                            <h2>{{localize "SHEET.ADVANTAGES"}}</h2>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <h4>{{localize "SHEET.DISCIPLINES"}}</h4>
+                                <ul>
+                                    {{#each data.advantages.disciplines as |discipline key|}}
+                                    <li class="radio-input">
+                                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=discipline.value label=discipline.label id=../actor._id key=key prefix="data.advantages.disciplines" min=0 max=5 type="discipline"}}
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <div class="column">
+                                <h4>{{localize "SHEET.BACKGROUNDS"}}</h4>
+                                <ul>
+                                    {{#each data.advantages.backgrounds as |background key|}}
+                                    <li class="radio-input">
+                                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=background.label id=../actor._id key=key prefix="data.advantages.background" min=0 max=5 type="background"}}                           </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <div class="column">
+                                <h4>{{localize "SHEET.VIRTUES"}}</h4>
+                                <ul>
+                                    {{#each data.advantages.virtues as |virtue key|}}
+                                    <li class="radio-input">
+                                        {{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=virtue.label id=../actor._id key=key prefix="data.advantages.virtues" min=0 max=5 type="virtue"}}                           </li>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+
+                -->
             </div>
         </div>
 

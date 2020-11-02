@@ -13,6 +13,9 @@ export class VampireItem extends Item {
         const itemData = this.data;
         const actorData = this.actor ? this.actor.data : {};
         const data = itemData.data;
+        const preparedData = { ...data, actorData };
+        console.log("prepared Data", preparedData);
+        return preparedData;
     }
     /**
      * Handle clickable rolls.
