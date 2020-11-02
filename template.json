@@ -519,16 +519,19 @@
     }
   },
   "Item": {
-    "types": ["makro", "advantage", "clan"],
+    "types": ["macro", "advantage", "clan"],
     "templates": {
       "base": {
         "description": "",
-        "tooltip": "",
-        "label": ""
+        "tooltip": ""
+      },
+      "macroProps": {
+        "attribute": "strength",
+        "ability": "athletics"
       }
     },
-    "makro": {
-      "templates": ["base"]
+    "macro": {
+      "templates": ["base", "macroProps"]
     },
     "advantage": {
       "templates": ["base"]

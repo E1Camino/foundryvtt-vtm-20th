@@ -21,7 +21,8 @@ class DicePoolVTM20 {
       attribute = "strength",
       ability = "athletics",
       actor = game.user.character,
-      difficulty = 6
+      difficulty = 6,
+      title
     } = testData;
     
    
@@ -75,15 +76,17 @@ class DicePoolVTM20 {
     const difficultyLabel = game.i18n.localize(`DIFFICULTY.${difficulty}`);
     const difficultyMessage = `${game.i18n.localize("DIFFICULTY.WAS")} ${difficultyLabel}`;
 
+    const poolConfig = onlyAttribute ? attributeLabel : `${attributeLabel} & ${abilityLabel}`
     let templateData = {
-      title: onlyAttribute ? attributeLabel : `${attributeLabel} & ${abilityLabel}`,
+      title: title ? title : poolConfig,
       message,
       rolls: roll.dice[0].results,
       formula,
       difficulty,
       difficultyMessage,
       result,
-      degrees
+      degrees,
+      poolConfig: title ? poolConfig : ""
     };
     
     // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.

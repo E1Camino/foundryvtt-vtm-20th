@@ -11,7 +11,11 @@
             <section class="tooltip-part">
               <div class="dice">
                 <p class="part-formula">
-                  <span class="part-total">{{degrees}}</span>
+                  <span class="part-total">{{degrees}}/{{rolls.length}}
+                    {{#iff poolConfig "!=" ""}}
+                      ({{poolConfig}})
+                    {{/iff}}
+                  </span>
                 </p>
                 <ol class="dice-rolls">
                   {{#each rolls}}

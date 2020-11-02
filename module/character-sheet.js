@@ -174,6 +174,27 @@ export class VampireActorSheet extends ActorSheet {
       this.actor.setRollStatus(0);
     });
 
+    html.find('#btn-roll-save').click(() => {
+      const attributeKey = this.actor.getSelectedAttribute();
+      const abilityKey = this.actor.getSelectedAbility();
+      const attribute = this.actor.getAttribute(attributeKey);
+      const ability = this.actor.getAbility(abilityKey);
+      
+      const name = `${game.i18n.localize(attribute.label)} & ${game.i18n.localize(ability.label)}`;
+      let item = game.items.entities.find(e => e.name === name);
+      if (!item) {
+        item = Item.create({
+          actor: this.actor,
+          attribute,
+          ability,
+          name,
+          type: "macro",
+        }, { renderSheet: true })
+      }
+
+      // add the item to the macro bar
+    });
+
     // close difficulty dialog
     html.find('#btn-roll-cancel').click(() => {
       this.actor.unselectAbility();

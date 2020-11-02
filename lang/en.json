@@ -130,6 +130,7 @@
     "DIFFICULTY.CHOOSE": "Choose difficulty",
     "DIFFICULTY.ROLL": "Roll",
     "DIFFICULTY.CANCEL": "Cancel",
+    "DIFFICULTY.SAVE": "Save",
 
     "DEGREES.GET": "rolls a",
     "DEGREES.1" : "marginal",

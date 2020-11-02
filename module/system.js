@@ -136,7 +136,7 @@ async function createBoilerplateMacro(data, slot) {
   
   if (!("data" in data) && !("id" in data)) return ui.notifications.warn("You can only create macro buttons for owned Items");
   const item = data.data || game.items.get(data.id);
-
+  console.log(item);
   // Create the macro command
   const command = `game.${systemHandle}.rollItemMacro("${item.name}");`;
   let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
@@ -166,15 +166,14 @@ function rollItemMacro(itemName) {
   let actor;
   if (speaker.token) actor = game.actors.tokens[speaker.token];
   if (!actor) actor = game.actors.get(speaker.actor);
-  const item = actor ? actor.items.find(i => i.name === itemName) : null;
+  const sameName = (i => i.name === itemName);
+  const item = game.items.entities.find(sameName);
 
-  const label = $(ev.currentTarget).parents(".item").attr("data-item-label");
-  const ability = this.itemName.getAbility(label);
-  const attribute = this.actor.getSelectedAttribute();
   DicePoolVTM20.prepareTest({
     actor,
-    attribute,
-    ability: game.i18n.localize(ability.label)
+    title: item.data.name,
+    attribute: item.data.data.attribute,
+    ability: item.data.data.ability
   });
 
   // Trigger the item roll
