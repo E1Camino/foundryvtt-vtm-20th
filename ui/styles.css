@@ -175,27 +175,21 @@
   border-bottom: 0;
 }
 .vtm20.sheet .sheet-header-big {
-  position: relative;
-  z-index: 1;
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 .vtm20.sheet .sheet-header-big h1,
 .vtm20.sheet .sheet-header-big h2 {
-  background: white;
+  flex: 0;
   margin: 0;
   padding: 0.5rem;
 }
-.vtm20.sheet .sheet-header-big h1:after,
-.vtm20.sheet .sheet-header-big h2:after {
+.vtm20.sheet .sheet-header-big:before,
+.vtm20.sheet .sheet-header-big:after {
+  flex: 1;
   border-bottom: 6px solid #333;
-  position: absolute;
-  top: 45%;
-  z-index: -1;
   content: "";
-  width: 96%;
-  left: 2%;
 }
 
 .vtm20.sheet .primary .column {
@@ -369,7 +363,6 @@
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 2;
 }
 .vtm20.sheet .difficulty-dialog > div {
   background: white;
