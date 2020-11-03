@@ -13,30 +13,53 @@
   src: url("../fonts/GOUDOS.ttf");
 }
 
+/* main sheet window */
+.vtm20.sheet.actor {
+  min-width: 950px;
+  min-height: 420px;
+}
 .vtm20 .window-content {
   color: #333;
   height: 100%;
-  padding: 5px;
   background: white;
   overflow-y: hidden;
 }
-.vtm20 .sheet-header {
-  height: 100px;
+.vtm20 .window-content > * {
   overflow: hidden;
+}
+
+.vtm20.sheet .sheet-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.vtm20.sheet .sheet-sidebar {
+  margin-top: 4px;
+  flex: 0 1 200px;
+  border-left: 1px solid #aaa;
+}
+
+.vtm20.sheet .row {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: 10px 10px 0 10px;
 }
-.vtm20 .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
-  margin-right: 10px;
+
+/* sidebar content */
+.vtm20 .sheet-sidebar .profile-img {
+  flex: 0 0 150px;
 }
-.vtm20 .sheet-header .header-fields {
-  flex: 1;
-  height: 100px;
+.vtm20.sheet .sheet-sidebar .actor-name {
+  font-weight: bold;
+  font-size: 1.25em;
+}
+.vtm20.sheet .sheet-sidebar .actor-char {
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+}
+.vtm20.sheet .sheet-sidebar .actor-char > span:first-of-type {
+  font-family: "Denver Serial Black";
+  margin-right: 0.5em;
 }
 
 .vtm20 .resource {
@@ -56,7 +79,7 @@
   border-bottom: 1px solid #aaa;
 }
 .vtm20 .tabs .item {
-  line-height: 40px;
+  /*line-height: 40px;*/
   font-weight: bold;
 }
 .vtm20 .tabs .item.active {
@@ -131,16 +154,14 @@
   line-height: 28px;
   border: none;
 }
-.vtm20.sheet.actor {
-  min-width: 740px;
-  min-height: 420px;
-}
+
 .vtm20.sheet.item {
   min-width: 460px;
   min-height: 400px;
 }
 
 .vtm20.sheet .primary {
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -154,32 +175,23 @@
   border-bottom: 0;
 }
 .vtm20.sheet .sheet-header-big {
-  position: relative;
-  z-index: 1;
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 .vtm20.sheet .sheet-header-big h1,
 .vtm20.sheet .sheet-header-big h2 {
-  background: white;
+  flex: 0;
   margin: 0;
   padding: 0.5rem;
 }
-.vtm20.sheet .sheet-header-big h1:after,
-.vtm20.sheet .sheet-header-big h2:after {
+.vtm20.sheet .sheet-header-big:before,
+.vtm20.sheet .sheet-header-big:after {
+  flex: 1;
   border-bottom: 6px solid #333;
-  position: absolute;
-  top: 45%;
-  z-index: -1;
   content: "";
-  width: 96%;
-  left: 2%;
 }
-.vtm20.sheet .primary .row {
-  display: flex;
-  flex-direction: row;
-}
+
 .vtm20.sheet .primary .column {
   display: flex;
   flex-direction: column;
@@ -193,6 +205,7 @@
 .vtm20.sheet .primary label {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   width: 160px;
 }
 .vtm20.sheet input[type="text"]{
@@ -213,9 +226,10 @@
   max-width: 40px;
 }
 .vtm20.sheet .primary-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 1rem;
 }
 .vtm20.sheet .radio-input label {
   display: flex;
@@ -349,13 +363,14 @@
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 2;
 }
 .vtm20.sheet .difficulty-dialog > div {
+  min-width: 380px;
   background: white;
   padding: 2rem;
   text-align: center;
   border: 1px solid black;
+  box-shadow: 0 0 10px 0 black;
 }
 
 /* difficulty dialog active */
