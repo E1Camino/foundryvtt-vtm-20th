@@ -365,10 +365,12 @@
   background: rgba(0, 0, 0, 0.2);
 }
 .vtm20.sheet .difficulty-dialog > div {
+  min-width: 380px;
   background: white;
   padding: 2rem;
   text-align: center;
   border: 1px solid black;
+  box-shadow: 0 0 10px 0 black;
 }
 
 /* difficulty dialog active */
