@@ -169,9 +169,9 @@ export class VampireActorSheet extends ActorSheet {
         ability: this.actor.getSelectedAbility(),
         difficulty
       });
+      this.actor.setRollStatus(0);
       this.actor.unselectAbility();
       this.actor.unselectAttributes();
-      this.actor.setRollStatus(0);
     });
 
     html.find('#btn-roll-save').click(() => {
@@ -197,8 +197,8 @@ export class VampireActorSheet extends ActorSheet {
 
     // close difficulty dialog
     html.find('#btn-roll-cancel').click(() => {
-      this.actor.unselectAbility();
       this.actor.setRollStatus(1);
+      this.actor.unselectAbility();
     });
 
     // listen to slider changes
