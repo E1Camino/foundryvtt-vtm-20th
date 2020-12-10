@@ -96,6 +96,7 @@
 .vtm20 .editor,
 .vtm20 .editor-content {
   height: 100%;
+  min-height: 100px;
 }
 .vtm20 .item-list {
   list-style: none;
