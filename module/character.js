@@ -5,20 +5,7 @@
 import { systemHandle, systemName } from "./utils.js";
 
 export class VampireActor extends Actor {
-  selectAttribute(value) {
-    console.log("select attribute ", value);
-    return super.setFlag(systemName, "selectedAttribute", value);
-  }
-  unselectAttributes() {
-    return this.selectAttribute(null);
-  }
-
-  getSelectedAttribute() {
-    return super.getFlag(systemName, "selectedAttribute");
-  }
-
   getAttribute(key) {
-    console.log("get attribute: ", key);
     let attr = null;
     const { attributes } = super.getRollData();
     for (let [groupKey, group] of Object.entries(attributes)) {
@@ -30,7 +17,6 @@ export class VampireActor extends Actor {
       attr.attribute_key = key;
       break;
     }
-    console.log({attr});
     return attr;
   }
   getAllAttributes() {
@@ -44,12 +30,10 @@ export class VampireActor extends Actor {
         attributeList.push(attribute);
       }
     }
-    console.log({attributeList});
     return attributeList;
   }
 
   getAbility(key) {
-    console.log("get ability: ", key);
     let ab = null;
     const { abilities } = super.getRollData();
     for (let [groupKey, group] of Object.entries(abilities)) {
@@ -61,7 +45,6 @@ export class VampireActor extends Actor {
       ab.ability_key = key;
       break;
     }
-    console.log({ab});
     return ab; 
   }
   getAllAbilities() {
@@ -72,37 +55,6 @@ export class VampireActor extends Actor {
         abilityList.push(ability);
       }
     }
-    console.log({abilityList});
     return abilityList;
   }
-  selectAbility(value) {
-    super.setFlag(systemName, 'selectedAbility', value);
-  }
-
-  unselectAbility() {
-    super.setFlag(systemName, 'selectedAbility', null);
-  }
-
-  getSelectedAbility() {
-    return super.getFlag(systemName, 'selectedAbility');
-  }
-
-  setRollStatus(value) {
-    super.setFlag(systemName, 'rollStatus', value);
-  }
-
-  getRollStatus() {
-    return super.getFlag(systemName, 'rollStatus');
-  }
-
-  setRollDifficulty(value) {
-    super.setFlag(systemName, 'rollDifficulty', value);
-  }
-
-  getRollDifficulty() {
-    return super.getFlag(systemName, 'rollDifficulty');
-  }
-
-
-
 }
