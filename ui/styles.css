@@ -88,6 +88,7 @@
 }
 .vtm20 .sheet-body {
   overflow: hidden;
+  flex: 1;
 }
 .vtm20 .sheet-body .tab {
   height: 100%;
@@ -161,6 +162,7 @@
 }
 
 .vtm20.sheet .primary {
+  height: 100%;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
