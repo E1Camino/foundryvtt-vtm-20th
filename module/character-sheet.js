@@ -20,6 +20,10 @@ export class VampireActorSheet extends ActorSheet {
         },
       ],
       dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
+      rollDifficulty: 6,
+      rollStatus: 0,
+      selectedAttribute: null,
+      selectedAbility: null,
     });
   }
 
@@ -32,8 +36,8 @@ export class VampireActorSheet extends ActorSheet {
     // for (let attr of Object.values(data.data.attributes)) {
     //   attr.isCheckbox = attr.dtype === "Boolean";
     // }
-    console.log("data", { data });
     const advantages = { ...data.data.advantages };
+    const { selectedAbility, selectedAttribute, rollDifficulty } = this.options;
 
     const filterActivated = (obj) => {
       const newObject = {}
@@ -50,16 +54,18 @@ export class VampireActorSheet extends ActorSheet {
     data.data.advantages = advantages;
 
     // get localized strings of selected attribute and ability (if set)
-    const selectedAttributeKey = this.actor.getSelectedAttribute();
-    const selectedAttribute = this.actor.getAttribute(selectedAttributeKey);
-    if (selectedAttribute) {
-      data.selectedAttributeLabel = game.i18n.localize(selectedAttribute.label);
+    const attribute = this.actor.getAttribute(selectedAttribute);
+    if (attribute) {
+      data.selectedAttribute = selectedAttribute;
+      data.selectedAttributeLabel = game.i18n.localize(attribute.label);
     }
-    const selectedAbilityKey = this.actor.getSelectedAbility();
-    const selectedAbility = this.actor.getAbility(selectedAbilityKey);
-    if (selectedAbility) {
-      data.selectedAbilityLabel = game.i18n.localize(selectedAbility.label);
+
+    const ability = this.actor.getAbility(selectedAbility);
+    if (ability) {
+      data.selectedAbilityLabel = game.i18n.localize(ability.label);
     }
+    
+    console.log(data);
     return data;
   }
 
@@ -67,7 +73,6 @@ export class VampireActorSheet extends ActorSheet {
 
   /** @override */
   render() {
-    console.log({arguments});
     super.render(arguments);
   }
   /* -------------------------------------------- */
@@ -112,71 +117,74 @@ export class VampireActorSheet extends ActorSheet {
         actor: this.actor,
         attribute
       }, true);
-      this.actor.unselectAttributes();
-      this.actor.setRollStatus(0);
+      this.unselectAttributes();
+      this.setRollStatus(0);
     });
 
     html.find('.ability-roll-button').mouseup(ev => {
       // skip if wrong roll status
-      if (this.actor.getRollStatus() !== 1) {
+      if (this.getRollStatus() !== 1) {
         return;
       }
       const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      console.log({ability})
-      const attribute = this.actor.getSelectedAttribute();
+
+      const attribute = this.getSelectedAttribute();
       DicePoolVTM20.prepareTest({
         actor: this.actor,
         attribute,
         ability
       });
-      this.actor.unselectAttributes();
-      this.actor.setRollStatus(0);
+      this.unselectAttributes();
+      this.setRollStatus(0);
     });
 
     // click on attribute label -> toggle attribute
     html.find('.attribute-label').mouseup(ev => {
       const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      if (attribute === this.actor.getSelectedAttribute()) {
-        this.actor.unselectAttributes();
-        this.actor.setRollStatus(0);
+      if (attribute === this.getSelectedAttribute()) {
+        this.unselectAttributes();
+        this.setRollStatus(0);
       } else {
-        this.actor.selectAttribute(attribute);
-        this.actor.setRollStatus(1);
+        this.selectAttribute(attribute);
+        this.setRollStatus(1);
+        this.render();
       }
     });
 
     // click on ability label -> open difficulty dialog
     html.find('.ability-label').mouseup(ev => {
       // skip if wrong roll status
-      if (this.actor.getRollStatus() !== 1) {
+      if (this.getRollStatus() !== 1) {
         return;
       }
       const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      this.actor.selectAbility(ability);
-      if (!this.actor.getRollDifficulty()) {
-        this.actor.setRollDifficulty(6);
+      this.selectAbility(ability);
+      if (!this.getRollDifficulty()) {
+        this.setRollDifficulty(6);
       }
-      this.actor.setRollStatus(2);
+      this.setRollStatus(2);
+      this.render();
     });
 
     // submit difficulty dialog
     html.find('#btn-roll-submit').click(() => {
       const difficulty = parseInt(html.find('#input-roll-difficulty').find('input').val());
-      this.actor.setRollDifficulty(difficulty);
+      this.setRollDifficulty(difficulty);
       DicePoolVTM20.prepareTest({
         actor: this.actor,
-        attribute: this.actor.getSelectedAttribute(),
-        ability: this.actor.getSelectedAbility(),
+        attribute: this.getSelectedAttribute(),
+        ability: this.getSelectedAbility(),
         difficulty
       });
-      this.actor.setRollStatus(0);
-      this.actor.unselectAbility();
-      this.actor.unselectAttributes();
+      this.setRollStatus(0);
+      this.unselectAbility();
+      this.unselectAttributes();
+      this.render();
     });
 
     html.find('#btn-roll-save').click(() => {
-      const attributeKey = this.actor.getSelectedAttribute();
-      const abilityKey = this.actor.getSelectedAbility();
+      const attributeKey = this.getSelectedAttribute();
+      const abilityKey = this.getSelectedAbility();
       const attribute = this.actor.getAttribute(attributeKey);
       const ability = this.actor.getAbility(abilityKey);
       
@@ -191,14 +199,16 @@ export class VampireActorSheet extends ActorSheet {
           type: "macro",
         }, { renderSheet: true })
       }
+      this.render();
 
       // add the item to the macro bar
     });
 
     // close difficulty dialog
     html.find('#btn-roll-cancel').click(() => {
-      this.actor.setRollStatus(1);
-      this.actor.unselectAbility();
+      this.setRollStatus(1);
+      this.unselectAbility();
+      this.render();
     });
 
     // listen to slider changes
@@ -208,7 +218,8 @@ export class VampireActorSheet extends ActorSheet {
     });
     html.find('#input-roll-difficulty').find('input').on('change', ev => {
       const value = parseInt($(ev.currentTarget).val());
-      this.actor.setRollDifficulty(value);
+      this.setRollDifficulty(value);
+      this.render();
     });
 
   }
@@ -227,7 +238,6 @@ export class VampireActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   render() {
-    console.log("render it now")
     super.render(...arguments);
   }
 
@@ -296,5 +306,44 @@ export class VampireActorSheet extends ActorSheet {
 
     // Update the Actor
     return this.object.update(formData);
+  }
+
+
+  // local state
+  selectAbility(value) {
+    this.options.selectedAbility = value;
+  }
+  unselectAbility() {
+    this.options.selectedAbility = null;
+  }
+  getSelectedAbility() {
+    return this.options.selectedAbility;
+  }
+  
+  getSelectedAttribute() {
+    return this.options.selectedAttribute;
+  }
+  selectAttribute(value) {
+    this.options.selectedAttribute = value;
+  }
+  unselectAttributes() {
+    this.options.selectedAttribute = null;
+  }
+
+  setRollStatus(value) {
+    this.options.rollStatus = value;
+  }
+
+  getRollStatus() {
+    return this.options.rollStatus;
+  }
+
+  setRollDifficulty(value) {
+    this.options.rollDifficulty = value;
+    this._render();
+  }
+
+  getRollDifficulty() {
+    return this.options.rollDifficulty ;
   }
 }

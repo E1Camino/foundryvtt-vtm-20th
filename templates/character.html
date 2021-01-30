@@ -7,7 +7,6 @@
 		</nav>
 
 		<section class="sheet-body">
-
 			<div class="tab general" data-group="primary" data-tab="general">
 				<div class="primary">
 					<div class="sheet-header-big">
@@ -67,7 +66,7 @@
 				</div>
 			</div>
 
-			<div class="tab attributes roll-status-{{actor.flags.foundryvtt-vtm-20th.rollStatus}}" data-group="primary" data-tab="attributes">
+			<div class="tab attributes roll-status-{{options.rollStatus}}" data-group="primary" data-tab="attributes">
 				<div class="primary">
 
 					<div class="sheet-header-big">
@@ -79,7 +78,7 @@
 							<ul>
 								{{#each data.attributes.physical as |attribute key|}}
 								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" min=1 max=5 selected=../options.selectedAttribute type="attribute"}}
 								</li>
 								{{/each}}
 							</ul>
@@ -89,7 +88,7 @@
 							<ul>
 								{{#each data.attributes.social as |attribute key|}}
 								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.social" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.social" min=1 max=5 selected=../options.selectedAttribute type="attribute"}}
 								</li>
 								{{/each}}
 							</ul>
@@ -99,7 +98,7 @@
 							<ul>
 								{{#each data.attributes.mental as |attribute key|}}
 								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" min=1 max=5 selected=../actor.flags.foundryvtt-vtm-20th.selectedAttribute type="attribute"}}
+									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" min=1 max=5 selected=../options.selectedAttribute type="attribute"}}
 								</li>
 								{{/each}}
 							</ul>
@@ -151,8 +150,8 @@
 							</h2>
 							<p>{{localize "DIFFICULTY.CHOOSE"}}</p>
 							<div id="input-roll-difficulty">
-								<input type="range" step="1" min="2" max="10" value="{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}">
-								<h2>{{actor.flags.foundryvtt-vtm-20th.rollDifficulty}}</h2>
+								<input type="range" step="1" min="2" max="10" value="{{options.rollDifficulty}}">
+								<h2>{{options.rollDifficulty}}</h2>
 							</div>
 							<p class="row">
 								<button id="btn-roll-submit"><i class="fa fa-dice-d20"></i> {{localize "DIFFICULTY.ROLL"}}</button>
