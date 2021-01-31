@@ -8,8 +8,10 @@ import { systemHandle }from "./utils.js";
 
 // Import Modules
 import { VampireActor } from "./character.js";
-import { VampireItemSheet } from "./items/item-sheet.js";
-import { VampireItem } from "./items/item.js";
+import { VampireDicePoolSheet } from "./items/dice-pool-sheet.js";
+import { VampireAdvantageSheet } from "./items/advantage-sheet.js";
+import { DicePoolItem } from "./items/dice-pool-item.js";
+import { AdvantageItem } from "./items/advantage-item.js";
 import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
@@ -21,7 +23,8 @@ Hooks.once("init", async function() {
 
   game[systemHandle] = {
     VampireActor,
-    VampireItem,
+    DicePoolItem,
+    AdvantageItem,
     rollItemMacro
   }
 	/**
@@ -39,8 +42,9 @@ Hooks.once("init", async function() {
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet(systemHandle, VampireItemSheet, { makeDefault: true });
+  //Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet(systemHandle, VampireDicePoolSheet, { });
+  Items.registerSheet(systemHandle, VampireAdvantageSheet, { });
 
   // Register system settings
   game.settings.register(systemHandle, "macroShorthand", {
