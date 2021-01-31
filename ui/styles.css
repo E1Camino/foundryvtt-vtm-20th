@@ -36,7 +36,7 @@
 .vtm20.sheet .sheet-sidebar {
   margin-top: 4px;
   flex: 0 1 200px;
-  border-left: 1px solid #aaa;
+  border-left: 1px solid #ddd;
 }
 
 .vtm20.sheet .row {
@@ -267,19 +267,23 @@
     opacity: 0;
     width: 11px;
     height: 11px;
-    cursor: pointer;
     position: relative;
     z-index: 1;
     margin: -9px;
     left: 6px;
     top: 0;
+    pointer-events: none;
+}
+.vtm20.sheet .helper--enable-editMode input[type="radio"] {
+    cursor: pointer;
+    pointer-events: all;
 }
 .vtm20.sheet input[type="radio"] + span::before {
   content: "";
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid #aaa;
+  border: 1px solid #ddd;
   display: inline-block;
   background: #333;
 }
@@ -290,9 +294,10 @@
   position: relative;
   opacity: 0;
 }
-.vtm20.sheet .radio-input:hover input[type="radio"]:first-of-type + span {
+.vtm20.sheet .helper--enable-editMode .input-min-0 input[type="radio"]:first-of-type + span {
   opacity: 1;
 }
+
 .vtm20.sheet .input-min-0 input[type="radio"]:first-of-type + span::before {
   background: none;
 }
@@ -302,12 +307,18 @@
   font-size: 19px;
   font-family: sans-serif;
   font-weight: bold;
-  color: #aaa;
+  color: #ddd;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%,-50%)rotate(45deg);
  }
+.vtm20.sheet .helper--enable-editMode .input-min-0 input[type="radio"]:first-of-type:hover + span::after {
+  color: #333;
+}
+.vtm20.sheet .helper--enable-editMode input[type="radio"]:hover + span::before {
+  border: 1px solid #333;
+}
 
 .vtm20.sheet .attribute-roll-button,
 .vtm20.sheet .ability-roll-button {
@@ -336,6 +347,16 @@
   cursor: pointer;
 }
 
+
+.vtm20.sheet .helper--enable-editMode .selected .attribute-roll-button,
+.vtm20.sheet .helper--enable-editMode .radio-input:hover .hidden .attribute-roll-button,
+.vtm20.sheet .helper--enable-editMode .roll-status-1 .radio-input:hover .ability-roll-button,
+.vtm20.sheet .helper--enable-editMode .roll-status-2 .radio-input:hover .ability-roll-button {
+  opacity: 0;
+  cursor: unset;
+  pointer-events: all;
+}
+
 .vtm20.sheet .attribute-label,
 .vtm20.sheet .roll-status-1 .ability-label,
 .vtm20.sheet .roll-status-2 .ability-label,
@@ -352,6 +373,10 @@
 .vtm20.sheet .selected .attribute-label,
 .vtm20.sheet .selected .ability-label {
   text-shadow: 0 0 4px #e22c00;
+}
+.vtm20.sheet .helper--enable-editModed .selected .attribute-label,
+.vtm20.sheet .helper--enable-editModed .selected .ability-label {
+  text-shadow: none;
 }
 
 /* difficulty dialog */

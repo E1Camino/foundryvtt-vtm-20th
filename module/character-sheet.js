@@ -24,6 +24,7 @@ export class VampireActorSheet extends ActorSheet {
       rollStatus: 0,
       selectedAttribute: null,
       selectedAbility: null,
+      editMode: false,
     });
   }
 
@@ -77,6 +78,48 @@ export class VampireActorSheet extends ActorSheet {
   }
   /* -------------------------------------------- */
 
+      
+  /** @override */
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    // Edit mode button to toggle which interactive elements are visible on the sheet.
+    const canConfigure = game.user.isGM || this.actor.owner;
+    if (this.options.editable && canConfigure) {
+      buttons = [
+        {
+          label: game.i18n.localize("SHEET.EDITMODE"),
+          class: "toggle-edit-mode",
+          icon: "fas fa-edit",
+          onclick: (ev) => this._onToggleEditMode(ev),
+        },
+      ].concat(buttons);
+    }
+
+    return buttons;
+  }
+  /**
+   * OnClick handler for the previously declaried "Edit mode" button.
+   * Toggles the 'helper--enable-editMode' class for the sheet container.
+   */
+  _onToggleEditMode(e) {
+    e.preventDefault();
+
+    const target = $(e.currentTarget);
+    const app = target.parents(".app");
+    const html = app.find(".window-content");
+
+    html.toggleClass("helper--enable-editMode");
+    this.options.editMode = !this.options.editMode || false;
+    if (this.options.editMode) {
+      this.setRollStatus(0);
+      this.unselectAbility();
+      this.unselectAttributes();
+    }
+    this.render();
+  }
+
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
@@ -109,7 +152,7 @@ export class VampireActorSheet extends ActorSheet {
     //     ".attribute-control",
     //     this._onClickAttributeControl.bind(this)
     //   );
-      
+
     // Skill Tests (right click to open skill sheet)
     html.find('.attribute-roll-button').mouseup(ev => {
       const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
@@ -139,7 +182,8 @@ export class VampireActorSheet extends ActorSheet {
     });
 
     // click on attribute label -> toggle attribute
-    html.find('.attribute-label').mouseup(ev => {
+    html.find('.attribute-value').mouseup(ev => {
+      if (this.options.editMode) return;
       const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
       if (attribute === this.getSelectedAttribute()) {
         this.unselectAttributes();
@@ -152,11 +196,12 @@ export class VampireActorSheet extends ActorSheet {
     });
 
     // click on ability label -> open difficulty dialog
-    html.find('.ability-label').mouseup(ev => {
+    html.find('.ability-value').mouseup(ev => {
       // skip if wrong roll status
       if (this.getRollStatus() !== 1) {
         return;
       }
+      if (this.options.editMode) return;
       const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
       this.selectAbility(ability);
       if (!this.getRollDifficulty()) {
