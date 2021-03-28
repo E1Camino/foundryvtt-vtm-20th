@@ -141,6 +141,43 @@
 						</div>
 					</div>
 
+
+
+					<div class="sheet-header-big">
+						<h2>{{localize "SHEET.ADVANTAGES"}}</h2>
+					</div>
+					<div class="row">
+						<div class="column">
+							<h4>{{localize "SHEET.DISCIPLINES"}}</h4>
+							<ul class="item-list">
+								{{#each advantages.disciplines as |discipline key|}}
+								<li class="radio-input"> 
+									{{> systems/foundryvtt-vtm-20th/templates/item-input.html value=discipline.value label=discipline.name id=../actor._id key=discipline._id prefix="data.advantages.disciplines" min=0 max=5 type="advantage"}}
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+<!-- 						<div class="column">
+							<h4>{{localize "SHEET.BACKGROUNDS"}}</h4>
+							<ul>
+								{{#each data.advantages.backgrounds as |background key|}}
+								<li class="radio-input">
+									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=background.label id=../actor._id key=key prefix="data.advantages.background" min=0 max=5 type="background"}}                           </li>
+								{{/each}}
+							</ul>
+						</div>
+						<div class="column">
+							<h4>{{localize "SHEET.VIRTUES"}}</h4>
+							<ul>
+								{{#each data.advantages.virtues as |virtue key|}}
+								<li class="radio-input">
+									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=virtue.label id=../actor._id key=key prefix="data.advantages.virtues" min=0 max=5 type="virtue"}}                           </li>
+								</li>
+								{{/each}}
+							</ul>
+						</div> -->
+					</div>
+
 					<div class="difficulty-dialog">
 						<div>
 							<h2>
@@ -160,51 +197,14 @@
 							</p>
 						</div>
 					</div>
-
-					<!-- ADVANTAGES ARE NOT READY YET AND VERY LIKELY TO CHANGE IN NEAR FUTURE
-
-							<div class="sheet-header-big">
-								<h2>{{localize "SHEET.ADVANTAGES"}}</h2>
-							</div>
-							<div class="row">
-								<div class="column">
-									<h4>{{localize "SHEET.DISCIPLINES"}}</h4>
-									<ul>
-										{{#each data.advantages.disciplines as |discipline key|}}
-										<li class="radio-input">
-											{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=discipline.value label=discipline.label id=../actor._id key=key prefix="data.advantages.disciplines" min=0 max=5 type="discipline"}}
-										</li>
-										{{/each}}
-									</ul>
-								</div>
-								<div class="column">
-									<h4>{{localize "SHEET.BACKGROUNDS"}}</h4>
-									<ul>
-										{{#each data.advantages.backgrounds as |background key|}}
-										<li class="radio-input">
-											{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=background.label id=../actor._id key=key prefix="data.advantages.background" min=0 max=5 type="background"}}                           </li>
-										{{/each}}
-									</ul>
-								</div>
-								<div class="column">
-									<h4>{{localize "SHEET.VIRTUES"}}</h4>
-									<ul>
-										{{#each data.advantages.virtues as |virtue key|}}
-										<li class="radio-input">
-											{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=virtue.label id=../actor._id key=key prefix="data.advantages.virtues" min=0 max=5 type="virtue"}}                           </li>
-										</li>
-										{{/each}}
-									</ul>
-								</div>
-							</div>
-
-					-->
 				</div>
 			</div>
 
 			<div class="tab items" data-group="primary" data-tab="items">
 				<ul>
-					<li class="radio-input">Stuff</li>
+					{{#each items as |item key|}}
+						{{item.name}}
+					{{/each}}
 				</ul>
 			</div>
 

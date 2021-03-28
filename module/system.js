@@ -9,9 +9,11 @@ import { systemHandle }from "./utils.js";
 // Import Modules
 import { VampireActor } from "./character.js";
 import { VampireDicePoolSheet } from "./items/dice-pool-sheet.js";
-import { VampireAdvantageSheet } from "./items/advantage-sheet.js";
 import { DicePoolItem } from "./items/dice-pool-item.js";
+import { VampireAdvantageSheet } from "./items/advantage-sheet.js";
 import { AdvantageItem } from "./items/advantage-item.js";
+import { VampireAbilitySheet } from "./items/ability-sheet.js";
+import { AbilityItem } from "./items/ability-item.js";
 import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
@@ -25,6 +27,7 @@ Hooks.once("init", async function() {
     VampireActor,
     DicePoolItem,
     AdvantageItem,
+    AbilityItem,
     rollItemMacro
   }
 	/**
@@ -45,6 +48,7 @@ Hooks.once("init", async function() {
   //Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(systemHandle, VampireDicePoolSheet, { });
   Items.registerSheet(systemHandle, VampireAdvantageSheet, { });
+  Items.registerSheet(systemHandle, VampireAbilitySheet, { });
 
   // Register system settings
   game.settings.register(systemHandle, "macroShorthand", {
@@ -58,6 +62,7 @@ Hooks.once("init", async function() {
   // Pre-load templates
   loadTemplates([
     "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
+    "systems/foundryvtt-vtm-20th/templates/item-input.html",
     "systems/foundryvtt-vtm-20th/templates/chat/select.html",
     "systems/foundryvtt-vtm-20th/templates/chat/roll.html",
   ]);
@@ -119,9 +124,27 @@ Hooks.once("init", async function() {
   });
 });
 
+
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createBoilerplateMacro(data, slot));
+
+
+  Hooks.on('dropActorSheetData', (actor, sheet, data) => {
+    console.log("drop actor sheet data");
+    console.log({actor});
+    console.log({sheet});
+    console.log({data});
+    let allow = true;
+    for (const item of actor.items.entries) {
+      if (item.data.flags.core.sourceId.includes(data.id)) {
+        allow = false;
+      }
+      console.log(item)
+    }
+    return allow;
+  });
+
 });
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */

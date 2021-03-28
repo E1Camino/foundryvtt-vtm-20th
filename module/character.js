@@ -23,7 +23,7 @@ export class VampireActor extends Actor {
     const attributeList = [];
     const { attributes } = super.getRollData();
     for (let [groupKey, group] of Object.entries(attributes)) {
-      for (let [key, attribute] of Object.entries(group)) {
+      for (let [_key, attribute] of Object.entries(group)) {
         const attr = attribute;
         attr.attribut_type = groupKey;
         attr.
@@ -50,8 +50,8 @@ export class VampireActor extends Actor {
   getAllAbilities() {
     const abilityList = [];
     const { abilities } = super.getRollData();
-    for (let [groupKey, group] of Object.entries(abilities)) {
-      for (let [key, ability] of Object.entries(group)) {
+    for (let [_groupKey, group] of Object.entries(abilities)) {
+      for (let [_key, ability] of Object.entries(group)) {
         abilityList.push(ability);
       }
     }

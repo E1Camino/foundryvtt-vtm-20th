@@ -19,7 +19,14 @@ export class VampireActorSheet extends ActorSheet {
           initial: "attributes",
         },
       ],
-      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
+      dragDrop: [{
+        dragSelector: ".item-list .item",
+        dropSelector: null,
+        permissions: {
+          dragstart: ()=> {console.log("drag start")},
+          drop: ()=> {console.log("drop start")},
+        }
+      }],
       rollDifficulty: 6,
       rollStatus: 0,
       selectedAttribute: null,
@@ -65,9 +72,42 @@ export class VampireActorSheet extends ActorSheet {
     if (ability) {
       data.selectedAbilityLabel = game.i18n.localize(ability.label);
     }
+
+    this._prepareCharacterData(data);
     
     console.log(data);
     return data;
+  }
+
+  _prepareCharacterData(sheetData) {
+    const { items, actor } = sheetData;
+
+    const disciplines = [];
+    const virtues = [];
+    const backgrounds = [];
+
+    // iterate through items, allocating containers
+    for (let i of items) {
+      i.img = i.img || DEFAULT_TOKEN;
+      const { _id, type } = i;
+      console.log(i);
+      if (type === 'discipline') {
+        const data = actor.data.advantages.disciplines[_id] || { type: "Number", value: 0 }
+        disciplines.push({ ...i, ...data });
+      }
+      if (type === 'virtue') {
+        virtues.push(i);
+      }
+      if (type === 'background') {
+        backgrounds.push(i);
+      }
+    }
+
+    sheetData.advantages = {
+      disciplines,
+      virtues,
+      backgrounds
+    };
   }
 
   /* -------------------------------------------- */
@@ -78,6 +118,11 @@ export class VampireActorSheet extends ActorSheet {
   }
   /* -------------------------------------------- */
 
+/** @override */
+  _handleDropData(event, data) {
+    console.log(data);
+    super._handleDropData(event, data)
+  }
       
   /** @override */
   _getHeaderButtons() {
@@ -138,20 +183,10 @@ export class VampireActorSheet extends ActorSheet {
     // });
 
     // // Delete Inventory Item
-    // html.find(".item-delete").click((ev) => {
-    //   const li = $(ev.currentTarget).parents(".item");
-    //   this.actor.deleteOwnedItem(li.data("itemId"));
-    //   li.slideUp(200, () => this.render(false));
-    // });
-
-    // // Add or Remove Attribute
-    // html
-    //   .find(".attributes")
-    //   .on(
-    //     "click",
-    //     ".attribute-control",
-    //     this._onClickAttributeControl.bind(this)
-    //   );
+    html.find(".item-delete-button").click((ev) => {
+      const id = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      this.actor.deleteOwnedItem(id);
+    });
 
     // Skill Tests (right click to open skill sheet)
     html.find('.attribute-roll-button').mouseup(ev => {

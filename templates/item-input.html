@@ -1,0 +1,21 @@
+<label for="input-{{id}}-{{key}}" class="item {{#iff selected "==" key}}selected{{/iff}}" data-item-key="{{key}}">
+    <button class="{{type}}-roll-button"><i class="fa fa-dice-d20"></i></button>
+    <span class="{{type}}-value">
+        <span class="{{type}}-label">
+            {{label}}
+        </span>
+        <span class="input-min-{{min}}">
+            {{#times (calc max "-" min)}}
+                {{#iff (calc @index "+" ../min) "==" ../value}}
+                    <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number" checked="checked">
+                    <span></span>
+                {{/iff}}
+                {{#iff (calc @index "+" ../min) "!=" ../value}}
+                    <input name="{{../prefix}}.{{../key}}.value" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number">
+                    <span></span>
+                {{/iff}}
+            {{/times}}
+        </span>
+    </span>
+    <button class="item-delete-button"><i class="fa fa-trash"></i></button>
+</label>

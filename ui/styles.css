@@ -321,6 +321,8 @@
 }
 
 .vtm20.sheet .attribute-roll-button,
+.vtm20.sheet .advantage-roll-button,
+.vtm20.sheet .item-delete-button,
 .vtm20.sheet .ability-roll-button {
   background: transparent;
   border: none;
@@ -335,6 +337,7 @@
 }
 
 .vtm20.sheet .attribute-roll-button:hover,
+.vtm20.sheet .advantage-roll-button:hover,
 .vtm20.sheet .ability-roll-button:hover {
   color: #333;
 }
@@ -356,8 +359,15 @@
   cursor: unset;
   pointer-events: all;
 }
+.vtm20.sheet .helper--enable-editMode .item-delete-button {
+  opacity: 1;
+}
+
 
 .vtm20.sheet .attribute-label,
+.vtm20.sheet .roll-status-1 .advantage-label,
+.vtm20.sheet .roll-status-2 .advantage-label,
+.vtm20.sheet .selectable .advantage-label,
 .vtm20.sheet .roll-status-1 .ability-label,
 .vtm20.sheet .roll-status-2 .ability-label,
 .vtm20.sheet .selectable .ability-label {
@@ -371,10 +381,12 @@
 }
 
 .vtm20.sheet .selected .attribute-label,
+.vtm20.sheet .selected .advantage-label,
 .vtm20.sheet .selected .ability-label {
   text-shadow: 0 0 4px #e22c00;
 }
 .vtm20.sheet .helper--enable-editModed .selected .attribute-label,
+.vtm20.sheet .helper--enable-editModed .selected .advantage-label,
 .vtm20.sheet .helper--enable-editModed .selected .ability-label {
   text-shadow: none;
 }
