@@ -20,39 +20,39 @@
 							</label>
 							<label>
 								<h3>{{localize "CHAR.PLAYER"}}:</h3>
-								<input name="data.player" type="text" value="{{data.player}}" placeholder="{{localize 'CHAR.PLAYER'}}"/>
+								<input name="data.player" type="text" value="{{data.data.player}}" placeholder="{{localize 'CHAR.PLAYER'}}"/>
 							</label>
 							<label>
 								<h3>{{localize "CHAR.CHRONICLE"}}:</h3>
-								<input name="data.chronicle" type="text" value="{{data.chronicle}}" placeholder="{{localize 'CHAR.CHRONICLE'}}"/>
+								<input name="data.chronicle" type="text" value="{{data.data.chronicle}}" placeholder="{{localize 'CHAR.CHRONICLE'}}"/>
 							</label>
 						</div>
 						<div class="primary-column">
 							<label>
 								<h3>{{localize "CHAR.NATURE"}}:</h3>
-								<input name="data.nature" type="text" value="{{data.nature}}" placeholder="{{localize 'CHAR.NATURE'}}"/>
+								<input name="data.nature" type="text" value="{{data.data.nature}}" placeholder="{{localize 'CHAR.NATURE'}}"/>
 							</label>
 							<label>
 								<h3>{{localize "CHAR.DEMEANOR"}}:</h3>
-								<input name="data.demeanor" type="text" value="{{data.demeanor}}" placeholder="{{localize 'CHAR.DEMEANOR'}}"/>
+								<input name="data.demeanor" type="text" value="{{data.data.demeanor}}" placeholder="{{localize 'CHAR.DEMEANOR'}}"/>
 							</label>
 							<label>
 								<h3>{{localize "CHAR.CONCEPT"}}:</h3>
-								<input name="data.concept" type="text" value="{{data.concept}}" placeholder="{{localize 'CHAR.CONCEPT'}}"/>
+								<input name="data.concept" type="text" value="{{data.data.concept}}" placeholder="{{localize 'CHAR.CONCEPT'}}"/>
 							</label>
 						</div>
 						<div class="primary-column">
 							<label>
 								<h3>{{localize "CHAR.CLAN"}}:</h3>
-								<input name="data.clan" type="text" value="{{data.clan}}" placeholder="{{localize 'CHAR.CLAN'}}"/>
+								<input name="data.clan" type="text" value="{{data.data.clan}}" placeholder="{{localize 'CHAR.CLAN'}}"/>
 							</label>
 							<label>
 								<h3>{{localize "CHAR.GENERATION"}}:</h3>
-								<input name="data.generation" type="text" value="{{data.generation}}" placeholder="{{localize 'CHAR.GENERATION'}}"/>
+								<input name="data.generation" type="text" value="{{data.data.generation}}" placeholder="{{localize 'CHAR.GENERATION'}}"/>
 							</label>
 							<label>
 								<h3>{{localize "CHAR.SIRE"}}:</h3>
-								<input name="data.sire" type="text" value="{{data.sire}}" placeholder="{{localize 'CHAR.SIRE'}}"/>
+								<input name="data.sire" type="text" value="{{data.data.sire}}" placeholder="{{localize 'CHAR.SIRE'}}"/>
 							</label>
 						</div>
 					</div>
@@ -60,8 +60,11 @@
 					<div class="sheet-header-big">
 						<h2>Biography</h2>
 					</div>
+					<div class="sheet-biography">
+						{{{data.data.biography}}}
+					</div>
 					<div style="flex: 1; width: 100%">
-						{{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+						{{editor content=data.data.biography target="data.biography" button=true owner=owner editable=editable}}
 					</div>
 				</div>
 			</div>
@@ -76,30 +79,30 @@
 						<div class="column">
 							<h4>{{localize "SHEET.PHYSICAL"}}</h4>
 							<ul>
-								{{#each data.attributes.physical as |attribute key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.physical" min=0 max=5 selected=../options.selectedAttribute type="attribute"}}
-								</li>
+								{{#each data.physical as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 						<div class="column">
 							<h4>{{localize "SHEET.SOCIAL"}}</h4>
 							<ul>
-								{{#each data.attributes.social as |attribute key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.social" min=0 max=5 selected=../options.selectedAttribute type="attribute"}}
-								</li>
+								{{#each data.social as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 						<div class="column">
 							<h4>{{localize "SHEET.MENTAL"}}</h4>
 							<ul>
-								{{#each data.attributes.mental as |attribute key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=attribute.value key=key label=attribute.label id=../actor._id key=key prefix="data.attributes.mental" min=0 max=5 selected=../options.selectedAttribute type="attribute"}}
-								</li>
+								{{#each data.mental as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
@@ -112,36 +115,34 @@
 						<div class="column">
 							<h4>{{localize "SHEET.TALENTS"}}</h4>
 							<ul>
-								{{#each data.abilities.talents as |ability key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.talents" min=0 max=5 type="ability"}}
-								</li>
+								{{#each data.talent as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 						<div class="column">
 							<h4>{{localize "SHEET.SKILLS"}}</h4>
 							<ul>
-								{{#each data.abilities.skills as |ability key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.skills" min=0 max=5 type="ability"}}
-								</li>
+								{{#each data.skill as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 						<div class="column">
 							<h4>{{localize "SHEET.KNOWLEDGES"}}</h4>
 							<ul>
-								{{#each data.abilities.knowledges as |ability key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=ability.value key=key label=ability.label id=../actor._id key=key prefix="data.abilities.knowledges" min=0 max=5 type="ability"}}
-								</li>
+								{{#each data.knowledge as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 					</div>
-
-
 
 					<div class="sheet-header-big">
 						<h2>{{localize "SHEET.ADVANTAGES"}}</h2>
@@ -150,32 +151,33 @@
 						<div class="column">
 							<h4>{{localize "SHEET.DISCIPLINES"}}</h4>
 							<ul class="item-list">
-								{{#each advantages.disciplines as |discipline key|}}
-								<li class="radio-input"> 
-									{{> systems/foundryvtt-vtm-20th/templates/item-input.html value=discipline.value label=discipline.name id=../actor._id key=discipline._id prefix="data.advantages.disciplines" min=0 max=5 type="advantage"}}
-								</li>
+								{{#each data.discipline as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
-<!-- 						<div class="column">
+						<div class="column">
 							<h4>{{localize "SHEET.BACKGROUNDS"}}</h4>
-							<ul>
-								{{#each data.advantages.backgrounds as |background key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=background.label id=../actor._id key=key prefix="data.advantages.background" min=0 max=5 type="background"}}                           </li>
+							<ul class="item-list">
+								{{#each data.background as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+									</li>
 								{{/each}}
 							</ul>
 						</div>
 						<div class="column">
 							<h4>{{localize "SHEET.VIRTUES"}}</h4>
-							<ul>
-								{{#each data.advantages.virtues as |virtue key|}}
-								<li class="radio-input">
-									{{> systems/foundryvtt-vtm-20th/templates/attribute-input.html value=background.value label=virtue.label id=../actor._id key=key prefix="data.advantages.virtues" min=0 max=5 type="virtue"}}                           </li>
-								</li>
+							<ul class="item-list">
+								{{#each data.virtue as |item key|}}
+									<li class="radio-input"> 
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+									</li>
 								{{/each}}
 							</ul>
-						</div> -->
+						</div>
 					</div>
 
 					<div class="difficulty-dialog">
@@ -199,15 +201,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="tab items" data-group="primary" data-tab="items">
-				<ul>
-					{{#each items as |item key|}}
-						{{item.name}}
-					{{/each}}
-				</ul>
-			</div>
-
 		</section>
 	</div>
 

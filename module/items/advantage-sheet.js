@@ -18,7 +18,7 @@ export class VampireAdvantageSheet extends ItemSheet {
     /** @override */
     get template() {
       const path = `systems/${systemName}/templates/items`;
-      const template = `${path}/item-${this.item.data.type}-sheet.html`;
+      const template = `${path}/item-advantage-sheet.html`;
       return template;
     }
   

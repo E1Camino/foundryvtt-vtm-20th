@@ -3,7 +3,10 @@ import { systemHandle, systemName } from "../utils.js";
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class VampireAbilitySheet extends ItemSheet {
+
+const attributeTypes = Object.freeze({ 'physical': 1, 'social': 2, 'mental': 3 });
+
+export class VampireAttributeSheet extends ItemSheet {
 
     /** @override */
     static get defaultOptions() {
@@ -11,14 +14,26 @@ export class VampireAbilitySheet extends ItemSheet {
         classes: [systemHandle, "sheet", "item"],
         width: 520,
         height: 480,
-//        tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+        data: {
+          description: "",
+          tooltip: "",
+          scale: {
+            0: "",
+            1: "",
+            2: "",
+            3: "",
+            4: "",
+            5: ""
+          },
+          type: attributeTypes.physical
+        }
       });
     }
   
     /** @override */
     get template() {
       const path = `systems/${systemName}/templates/items`;
-      const template = `${path}/item-ability-sheet.html`;
+      const template = `${path}/item-attribute-sheet.html`;
       return template;
     }
   
@@ -27,7 +42,6 @@ export class VampireAbilitySheet extends ItemSheet {
     /** @override */
     getData() {
       const data = super.getData();
-      const actorData = this.actor ? this.actor.data : {};
       return data;
     }
   

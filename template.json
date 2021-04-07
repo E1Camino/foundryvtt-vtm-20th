@@ -5,257 +5,86 @@
       "name": "",
       "player": "",
       "chronicle": "",
-      "nature": "",
+      "nature": {},
       "demeanor": "",
       "concept": "",
-      "clan": "",
+      "clan": {},
       "generation": "",
       "sire": "",
-      "biography": "",
-      "attributes": {
-        "physical": {
-          "strength": {
-            "type": "Number",
-            "label": "CHAR.STRENGTH",
-            "value": 1
-          },
-          "dexterity": {
-            "type": "Number",
-            "label": "CHAR.DEXTERITY",
-            "value": 1
-          },
-          "stamina": {
-            "type": "Number",
-            "label": "CHAR.STAMINA",
-            "value": 1
-          }
-        },
-        "social": {    
-          "charisma": {
-            "type": "Number",
-            "label": "CHAR.CHARISMA",
-            "value": 1
-          },
-          "manipuation": {
-            "type": "Number",
-            "label": "CHAR.MANIPULATION",
-            "value": 1
-          },
-          "appearance": {
-            "type": "Number",
-            "label": "CHAR.APPEARANCE",
-            "value": 1
-          }
-        },
-        "mental": {
-          "intelligence": {
-            "type": "Number",
-            "label": "CHAR.INTELLIGENCE",
-            "value": 1
-          },
-          "perception": {
-            "type": "Number",
-            "label": "CHAR.PERCEPTION",
-            "value": 1
-          },
-          "wits": {
-            "type": "Number",
-            "label": "CHAR.WITS",
-            "value": 1
-          }
-        }
-      },
-      "abilities": {
-        "talents": {
-          "alertness": {
-            "type": "Number",
-            "label": "TALENTS.ALTERTNESS",
-            "value": 0
-          },
-          "athletics": {
-            "type": "Number",
-            "label": "TALENTS.ATHLETICS",
-            "value": 0
-          },
-          "awareness": {
-            "type": "Number",
-            "label": "TALENTS.AWARENESS",
-            "value": 0
-          },
-          "brawl": {
-            "type": "Number",
-            "label": "TALENTS.BRAWL",
-            "value": 0
-          },
-          "empathy": {
-            "type": "Number",
-            "label": "TALENTS.EMPATHY",
-            "value": 0
-          },
-          "expression": {
-            "type": "Number",
-            "label": "TALENTS.EXPRESSION",
-            "value": 0
-          },
-          "intimidation": {
-            "type": "Number",
-            "label": "TALENTS.INTIMIDATION",
-            "value": 0
-          },
-          "leadership": {
-            "type": "Number",
-            "label": "TALENTS.LEADERSHIP",
-            "value": 0
-          },
-          "streetwise": {
-            "type": "Number",
-            "label": "TALENTS.STREETWISE",
-            "value": 0
-          },
-          "subterfuge": {
-            "type": "Number",
-            "label": "TALENTS.SUBTERFUGE",
-            "value": 0
-          }
-        },
-        "skills": {
-          "animal_ken": {
-            "type": "Number",
-            "label": "SKILLS.ANIMALKEN",
-            "value": 0
-          },
-          "crafts": {
-            "type": "Number",
-            "label": "SKILLS.CRAFT",
-            "value": 0
-          },
-          "drive": {
-            "type": "Number",
-            "label": "SKILLS.DRIVE",
-            "value": 0
-          },
-          "etiquette": {
-            "type": "Number",
-            "label": "SKILLS.ETIQUETTE",
-            "value": 0
-          },
-          "firearms": {
-            "type": "Number",
-            "label": "SKILLS.FIREARMS",
-            "value": 0
-          },
-          "larceny": {
-            "type": "Number",
-            "label": "SKILLS.LARCENY",
-            "value": 0
-          },
-          "melee": {
-            "type": "Number",
-            "label": "SKILLS.MELEE",
-            "value": 0
-          },
-          "performance": {
-            "type": "Number",
-            "label": "SKILLS.PERFORMANCE",
-            "value": 0
-          },
-          "stealth": {
-            "type": "Number",
-            "label": "SKILLS.STEALTH",
-            "value": 0
-          },
-          "survival": {
-            "type": "Number",
-            "label": "SKILLS.SURVIVAL",
-            "value": 0
-          }
-        },
-        "knowledges": {
-          "academics": {
-            "type": "Number",
-            "label": "KNOWLEDGE.ACADEMICS",
-            "value": 0
-          },
-          "computer": {
-            "type": "Number",
-            "label": "KNOWLEDGE.COMPUTER",
-            "value": 0
-          },
-          "finance": {
-            "type": "Number",
-            "label": "KNOWLEDGE.FINANCE",
-            "value": 0
-          },
-          "investigation": {
-            "type": "Number",
-            "label": "KNOWLEDGE.INVESTIGATION",
-            "value": 0
-          },
-          "law": {
-            "type": "Number",
-            "label": "KNOWLEDGE.LAW",
-            "value": 0
-          },
-          "medicine": {
-            "type": "Number",
-            "label": "KNOWLEDGE.MEDICINE",
-            "value": 0
-          },
-          "occult": {
-            "type": "Number",
-            "label": "KNOWLEDGE.OCCULT",
-            "value": 0
-          },
-          "politics": {
-            "type": "Number",
-            "label": "KNOWLEDGE.POLITICS",
-            "value": 0
-          },
-          "science": {
-            "type": "Number",
-            "label": "KNOWLEDGE.SCIENCE",
-            "value": 0
-          },
-          "technology": {
-            "type": "Number",
-            "label": "KNOWLEDGE.TECHNOLOGY",
-            "value": 0
-          }
-        }
-      },
-      "advantages": {
-        "disciplines": {},
-        "backgrounds": {},
-        "virtues": {}
-      }
+      "blood": "",
+      "bloodPerRound": "",
+      "health": "",
+      "xp": "",
+      "humanity": "",
+      "willpower": "",
+      "values": {}
     }
   },
   "Item": {
-    "types": ["macro", "discipline", "background", "virtue", "ability", "clan"],
+    "types": [
+      "clan",
+      "nature",
+      "physical",
+      "social",
+      "mental",
+      "talent",
+      "skill",
+      "knowledge",
+      "discipline",
+      "virtue",
+      "background",
+      "merit_flaw",
+      "macro"
+    ],
     "templates": {
       "base": {
         "description": "",
-        "tooltip": ""
+        "tooltip": "",
+        "scale": ["-", "1", "2", "3", "4", "5"]
       },
       "macroProps": {
-        "attribute": "strength",
-        "ability": "athletics"
+        "attribute": "",
+        "ability": ""
       }
     },
-    "macro": {
-      "templates": ["base", "macroProps"]
-    },
-    "discipline": {
+    "clan": {
       "templates": ["base"]
     },
-    "background": {
+    "nature": {
+      "templates": ["base"]
+    },
+    "physical": {
+      "templates": ["base"]
+    },
+    "social": {
+      "templates": ["base"]
+    },
+    "mental": {
+      "templates": ["base"]
+    },
+    "talent": {
+      "templates": ["base"]
+    },
+    "skill": {
+      "templates": ["base"]
+    },
+    "knowledge": {
+      "templates": ["base"]
+    },
+    "discipline": {
       "templates": ["base"]
     },
     "virtue": {
       "templates": ["base"]
     },
-    "clan": {
+    "background": {
       "templates": ["base"]
+    },
+    "merit_flaw": {
+      "templates": ["base"]
+    },
+    "macro": {
+      "templates": ["base", "macroProps"]
     }
   }
 }
