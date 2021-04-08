@@ -8,8 +8,14 @@ import { systemHandle }from "./utils.js";
 
 // Import Modules
 import { VampireActor } from "./character.js";
-import { VampireItemSheet } from "./items/item-sheet.js";
-import { VampireItem } from "./items/item.js";
+import { VampireDicePoolSheet } from "./items/dice-pool-sheet.js";
+import { DicePoolItem } from "./items/dice-pool-item.js";
+import { VampireAdvantageSheet } from "./items/advantage-sheet.js";
+import { AdvantageItem } from "./items/advantage-item.js";
+import { VampireAbilitySheet } from "./items/ability-sheet.js";
+import { AbilityItem } from "./items/ability-item.js";
+import { VampireAttributeSheet } from "./items/attribute-sheet.js";
+import { AttributeItem } from "./items/attribute-item.js";
 import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
@@ -21,7 +27,10 @@ Hooks.once("init", async function() {
 
   game[systemHandle] = {
     VampireActor,
-    VampireItem,
+    DicePoolItem,
+    AdvantageItem,
+    AbilityItem,
+    AttributeItem,
     rollItemMacro
   }
 	/**
@@ -39,8 +48,11 @@ Hooks.once("init", async function() {
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet(systemHandle, VampireItemSheet, { makeDefault: true });
+  //Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet(systemHandle, VampireDicePoolSheet, { });
+  Items.registerSheet(systemHandle, VampireAdvantageSheet, { });
+  Items.registerSheet(systemHandle, VampireAbilitySheet, { });
+  Items.registerSheet(systemHandle, VampireAttributeSheet, { });
 
   // Register system settings
   game.settings.register(systemHandle, "macroShorthand", {
@@ -54,6 +66,7 @@ Hooks.once("init", async function() {
   // Pre-load templates
   loadTemplates([
     "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
+    "systems/foundryvtt-vtm-20th/templates/item-input.html",
     "systems/foundryvtt-vtm-20th/templates/chat/select.html",
     "systems/foundryvtt-vtm-20th/templates/chat/roll.html",
   ]);
@@ -115,9 +128,50 @@ Hooks.once("init", async function() {
   });
 });
 
+
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createBoilerplateMacro(data, slot));
+  Hooks.on("hotbarDrop", (_bar, data, slot) => createBoilerplateMacro(data, slot));
+
+  // Restrict, which items can be dropped on a character sheet and update actor data
+  Hooks.on('dropActorSheetData', (actor, _sheet, data) => {
+    console.log("drop actor sheet data");
+    const { id } = data;
+    const { items } = actor;
+    const newItem = game.items.get(id)
+    const allowedTypes = [
+      "clan",
+      "nature",
+      "physical",
+      "social",
+      "mental",
+      "talent",
+      "skill",
+      "knowledge",
+      "discipline",
+      "virtue",
+      "background",
+      "merit_flaw"
+    ];
+    let allow = true;
+    for (const item of items) {
+      // already owns the item
+      if (item.data.flags.core.sourceId.includes(id)) {
+        allow = false;
+      } else if (!allowedTypes.includes(newItem.type)) {
+        allow = false;
+      }
+    }
+
+    // update character data properly if we actually add something that has to reflect on the actor
+    if (allow) {
+      const update = {};
+      update[`${newItem.type}.${id}`] = { value: 1 };
+      actor.update(update);
+    }
+    return allow;
+  });
+
 });
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */

@@ -10,14 +10,14 @@ let templateData = {
 
 // GM rolls.
 let chatData = {
-  user: game.user._id,
+  user: game.user.id,
   speaker: ChatMessage.getSpeaker({ actor: this.actor })
 };
 
 // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.
 let rollMode = game.settings.get("core", "rollMode");
 if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
 if (rollMode === "blindroll") chatData["blind"] = true;
 
 // Do the roll.

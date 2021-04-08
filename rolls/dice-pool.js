@@ -63,7 +63,7 @@ class DicePoolVTM20 {
     // Render the roll for the results button that Foundry provides.
     let rollMode = game.settings.get("core", "rollMode") || "roll";
     const chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor }),
       content: `<p>${message}</p>`,
       rollMode: rollMode,
@@ -92,7 +92,7 @@ class DicePoolVTM20 {
     // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.
     if (["gmroll", "blindroll"].includes(rollMode))
       chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     roll.render().then((r) => {

@@ -19,7 +19,14 @@ export class VampireActorSheet extends ActorSheet {
           initial: "attributes",
         },
       ],
-      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
+      dragDrop: [{
+        dragSelector: ".item-list .item",
+        dropSelector: null,
+        permissions: {
+          dragstart: ()=> {console.log("drag start")},
+          drop: ()=> {console.log("drop start")},
+        }
+      }],
       rollDifficulty: 6,
       rollStatus: 0,
       selectedAttribute: null,
@@ -37,22 +44,7 @@ export class VampireActorSheet extends ActorSheet {
     // for (let attr of Object.values(data.data.attributes)) {
     //   attr.isCheckbox = attr.dtype === "Boolean";
     // }
-    const advantages = { ...data.data.advantages };
-    const { selectedAbility, selectedAttribute, rollDifficulty } = this.options;
-
-    const filterActivated = (obj) => {
-      const newObject = {}
-      for (const key in obj) {
-        if (obj[key].activated) {
-          newObject[key] = obj[key];
-        }
-      }
-      return newObject;
-    }
-    advantages.disciplines = filterActivated(advantages.disciplines);
-    advantages.background = filterActivated(advantages.backround);
-
-    data.data.advantages = advantages;
+    const { selectedAbility, selectedAttribute } = this.options;
 
     // get localized strings of selected attribute and ability (if set)
     const attribute = this.actor.getAttribute(selectedAttribute);
@@ -65,9 +57,36 @@ export class VampireActorSheet extends ActorSheet {
     if (ability) {
       data.selectedAbilityLabel = game.i18n.localize(ability.label);
     }
+
+    this._prepareCharacterData(data);
     
     console.log(data);
     return data;
+  }
+
+  _prepareCharacterData(sheetData) {
+    const { actor, items } = sheetData;
+    console.log(actor);
+    sheetData.data.discipline = {};
+    sheetData.data.virtue = {};
+    sheetData.data.background = {};
+    sheetData.data.skill = {};
+    sheetData.data.talent = {};
+    sheetData.data.knowledge = {};
+    sheetData.data.physical = {};
+    sheetData.data.social = {};
+    sheetData.data.mental = {};
+    sheetData.data.clan = {};
+    sheetData.data.nature = {};
+
+    // iterate through items, allocating containers
+    for (const [id, item] of items.entries()) {
+      const { _id, type, flags: { core: { sourceId } } } = item;
+      const oid = sourceId.split(".").pop();
+      const { description, tooltip } = game.items.get(oid).data;
+      const value = actor.data.data.values[_id] || 1;
+      sheetData.data[type][_id] = { ...item, description, tooltip,  value };
+    }
   }
 
   /* -------------------------------------------- */
@@ -78,6 +97,11 @@ export class VampireActorSheet extends ActorSheet {
   }
   /* -------------------------------------------- */
 
+/** @override */
+  _handleDropData(event, data) {
+    console.log(data);
+    super._handleDropData(event, data)
+  }
       
   /** @override */
   _getHeaderButtons() {
@@ -125,6 +149,8 @@ export class VampireActorSheet extends ActorSheet {
     super.activateListeners(html);
     html.find('.item').find('input[type="radio"]').change(event => {
       console.log(event);
+      const d = this._get
+      console.log(this._getSubmitData())
       this._onSubmit(event);
     });
     // // Everything below here is only needed if the sheet is editable
@@ -138,20 +164,11 @@ export class VampireActorSheet extends ActorSheet {
     // });
 
     // // Delete Inventory Item
-    // html.find(".item-delete").click((ev) => {
-    //   const li = $(ev.currentTarget).parents(".item");
-    //   this.actor.deleteOwnedItem(li.data("itemId"));
-    //   li.slideUp(200, () => this.render(false));
-    // });
-
-    // // Add or Remove Attribute
-    // html
-    //   .find(".attributes")
-    //   .on(
-    //     "click",
-    //     ".attribute-control",
-    //     this._onClickAttributeControl.bind(this)
-    //   );
+    html.find(".item-delete-button").click((ev) => {
+      const id = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      console.log(id);
+      this.actor.deleteOwnedItem(id);
+    });
 
     // Skill Tests (right click to open skill sheet)
     html.find('.attribute-roll-button').mouseup(ev => {
@@ -321,34 +338,34 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   _updateObject(event, formData) {
     // // Handle the free-form attributes list
-    const formAttrs = expandObject(formData).data.attributes || {};
-    // const attributes = Object.values(formAttrs).reduce((obj, v) => {
-    //   let k = v["key"].trim();
-    //   if (/[\s\.]/.test(k))
-    //     return ui.notifications.error(
-    //       "Attribute keys may not contain spaces or periods"
-    //     );
-    //   delete v["key"];
-    //   obj[k] = v;
-    //   return obj;
-    // }, {});
+/*     const formAttrs = expandObject(formData).data.advantages || {};
+    const attributes = Object.values(formAttrs).reduce((obj, v) => {
+      let k = v["key"].trim();
+      if (/[\s\.]/.test(k))
+        return ui.notifications.error(
+          "Attribute keys may not contain spaces or periods"
+        );
+      delete v["key"];
+      obj[k] = v;
+      return obj;
+    }, {});
 
     // Remove attributes which are no longer used
-    for (let k of Object.keys(this.object.data.data.attributes)) {
+    for (let k of Object.keys(this.object.data.data.advantages)) {
       if (!formAttrs.hasOwnProperty(k)) formAttrs[`-=${k}`] = null;
     }
 
     // Re-combine formData
     formData = Object.entries(formData)
-      .filter((e) => !e[0].startsWith("data.attributes"))
+      .filter((e) => !e[0].startsWith("data.advantages"))
       .reduce(
         (obj, e) => {
           obj[e[0]] = e[1];
           return obj;
         },
-        { _id: this.object._id, "data.attributes": formAttrs }
+        { id: this.object.id, "data.advantages": formAttrs }
       );
-
+ */
     // Update the Actor
     return this.object.update(formData);
   }
