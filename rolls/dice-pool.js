@@ -28,12 +28,11 @@ class DicePoolVTM20 {
    
     const modifier = 0;
 
-    const nan = { value: 0 };
-    const attributeDice = actor.getAttribute(attribute) || nan;
-    const abilityDice = actor.getAbility(ability) || nan;
+    const attributeDice = actor.data.data.values[attribute] || 0;
+    const abilityDice = actor.data.data.values[ability] || 0;
     const diceCount = onlyAttribute ?
-      parseInt(attributeDice.value) + modifier :
-      parseInt(attributeDice.value) + parseInt(abilityDice.value) + modifier;
+      parseInt(attributeDice) + modifier :
+      parseInt(attributeDice) + parseInt(abilityDice) + modifier;
 
     const formula = `${diceCount}d10`;
     const roll = new Roll(formula).roll();

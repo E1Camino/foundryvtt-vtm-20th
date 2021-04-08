@@ -47,13 +47,13 @@ export class VampireActorSheet extends ActorSheet {
     const { selectedAbility, selectedAttribute } = this.options;
 
     // get localized strings of selected attribute and ability (if set)
-    const attribute = this.actor.getAttribute(selectedAttribute);
+    const attribute = Object.values(data.items).find(i => i._id === selectedAttribute)
     if (attribute) {
       data.selectedAttribute = selectedAttribute;
       data.selectedAttributeLabel = game.i18n.localize(attribute.label);
     }
 
-    const ability = this.actor.getAbility(selectedAbility);
+    const ability = Object.values(data.items).find(i => i._id === selectedAbility)
     if (ability) {
       data.selectedAbilityLabel = game.i18n.localize(ability.label);
     }
@@ -247,8 +247,8 @@ export class VampireActorSheet extends ActorSheet {
     html.find('#btn-roll-save').click(() => {
       const attributeKey = this.getSelectedAttribute();
       const abilityKey = this.getSelectedAbility();
-      const attribute = this.actor.getAttribute(attributeKey);
-      const ability = this.actor.getAbility(abilityKey);
+      const attribute = Object.values(data.items).find(i => i._id === attributeKey)
+      const ability = Object.values(data.items).find(i => i._id === abilityKey)
       
       const name = `${game.i18n.localize(attribute.label)} & ${game.i18n.localize(ability.label)}`;
       let item = game.items.entities.find(e => e.name === name);
