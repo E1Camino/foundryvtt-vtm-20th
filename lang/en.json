@@ -144,6 +144,7 @@
     "DEGREES.GETBOTCH": "rolls a <b>complete botch</b>!",
     "DEGREES.BOTCH": "botch",
     "DEGREES.SUCCESS": "success",
+    "DEGREES.SUCCESSES": "successes",
 
     "Vampire": "Vampire"
 }

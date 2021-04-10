@@ -10,12 +10,8 @@ import { systemHandle }from "./utils.js";
 import { VampireActor } from "./character.js";
 import { VampireDicePoolSheet } from "./items/dice-pool-sheet.js";
 import { DicePoolItem } from "./items/dice-pool-item.js";
-import { VampireAdvantageSheet } from "./items/advantage-sheet.js";
-import { AdvantageItem } from "./items/advantage-item.js";
-import { VampireAbilitySheet } from "./items/ability-sheet.js";
-import { AbilityItem } from "./items/ability-item.js";
-import { VampireAttributeSheet } from "./items/attribute-sheet.js";
-import { AttributeItem } from "./items/attribute-item.js";
+import { VampireAbilitySheet } from "./items/rollable-item-sheet.js";
+import { RollableItem } from "./items/rollable-item.js";
 import { VampireActorSheet } from "./character-sheet.js";
 
 /* -------------------------------------------- */
@@ -28,9 +24,7 @@ Hooks.once("init", async function() {
   game[systemHandle] = {
     VampireActor,
     DicePoolItem,
-    AdvantageItem,
-    AbilityItem,
-    AttributeItem,
+    RollableItem,
     rollItemMacro
   }
 	/**
@@ -50,9 +44,7 @@ Hooks.once("init", async function() {
   Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
   //Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(systemHandle, VampireDicePoolSheet, { });
-  Items.registerSheet(systemHandle, VampireAdvantageSheet, { });
   Items.registerSheet(systemHandle, VampireAbilitySheet, { });
-  Items.registerSheet(systemHandle, VampireAttributeSheet, { });
 
   // Register system settings
   game.settings.register(systemHandle, "macroShorthand", {
@@ -65,7 +57,6 @@ Hooks.once("init", async function() {
   });
   // Pre-load templates
   loadTemplates([
-    "systems/foundryvtt-vtm-20th/templates/attribute-input.html",
     "systems/foundryvtt-vtm-20th/templates/item-input.html",
     "systems/foundryvtt-vtm-20th/templates/chat/select.html",
     "systems/foundryvtt-vtm-20th/templates/chat/roll.html",
@@ -173,6 +164,19 @@ Hooks.once("ready", async function() {
   });
 
 });
+
+
+
+/* -------------------------------------------- */
+/*  Chat Events                                 */
+/* -------------------------------------------- */
+// Activate chat listeners defined in rolls/dice-pool.js
+Hooks.on('renderChatLog', (log, html, data) => {
+  console.log("rendered chat log");
+  DicePoolVTM20.chatListeners(html)
+});
+
+
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -222,12 +226,13 @@ function rollItemMacro(itemName) {
   if (!actor) actor = game.actors.get(speaker.actor);
   const sameName = (i => i.name === itemName);
   const item = game.items.entities.find(sameName);
-
+  const items = []; // TODO get the saved items, and their current values from the actor
   DicePoolVTM20.prepareTest({
     actor,
     title: item.data.name,
-    attribute: item.data.data.attribute,
-    ability: item.data.data.ability
+    items,
+    // attribute: item.data.data.attribute,
+    // ability: item.data.data.ability
   });
 
   // Trigger the item roll

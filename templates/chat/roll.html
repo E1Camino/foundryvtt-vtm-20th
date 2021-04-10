@@ -1,39 +1,82 @@
 <section class="dw-chat-card">
+  <div class="hidden-data" data-creator-id={{user}}></div>
   <div class="cell cell--chat">
-    <h2 class="cell__title">{{title}}</h2>
     <div class="row"><em>{{difficultyMessage}}</em></div>
     <div class="row"><em>{{{message}}}</em></div>
-    <div class="roll">
-      <div class="dice-roll">
-        <div class="dice-result">
-          <div class="dice-formula">{{result}}</div>
-          <div class="dice-tooltip">
-            <section class="tooltip-part">
-              <div class="dice">
-                <p class="part-formula">
-                  <span class="part-total">{{degrees}}/{{rolls.length}}
-                    {{#iff poolConfig "!=" ""}}
-                      ({{poolConfig}})
+
+    <div class="roll-header">
+      <h2 class="cell__title">{{title}}</h2>
+    </div>
+    <!-- TODO: add data field "roll-type" to chat template -->
+    <div class="roll-type should-update-on-click synchronize-radio-state">
+      <input type='radio' name='rollMode' id="{{message.id}}_r1" value='common' />
+      <label for="{{message.id}}_r1">common</label>
+      <input type='radio' name='rollMode' id="{{message.id}}_r2" value='attack' />
+      <label for="{{message.id}}_r2">attack</label>
+    </div>
+    <button class="should-update-on-click roll-button" data-button='setCommonMode' title="clicking this button will do nothing">SetCommonMode</button>
+
+    <div class="common-options">
+      more stuff    
+      <div class="additional-settings">
+        additional common stuff
+      </div>
+    </div>
+    <div class="attack-options ">
+      common-options stuff for attack dice-rolls
+      <div class="additional-settings">
+        additional common stuff
+      </div>
+    </div>
+
+    <div class="before-actions should-update-on-click">
+      <button>Roll</button><!-- Symbol: Dice (maybe with text "ROLL!") -->
+      <button>Retarget</button><!-- Symbol: Aiming reticule -->
+      
+      <input type="checkbox" checked = "true"><label for="r1">test</label>
+      <label class="switch additional-settings">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+      <button title="show additional settings for this roll">AdditionalSettings</button><!-- Symbol: Gear -->
+    </div>
+
+    <div class="results">
+      <div class="roll">
+        <div class="dice-roll">
+          <div class="dice-result">
+            <div class="dice-formula">
+              <ol class="dice-rolls">
+                {{#each rolls}}
+                  {{#iff this.result "==" 1}}
+                    <li class="roll die d10 min">{{this.result}}</li>
+                  {{/iff}}
+                  {{#iff this.result ">=" ../difficulty}}
+                  <li class="roll die d10 max">{{this.result}}</li>
+                  {{/iff}}
+                  {{#iff this.result ">" 1}}
+                    {{#iff this.result "<" ../difficulty}}
+                      <li class="roll die d10">{{this.result}}</li>
                     {{/iff}}
-                  </span>
-                </p>
-                <ol class="dice-rolls">
-                  {{#each rolls}}
-                    {{#iff this.result "==" 1}}
-                      <li class="roll die d10 min">{{this.result}}</li>
-                    {{/iff}}
-                    {{#iff this.result ">=" ../difficulty}}
-                     <li class="roll die d10 max">{{this.result}}</li>
-                    {{/iff}}
-                    {{#iff this.result ">" 1}}
-                      {{#iff this.result "<" ../difficulty}}
-                        <li class="roll die d10">{{this.result}}</li>
+                  {{/iff}}
+                {{/each}}
+              </ol>
+              x
+            </div>
+            <div class="dice-tooltip">
+              <section class="tooltip-part">
+                <div class="dice">
+                  <p class="part-formula">
+                    <span class="part-total">{{degrees}}/{{rolls.length}}
+                      {{#iff poolConfig "!=" ""}}
+                        ({{poolConfig}})
                       {{/iff}}
-                    {{/iff}}
-                  {{/each}}
-                </ol>
-              </div>
-            </section>
+                    </span>
+                  </p>
+                  {{result}}
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </div>

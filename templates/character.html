@@ -68,9 +68,8 @@
 				</div>
 			</div>
 
-			<div class="tab attributes roll-status-{{options.rollStatus}}" data-group="primary" data-tab="attributes">
+			<div class="tab attributes" data-group="primary" data-tab="attributes">
 				<div class="primary">
-
 					<div class="sheet-header-big">
 						<h2>{{localize "SHEET.ATTRIBUTES"}}</h2>
 					</div>
@@ -80,7 +79,7 @@
 							<ul>
 								{{#each data.physical as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -90,7 +89,7 @@
 							<ul>
 								{{#each data.social as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -100,7 +99,7 @@
 							<ul>
 								{{#each data.mental as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="attribute"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -116,7 +115,7 @@
 							<ul>
 								{{#each data.talent as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -126,7 +125,7 @@
 							<ul>
 								{{#each data.skill as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -136,7 +135,7 @@
 							<ul>
 								{{#each data.knowledge as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="ability"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -152,7 +151,7 @@
 							<ul class="item-list">
 								{{#each data.discipline as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -162,7 +161,7 @@
 							<ul class="item-list">
 								{{#each data.background as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -172,30 +171,10 @@
 							<ul class="item-list">
 								{{#each data.virtue as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5 class="advantage"}}
+										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
-						</div>
-					</div>
-
-					<div class="difficulty-dialog">
-						<div>
-							<h2>
-								{{localize selectedAttributeLabel}}
-								&amp;
-								{{localize selectedAbilityLabel}}
-							</h2>
-							<p>{{localize "DIFFICULTY.CHOOSE"}}</p>
-							<div id="input-roll-difficulty">
-								<input type="range" step="1" min="2" max="10" value="{{options.rollDifficulty}}">
-								<h2>{{options.rollDifficulty}}</h2>
-							</div>
-							<p class="row">
-								<button id="btn-roll-submit"><i class="fa fa-dice-d20"></i> {{localize "DIFFICULTY.ROLL"}}</button>
-								<button id="btn-roll-save"><i class="fa fa-save"></i> {{localize "DIFFICULTY.SAVE"}}</button>
-								<button id="btn-roll-cancel"><i class="fa fa-times"></i> {{localize "DIFFICULTY.CANCEL"}}</button>
-							</p>
 						</div>
 					</div>
 				</div>

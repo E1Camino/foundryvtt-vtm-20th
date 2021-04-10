@@ -144,6 +144,7 @@
     "DEGREES.GETBOTCH": "legt einen <b>sauberen Patzer</b> hin",
     "DEGREES.BOTCH": "sauberer Patzer",
     "DEGREES.SUCCESS": "Erfolg",
+    "DEGREES.SUCCESSES": "Erfolge",
 
     "Vampire": "Vampir"
 }
