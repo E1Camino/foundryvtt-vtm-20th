@@ -1,44 +1,71 @@
 <section class="dw-chat-card">
-  <div class="hidden-data" data-creator-id={{user}}></div>
   <div class="cell cell--chat">
+    <h2>{{title}}</h2>
+    <div class="hidden-data" data-creator-id={{user}} data-initialized="false" data-rolled="false"></div>
     <div class="row"><em>{{difficultyMessage}}</em></div>
     <div class="row"><em>{{{message}}}</em></div>
 
     <div class="roll-header">
       <h2 class="cell__title">{{title}}</h2>
     </div>
-    <!-- TODO: add data field "roll-type" to chat template -->
-    <div class="roll-type should-update-on-click synchronize-radio-state">
-      <input type='radio' name='rollMode' id="{{message.id}}_r1" value='common' />
-      <label for="{{message.id}}_r1">common</label>
-      <input type='radio' name='rollMode' id="{{message.id}}_r2" value='attack' />
-      <label for="{{message.id}}_r2">attack</label>
+    <div class="roll-mode should-update-on-change synchronize-radio-state additional-settings">
+      <input class="radio" type='radio' name='rollMode' id="r1" value='common' checked="checked"/>
+      <label for="r1">common</label>
+      <input class="radio" type='radio' name='rollMode' id="r2" value='attack' />
+      <label for="r2">attack</label>
+      <input class="radio" type='radio' name='rollMode' id="r3" value='versus' />
+      <label for="r3">versus</label>
     </div>
-    <button class="should-update-on-click roll-button" data-button='setCommonMode' title="clicking this button will do nothing">SetCommonMode</button>
 
     <div class="common-options">
-      more stuff    
-      <div class="additional-settings">
-        additional common stuff
+      <div>
+        <div class="input-roll-difficulty synchronize-range">
+          <span>Difficulty</span>
+          <input class="range-bar" type="range" step="1" min="0" max="10" value="1" name="difficulty">
+          <p class="range-value roll-difficulty">20</p>
+        </div>
+        <div class="input-dice-modifier synchronize-range">
+          <span>Dice modifier</span>
+          <input class="range-bar" type="range" step="1" min="-5" max="5" value="0" name="dicemodifier">
+          <p class="range-value dice-modifier">20</p>
+        </div>
       </div>
     </div>
-    <div class="attack-options ">
-      common-options stuff for attack dice-rolls
+
+    <div class="attack-options">
+      <h3>Attack options</h3>
       <div class="additional-settings">
         additional common stuff
       </div>
     </div>
 
-    <div class="before-actions should-update-on-click">
-      <button>Roll</button><!-- Symbol: Dice (maybe with text "ROLL!") -->
-      <button>Retarget</button><!-- Symbol: Aiming reticule -->
+    <div class="versus-options">
+      <h3>Versus options</h3>
+      <p>missing</p>
+      <div class="additional-settings">
+        additional common stuff
+      </div>
+    </div>
+
+    <div class="before-actions" style="display: flex;">
+      <button class="should-update-on-click" title="Roll">
+        <i class="fas fa-dice-d20"></i>
+      </button>
+      <div class="additional-settings">
+        <button class="should-update-on-click">
+          <i class="fas fa-crosshairs"></i>
+        </button>
+      </div>
       
-      <input type="checkbox" checked = "true"><label for="r1">test</label>
-      <label class="switch additional-settings">
+      <input class="should-update-on-change synchronize-checkbox-state" type="checkbox" checked = "true"><label for="r1">test</label>
+
+      <label class="switch should-update-on-change synchronize-switch-state additional-settings-switch">
         <input type="checkbox">
         <span class="slider"></span>
       </label>
-      <button title="show additional settings for this roll">AdditionalSettings</button><!-- Symbol: Gear -->
+      <button title="show additional settings for this roll">
+        <i class="fas fa-cogs"></i>
+      </button>
     </div>
 
     <div class="results">

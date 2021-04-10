@@ -1,3 +1,89 @@
+
+  // updates message for all players to your current content.
+  // subElement: JQuery Element required. Needs to be child of the message (e.g. a button or any div)
+
+function initializeMessage(html, messageId) {
+
+  const radioTargets = $(html).find('.radio');
+
+  for (const radio of radioTargets.toArray()) {
+    const radioTarget = $(radio);
+    const targetLabel = radioTarget.parent().find(`label[for=${radioTarget.attr("id")}]`);
+    const newRadioId = `${messageId}_${radioTarget.attr("id")}`;
+    radioTarget.attr("id", newRadioId);
+    targetLabel.attr("for", newRadioId);
+    const newRadioName = `${messageId}_${radioTarget.attr("name")}`;
+    radioTarget.attr("name", newRadioName);
+  }
+
+  const target = $(html).find(".input-dice-modifier .range-bar");
+  target.attr("value", "0");
+  const target2 = $(html).find(".input-dice-modifier .range-value");
+  target2.text("0");
+
+  // difficulty range
+  const target3 = $(html).find(".input-roll-difficulty .range-bar");
+  target3.attr("value", "11");
+  const target4 = $(html).find(".input-roll-difficulty .range-value");
+  target4.text("6");
+
+  // toggle parts
+  const attack = html.find(".attack-options");
+  attack.hide();
+  const versus = html.find(".versus-options");
+  versus.hide();
+
+
+}
+
+Hooks.on('renderChatMessage', (message, messageParent, data) => {
+  console.log("render chat message")
+
+  const hiddenDataNode = $(messageParent).find(".hidden-data");
+  const initialized = hiddenDataNode.attr("data-initialized");
+  
+  if (initialized !== "true") {
+    initializeMessage(messageParent, message.data._id);
+    
+    hiddenDataNode.attr("data-initialized", true);
+//    const newData = { ...message.data, initialized: true };
+    //setTimeout(() => ChatMessage.update([{ _id: message.data._id, initialized: true }]), 0);
+  }
+  // difficulty range
+
+  const target = $(messageParent).find(".input-dice-modifier");
+  const rangeLabel = target.find("p");
+  const rangeInput = target.find("input");
+  rangeInput.attr("min", "0");
+  rangeInput.attr("max", "10");
+  // fix value because min was reset to 0 during templating and possible negative values
+  const value = parseInt(rangeLabel.text()) + 5;
+  rangeInput.attr("value", value);
+
+  
+  const target2 = $(messageParent).find(".input-roll-difficulty");
+  const rangeLabel2 = target2.find("p");
+  const rangeInput2 = target2.find("input");
+  rangeInput2.attr("min", "5");
+  rangeInput2.attr("max", "15");
+  // fix value because min was reset to 0 during templating and possible negative values
+  const value2 = parseInt(rangeLabel2.text()) + 5;
+  rangeInput2.attr("value", value2);
+
+  const rolled = hiddenDataNode.attr("data-rolled");
+  if (rolled !== "true") {
+    const results = $(messageParent).find(".results");
+    results.hide();
+  }
+
+  const show = hiddenDataNode.attr("data-show-additional");
+  const additionalOptions = $(messageParent).find(".additional-settings");
+  show === "true" ? additionalOptions.show() : additionalOptions.hide();
+
+  return messageParent;
+
+});
+
 /**
  * This class is the center for generating dice pools either by manually combining
  * attributes and abilities, by reusing already rolled tests or by creating a macro out
@@ -38,96 +124,113 @@ class DicePoolVTM20 {
     return { ...defaultData, ...customData };
   }
 
+
   /**
    * Activate event listeners using the chat log html.
    * @param html {HTML}  Chat log html
    */
   static async chatListeners(html) {
-    // test button in 
-    // Respond to character generation button clicks
-    html.on("click", ".roll-button", event => {
-      event.preventDefault();
-      // data-button tells us what button was clicked
-      const button = $(event.currentTarget);
-      /*
-      <div class="common-options">
-      <div class="additional-settings">
-      </div>
-    </div>
-    <div class="attack-options ">
-      <div class="additional-settings">
-      </div>
-    </div>
 
-    <div class="before-actions">
-      <button>Roll</button><!-- Symbol: Dice (maybe with text "ROLL!") -->
-      <button>Retarget</button><!-- Symbol: Aiming reticule -->
-      <button title="show additional settings for this roll">AdditionalSettings</button><!-- Symbol: Gear -->
-    </div>   
-    */
-      //const itemClickedKey = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      const chatMessage = button.parents(".chat-message");
+    // toggle parts of the message dependend on the chosen roll mode ("common" || "attack" || "targeted")
+    html.on("change", ".roll-mode input", event => {
+      const target = $(event.currentTarget);
+      const mode = target.attr("value");
+      console.log(mode);
+
+      const chatMessage = target.parents(".chat-message");
       const dataNode = chatMessage.find(".hidden-data");
       const creatorID = dataNode.attr("data-creator-id");
       // dont allow changes if not owner
       //if (creatorID !== game.user.id) return; // TODO de-commentify
       
-      const commonOptions = chatMessage.find(".common-options");
-      const attackOptions = chatMessage.find(".attack-options");
-      const additionalOptions = attackOptions.find(".additional-settings");
-      const messageId = chatMessage.attr("data-message-id");
-      const oldMessage = game.messages.get(messageId);
-      
-      switch (button.attr("data-button")) {
-        case "setCommonMode":
-          commonOptions.show();
-          attackOptions.hide();
-        break;
-        case "setAttackMode":
-          commonOptions.show();
-          attackOptions.show();
-        break;
-        case "showHideAdditional":
-          commonOptions.show();
-          attackOptions.show();
-        break;
-        case "setAttackMode":
-          commonOptions.show();
-          attackOptions.show();
-        break;
-        case "setAttackMode":
-          commonOptions.show();
-          attackOptions.show();
-        break;
-      }
+      const common = chatMessage.find(".common-options");
+      const attack = chatMessage.find(".attack-options");
+      const versus = chatMessage.find(".versus-options");
 
+      switch (mode) {
+        case "common":
+          common.show();
+          attack.hide();
+          versus.hide();
+          break;
+        case "attack":
+          common.show();
+          attack.show();
+          versus.hide();
+          break;
+        case "versus":
+          common.show();
+          attack.hide();
+          versus.show();
+          break;
+        default:
+          break;
+      }
     });
+    html.on("click", ".additional-settings-switch", event => {
+      const target = $(event.currentTarget);
+      const message = target.parents(".chat-message");
+      const value = target.find("input")[0].checked;
+      const dataNode = message.find(".hidden-data");
+      dataNode.attr("data-show-additional", value);
+      
+    })
+
+
+    // general update methods
     
     html.on("change", ".synchronize-radio-state input", event => {
-      let target = $(event.currentTarget);
-      console.log(target);
-      target.attr("checked");
-      console.log(target.attr("checked"));
+      const target = $(event.currentTarget);
       target.siblings().each(function () {
-        const sibling = $(this);
-        sibling.removeAttr("checked"); // setter
-        console.log(sibling.attr("checked"));
+        $(this).removeAttr("checked");
       });
-      target.attr("checked", "checked"); // setter
+      target.attr("checked", "checked");
+    });
+    
+    // default checkbox data synchronization
+    html.on("change", ".synchronize-checkbox-state", event => {
+      const value = event.currentTarget.checked;
+      const target = $(event.currentTarget);
+      target.attr("checked", value); // setter
+    });
+    // custom switch data synchronization
+    html.on("change", ".synchronize-switch-state", event => {
+      const target = $(event.currentTarget).find("input:checkbox");
+      const value = target[0].checked;
+      target.attr("checked", value);
+    });
+
+
+
+    html.on("input", ".synchronize-range", event => {
+      const target = $(event.currentTarget);
+      const rangeLabel = target.find("p");
+      const rangeInput = target.find("input");
+      const value = rangeInput[0].value - 5;
+      rangeInput.attr("value", value);
+      rangeLabel.text(value);
+    });
+    html.on("change", ".synchronize-range", event => {
+      setTimeout(() => this.updateMessage($(event.currentTarget)), 0);
     });
 
     html.on("click", ".should-update-on-click", event => {
-      setTimeout(() => this.updateMessage($(event.currentTarget)), 500) ;
+      setTimeout(() => this.updateMessage($(event.currentTarget)), 0);
+    });
+    html.on("change", ".should-update-on-change", event => {
+      setTimeout(() => this.updateMessage($(event.currentTarget)), 0);
     });
   }
 
-  // updates message for all players to your current content.
-  // requires one element from the message as origin (e.g. a button or any div)
+
   static updateMessage(subElement) {
-    const messageId = subElement.parents(".chat-message").attr("data-message-id");
-    const content = subElement.parents(".message-content")[0].outerHTML;
+    console.warn("updateMessage");
+    const messageMainElement = subElement.parents(".chat-message");
+    const messageId = messageMainElement.attr("data-message-id");
+    const content = messageMainElement.find(".message-content").children()[0].outerHTML;
     const oldMessage = game.messages.get(messageId);
     oldMessage.update({ content });
+    return messageMainElement;
   }
 
   static renderTest(testData = {}) {
@@ -160,6 +263,7 @@ class DicePoolVTM20 {
     // const poolConfig = onlyAttribute ? attributeLabel : `${attributeLabel} & ${abilityLabel}`
     const templateData = chatData;
     templateData.rolls = roll.dice[0].results;
+    console.log(roll);
     
     // Handle roll visibility. Blind doesn't work, you'll need a render hook to hide it.
     if (["gmroll", "blindroll"].includes(rollMode))
@@ -168,12 +272,13 @@ class DicePoolVTM20 {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     roll.render().then((r) => {
-      console.log(r);
+      console.log(roll);
       chatData.roll = JSON.stringify(r);
 
       //const templateData = this.getRenderData({ rolls: roll.dice[0].results });
 
       // Render our roll chat card
+      templateData.messageID = randomID(32);
       renderTemplate(template, templateData).then(content => {
         chatData.content = content;
         // Hook into Dice So Nice!
@@ -181,18 +286,20 @@ class DicePoolVTM20 {
           game.dice3d
             .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
             .then((displayed) => {
-              ChatMessage.create(chatData);
+              ChatMessage.create(chatData).then((message));
             });
         }
         // Roll normally, add a dice sound.
         else {
-          chatData.sound = CONFIG.sounds.dice;
-          ChatMessage.create(chatData);
+          //chatData.sound = CONFIG.sounds.dice;
+          ChatMessage.create(chatData).then((message));
         }
+
       });
     });
   }
 
+  // take prepared dice and roll them
   static rollTest(testData = {}) {
     const {
       items = [],
@@ -234,7 +341,8 @@ class DicePoolVTM20 {
     this.renderTest({ ...testData, message, result, degrees, roll });
   }
 
-  static prepareTest(testData = {}) {
+
+  static prepareTest(testData = { title: "let roll some dice"}) {
     console.log({testData})
     DicePoolVTM20.rollTest(testData);
   }

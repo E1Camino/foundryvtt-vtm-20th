@@ -403,8 +403,8 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .1s;
+  transition: .1s;
 }
 
 .slider:before {
@@ -415,8 +415,8 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .1s;
+  transition: .1s;
 }
 
 input:checked + .slider {
@@ -441,3 +441,22 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 } 
+
+
+
+
+
+/**
+* RANGE INPUT
+*/
+
+.synchronize-range {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.synchronize-range > *{
+  margin: 6px;
+  min-width: 22%;
+}
