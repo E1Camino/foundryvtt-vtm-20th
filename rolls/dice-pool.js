@@ -192,7 +192,15 @@ class DicePoolVTM20 {
     // prepare dice formula, roll the dice and show the result
     html.on("click", ".roll-dice-button", event => {
       const target = $(event.currentTarget);
+      const chatMessage = target.parents(".chat-message");
+      const hiddenData = chatMessage.find(".hidden-data");
+      const alreadyRolled = hiddenData.attr("data-rolled");
+    
       console.log("roll them dice");
+      if (alreadyRolled == "true"){
+        console.log("denied! already rolled demn dice!");
+        return;
+      }
       // read rolldata from html
       const rollData = getRollDataFromHtml(target);
       this.rollTest(rollData, target);
@@ -207,14 +215,20 @@ class DicePoolVTM20 {
       const dataNode = chatMessage.find(".hidden-data");
       
       if (alreadyRolled == "true"){
-        
-      if (alreadyRolled == "true")
+        // if already rolled, always show additional options
+        dataNode.attr("data-show-additional", true);
+      } else {
+        dataNode.attr("data-show-additional", value);
       }
-      dataNode.attr("data-show-additional", value);
-
-      
-      const settingsHider = chatMessage.find(".all-roll-settings");
-      settingsHider.hide();
+      // setting hider functionality after roll
+      if (alreadyRolled == "true"){
+        const settingsHider = chatMessage.find(".all-roll-settings");
+        if (value){
+          settingsHider.show();
+        } else {
+          settingsHider.hide();
+        }
+      }
     });
 
     // general update methods
@@ -358,16 +372,19 @@ class DicePoolVTM20 {
 
     const chatMessage = subElement.parents(".chat-message");
     const resultSection = chatMessage.find(".results");
-    console.log(resultSection);
-    const onRollReady = (templateData = { rolls: []}) => {
+    // avoid more than one roll
+    const hiddenData = chatMessage.find(".hidden-data");
+    hiddenData.attr("data-rolled", "true");
+
+    //prepare roll finish function
+    const onRollReady = templateData => {
+      console.log(templateData);
       renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll-result.html', templateData).then(content => {
         console.log(content);
         resultSection.append($.parseHTML(content));
         resultSection.show();
         const settingsHider = chatMessage.find(".all-roll-settings");
         settingsHider.hide();
-        const hiddenData = chatMessage.find(".hidden-data");
-        hiddenData.attr("data-rolled", "true");
         setTimeout(() => this.updateMessage($(resultSection)), 0);
       });
     }
