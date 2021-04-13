@@ -148,10 +148,16 @@ export class VampireActorSheet extends ActorSheet {
       const itemClicked = this.getItem(itemClickedKey);
 
       const itemSelected = this.getSelectedItem();
-      
-      DicePoolVTM20.prepareTest({
-        actor: this.actor,
-        items: [itemClicked, itemSelected].filter(i => i !== null)
+
+      // get relevant "last Roll" settings
+      const { actionType = "common" } = this.getRollSettings();
+      DicePoolVTM20.createRollMessage({
+        actorId: this.actor.data._id,
+        items: [itemClicked, itemSelected].filter(i => i !== null),
+        actionType,
+        onRollCallback: (rollSettings) => {
+          this.setRollSettings(rollSettings);f
+        },
       });
       this.unselectItems();
       this.render();
@@ -168,6 +174,13 @@ export class VampireActorSheet extends ActorSheet {
       }
       this.render();
     });
+  }
+
+  setRollSettings(settings) {
+    this.options.lastRollSettings = settings;
+  }
+  getRollSettings() {
+    return this.options.lastRollSettings || {};
   }
 
   /* -------------------------------------------- */

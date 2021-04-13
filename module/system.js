@@ -227,7 +227,7 @@ function rollItemMacro(itemName) {
   const sameName = (i => i.name === itemName);
   const item = game.items.entities.find(sameName);
   const items = []; // TODO get the saved items, and their current values from the actor
-  DicePoolVTM20.prepareTest({
+  DicePoolVTM20.createRollMessage({
     actor,
     title: item.data.name,
     items,

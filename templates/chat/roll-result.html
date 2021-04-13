@@ -1,0 +1,38 @@
+<div class="roll">
+    <div class="dice-roll">
+      <div class="dice-result">
+        <div class="dice-formula">
+          <ol class="dice-rolls">
+            {{#each dice}}
+              {{#iff this "==" 1}}
+                <li class="roll die d10 min">{{this}}</li>
+              {{/iff}}
+              {{#iff this ">=" ../difficulty}}
+              <li class="roll die d10 max">{{this}}</li>
+              {{/iff}}
+              {{#iff this ">" 1}}
+                {{#iff this "<" ../difficulty}}
+                  <li class="roll die d10">{{this}}</li>
+                {{/iff}}
+              {{/iff}}
+            {{/each}}
+          </ol>
+          x
+        </div>
+        <div class="dice-tooltip">
+          <section class="tooltip-part">
+            <div class="dice">
+              <p class="part-formula">
+                <span class="part-total">{{degrees}}/{{rolls.length}}
+                  {{#iff poolConfig "!=" ""}}
+                    ({{poolConfig}})
+                  {{/iff}}
+                </span>
+              </p>
+              {{result}}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>

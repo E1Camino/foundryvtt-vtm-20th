@@ -460,3 +460,42 @@ input:checked + .slider:before {
   margin: 6px;
   min-width: 22%;
 }
+
+
+/**
+* ADDITIONAL SETTINGS SWITCH
+*/
+.additional-settings-switch .slider i{
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .1s;
+  transition: .1s;
+}
+.additional-settings-switch .slider::before {
+  background-color: transparent;
+}
+
+.additional-settings-switch .slider,
+.additional-settings-switch input:checked + .slider {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+
+.header-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header-row > * {
+  margin: 0 10px;
+}
+
+.additional-settings-switch {
+  align-self: flex-end;
+}

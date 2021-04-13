@@ -1,112 +1,76 @@
 <section class="dw-chat-card">
-  <div class="cell cell--chat">
+  <div class="cell cell-chat">
     <h2>{{title}}</h2>
-    <div class="hidden-data" data-creator-id={{user}} data-initialized="false" data-rolled="false"></div>
-    <div class="row"><em>{{difficultyMessage}}</em></div>
-    <div class="row"><em>{{{message}}}</em></div>
-
-    <div class="roll-header">
-      <h2 class="cell__title">{{title}}</h2>
+    <div class="hidden-data" data-creator-id="{{user}}" data-actor-id="{{actorId}}" data-initialized="false" data-rolled="false"></div>
+    <div class="row header-row">
+      {{#each items as |item itemKey|}}
+        <span class="attribute-dice-pool" data-item-value={{item.value}} data-item-id={{item._id}}>{{item.name}}</span>
+      {{/each}}
+      <label class="switch should-update-on-change synchronize-switch-state additional-settings-switch">
+        <i class="fas fa-cogs"></i>
+        <input type="checkbox">
+        <span class="slider">
+        </span>
+      </label>
     </div>
-    <div class="roll-mode should-update-on-change synchronize-radio-state additional-settings">
-      <input class="radio" type='radio' name='rollMode' id="r1" value='common' checked="checked"/>
-      <label for="r1">common</label>
-      <input class="radio" type='radio' name='rollMode' id="r2" value='attack' />
-      <label for="r2">attack</label>
-      <input class="radio" type='radio' name='rollMode' id="r3" value='versus' />
-      <label for="r3">versus</label>
-    </div>
+    
+    <div class="all-roll-settings">
 
-    <div class="common-options">
-      <div>
-        <div class="input-roll-difficulty synchronize-range">
-          <span>Difficulty</span>
-          <input class="range-bar" type="range" step="1" min="0" max="10" value="1" name="difficulty">
-          <p class="range-value roll-difficulty">20</p>
-        </div>
-        <div class="input-dice-modifier synchronize-range">
-          <span>Dice modifier</span>
-          <input class="range-bar" type="range" step="1" min="-5" max="5" value="0" name="dicemodifier">
-          <p class="range-value dice-modifier">20</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="attack-options">
-      <h3>Attack options</h3>
-      <div class="additional-settings">
-        additional common stuff
-      </div>
-    </div>
-
-    <div class="versus-options">
-      <h3>Versus options</h3>
-      <p>missing</p>
-      <div class="additional-settings">
-        additional common stuff
-      </div>
-    </div>
-
-    <div class="before-actions" style="display: flex;">
-      <button class="should-update-on-click" title="Roll">
-        <i class="fas fa-dice-d20"></i>
-      </button>
-      <div class="additional-settings">
-        <button class="should-update-on-click">
-          <i class="fas fa-crosshairs"></i>
-        </button>
+      <div class="roll-mode should-update-on-change synchronize-radio-state additional-settings">
+        <input class="radio" type='radio' name='rollMode' id="r1" value='common' {{#iff actionType "==" "common"}}checked="checked"{{/iff}} />
+        <label for="r1">common</label>
+        <input class="radio" type='radio' name='rollMode' id="r2" value='attack' {{#iff actionType "==" "attack"}}checked="checked"{{/iff}} />
+        <label for="r2">attack</label>
+        <input class="radio" type='radio' name='rollMode' id="r3" value='versus' {{#iff actionType "==" "versus"}}checked="checked"{{/iff}} />
+        <label for="r3">versus</label>
       </div>
       
-      <input class="should-update-on-change synchronize-checkbox-state" type="checkbox" checked = "true"><label for="r1">test</label>
-
-      <label class="switch should-update-on-change synchronize-switch-state additional-settings-switch">
-        <input type="checkbox">
-        <span class="slider"></span>
-      </label>
-      <button title="show additional settings for this roll">
-        <i class="fas fa-cogs"></i>
-      </button>
-    </div>
-
-    <div class="results">
-      <div class="roll">
-        <div class="dice-roll">
-          <div class="dice-result">
-            <div class="dice-formula">
-              <ol class="dice-rolls">
-                {{#each rolls}}
-                  {{#iff this.result "==" 1}}
-                    <li class="roll die d10 min">{{this.result}}</li>
-                  {{/iff}}
-                  {{#iff this.result ">=" ../difficulty}}
-                  <li class="roll die d10 max">{{this.result}}</li>
-                  {{/iff}}
-                  {{#iff this.result ">" 1}}
-                    {{#iff this.result "<" ../difficulty}}
-                      <li class="roll die d10">{{this.result}}</li>
-                    {{/iff}}
-                  {{/iff}}
-                {{/each}}
-              </ol>
-              x
-            </div>
-            <div class="dice-tooltip">
-              <section class="tooltip-part">
-                <div class="dice">
-                  <p class="part-formula">
-                    <span class="part-total">{{degrees}}/{{rolls.length}}
-                      {{#iff poolConfig "!=" ""}}
-                        ({{poolConfig}})
-                      {{/iff}}
-                    </span>
-                  </p>
-                  {{result}}
-                </div>
-              </section>
-            </div>
+      <div class="common-options">
+        <div>
+          <div class="input-roll-difficulty synchronize-range">
+            <span>Difficulty</span>
+            <input class="range-bar" type="range" step="1" min="0" max="10" value="1" name="difficulty">
+            <p class="range-value roll-difficulty">20</p>
+          </div>
+          <div class="input-dice-modifier synchronize-range">
+            <span>Dice modifier</span>
+            <input class="range-bar" type="range" step="1" min="-5" max="5" value="0" name="dicemodifier">
+            <p class="range-value dice-modifier">20</p>
           </div>
         </div>
       </div>
+      
+      <div class="attack-options">
+        <h3>Attack options</h3>
+        <div class="additional-settings">
+          additional common stuff
+        </div>
+      </div>
+      
+      <div class="versus-options">
+        <h3>Versus options</h3>
+        <p>missing</p>
+        <div class="additional-settings">
+          additional common stuff
+        </div>
+      </div>
+      
+      <div class="row dice-count"><em>Anzahl Würfel: <span class="dice-count-value">{{diceNumber}}</span></em></div>
+      <div class="actions" style="display: flex;">
+        <button class="roll-dice-button" title="Roll">
+          <i class="fas fa-dice-d20"></i>
+        </button>
+        <div class="additional-settings">
+          <button class="should-update-on-click">
+            <i class="fas fa-crosshairs"></i>
+          </button>
+        </div>      
+      </div>
+
+  </div> <!-- end of all-roll-settings span -->
+
+    <div class="results">
+        <!-- put roll results here -->
     </div>
   </div>
 </section>
