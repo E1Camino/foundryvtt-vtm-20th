@@ -43,8 +43,7 @@
         "scale": ["-", "1", "2", "3", "4", "5"]
       },
       "macroProps": {
-        "attribute": "",
-        "ability": ""
+        "items": []
       }
     },
     "clan": {

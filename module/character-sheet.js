@@ -28,9 +28,7 @@ export class VampireActorSheet extends ActorSheet {
         }
       }],
       rollDifficulty: 6,
-      rollStatus: 0,
-      selectedAttribute: null,
-      selectedAbility: null,
+      selectedItem: null,
       editMode: false,
     });
   }
@@ -40,22 +38,9 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    // data.dtypes = ["String", "Number", "Boolean"];
-    // for (let attr of Object.values(data.data.attributes)) {
-    //   attr.isCheckbox = attr.dtype === "Boolean";
-    // }
-    const { selectedAbility, selectedAttribute } = this.options;
-
-    // get localized strings of selected attribute and ability (if set)
-    const attribute = Object.values(data.items).find(i => i._id === selectedAttribute)
-    if (attribute) {
-      data.selectedAttribute = selectedAttribute;
-      data.selectedAttributeLabel = game.i18n.localize(attribute.label);
-    }
-
-    const ability = Object.values(data.items).find(i => i._id === selectedAbility)
-    if (ability) {
-      data.selectedAbilityLabel = game.i18n.localize(ability.label);
+    const item = this.getSelectedItem();
+    if (item) {
+      data.selectedItem = item;
     }
 
     this._prepareCharacterData(data);
@@ -78,14 +63,15 @@ export class VampireActorSheet extends ActorSheet {
     sheetData.data.mental = {};
     sheetData.data.clan = {};
     sheetData.data.nature = {};
-
+    const selectedItemKey = this.getSelectedItemKey();
     // iterate through items, allocating containers
     for (const [id, item] of items.entries()) {
       const { _id, type, flags: { core: { sourceId } } } = item;
       const oid = sourceId.split(".").pop();
       const { description, tooltip } = game.items.get(oid).data;
       const value = actor.data.data.values[_id] || 1;
-      sheetData.data[type][_id] = { ...item, description, tooltip,  value };
+      const selected = _id === selectedItemKey;
+      sheetData.data[type][_id] = { ...item, description, tooltip,  value, selected };
     }
   }
 
@@ -136,9 +122,7 @@ export class VampireActorSheet extends ActorSheet {
     html.toggleClass("helper--enable-editMode");
     this.options.editMode = !this.options.editMode || false;
     if (this.options.editMode) {
-      this.setRollStatus(0);
-      this.unselectAbility();
-      this.unselectAttributes();
+      this.unselectItems();
     }
     this.render();
   }
@@ -148,154 +132,56 @@ export class VampireActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find('.item').find('input[type="radio"]').change(event => {
-      console.log(event);
       const d = this._get
-      console.log(this._getSubmitData())
       this._onSubmit(event);
     });
-    // // Everything below here is only needed if the sheet is editable
-    // if (!this.options.editable) return;
-
-    // // Update Inventory Item
-    // html.find(".item-edit").click((ev) => {
-    //   const li = $(ev.currentTarget).parents(".item");
-    //   const item = this.actor.getOwnedItem(li.data("itemId"));
-    //   item.sheet.render(true);
-    // });
 
     // // Delete Inventory Item
     html.find(".item-delete-button").click((ev) => {
       const id = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      console.log(id);
       this.actor.deleteOwnedItem(id);
     });
 
     // Skill Tests (right click to open skill sheet)
-    html.find('.attribute-roll-button').mouseup(ev => {
-      const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      DicePoolVTM20.prepareTest({
-        actor: this.actor,
-        attribute
-      }, true);
-      this.unselectAttributes();
-      this.setRollStatus(0);
-    });
+    html.find('.item-roll-button').mouseup(ev => {
+      const itemClickedKey = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      const itemClicked = this.getItem(itemClickedKey);
 
-    html.find('.ability-roll-button').mouseup(ev => {
-      // skip if wrong roll status
-      if (this.getRollStatus() !== 1) {
-        return;
-      }
-      const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      const itemSelected = this.getSelectedItem();
 
-      const attribute = this.getSelectedAttribute();
-      DicePoolVTM20.prepareTest({
-        actor: this.actor,
-        attribute,
-        ability
+      // get relevant "last Roll" settings
+      const { actionType = "common" } = this.getRollSettings();
+      DicePoolVTM20.createRollMessage({
+        actorId: this.actor.data._id,
+        items: [itemClicked, itemSelected].filter(i => i !== null),
+        actionType,
+        onRollCallback: (rollSettings) => {
+          this.setRollSettings(rollSettings);f
+        },
       });
-      this.unselectAttributes();
-      this.setRollStatus(0);
+      this.unselectItems();
+      this.render();
     });
 
     // click on attribute label -> toggle attribute
-    html.find('.attribute-value').mouseup(ev => {
+    html.find('.item-value').mouseup(ev => {
       if (this.options.editMode) return;
-      const attribute = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      if (attribute === this.getSelectedAttribute()) {
-        this.unselectAttributes();
-        this.setRollStatus(0);
+      const itemKey = $(ev.currentTarget).parents(".item").attr("data-item-key");
+      if (itemKey === this.getSelectedItemKey()) {
+        this.unselectItems();
       } else {
-        this.selectAttribute(attribute);
-        this.setRollStatus(1);
-        this.render();
-      }
-    });
-
-    // click on ability label -> open difficulty dialog
-    html.find('.ability-value').mouseup(ev => {
-      // skip if wrong roll status
-      if (this.getRollStatus() !== 1) {
-        return;
-      }
-      if (this.options.editMode) return;
-      const ability = $(ev.currentTarget).parents(".item").attr("data-item-key");
-      this.selectAbility(ability);
-      if (!this.getRollDifficulty()) {
-        this.setRollDifficulty(6);
-      }
-      this.setRollStatus(2);
-      this.render();
-    });
-
-    // submit difficulty dialog
-    html.find('#btn-roll-submit').click(() => {
-      const difficulty = parseInt(html.find('#input-roll-difficulty').find('input').val());
-      this.setRollDifficulty(difficulty);
-      DicePoolVTM20.prepareTest({
-        actor: this.actor,
-        attribute: this.getSelectedAttribute(),
-        ability: this.getSelectedAbility(),
-        difficulty
-      });
-      this.setRollStatus(0);
-      this.unselectAbility();
-      this.unselectAttributes();
-      this.render();
-    });
-
-    html.find('#btn-roll-save').click(() => {
-      const attributeKey = this.getSelectedAttribute();
-      const abilityKey = this.getSelectedAbility();
-      const attribute = Object.values(data.items).find(i => i._id === attributeKey)
-      const ability = Object.values(data.items).find(i => i._id === abilityKey)
-      
-      const name = `${game.i18n.localize(attribute.label)} & ${game.i18n.localize(ability.label)}`;
-      let item = game.items.entities.find(e => e.name === name);
-      if (!item) {
-        item = Item.create({
-          actor: this.actor,
-          attribute,
-          ability,
-          name,
-          type: "macro",
-        }, { renderSheet: true })
+        this.selectItem(itemKey);
       }
       this.render();
-
-      // add the item to the macro bar
     });
-
-    // close difficulty dialog
-    html.find('#btn-roll-cancel').click(() => {
-      this.setRollStatus(1);
-      this.unselectAbility();
-      this.render();
-    });
-
-    // listen to slider changes
-    html.find('#input-roll-difficulty').find('input').on('input', ev => {
-      const value = $(ev.currentTarget).val();
-      html.find('#input-roll-difficulty').find('h2').text(value);
-    });
-    html.find('#input-roll-difficulty').find('input').on('change', ev => {
-      const value = parseInt($(ev.currentTarget).val());
-      this.setRollDifficulty(value);
-      this.render();
-    });
-
   }
 
-  /* -------------------------------------------- */
-
-  /** @override */
-  // setPosition(options = {}) {
-  //   const position = super.setPosition(options);
-  //   const sheetBody = this.element.find(".sheet-body");
-  //   const bodyHeight = position.height - 192;
-  //   sheetBody.css("height", bodyHeight);
-  //   return position;
-  // }
+  setRollSettings(settings) {
+    this.options.lastRollSettings = settings;
+  }
+  getRollSettings() {
+    return this.options.lastRollSettings || {};
+  }
 
   /* -------------------------------------------- */
 
@@ -303,109 +189,33 @@ export class VampireActorSheet extends ActorSheet {
     super.render(...arguments);
   }
 
-  /**
-   * Listen for click events on an attribute control to modify the composition of attributes in the sheet
-   * @param {MouseEvent} event    The originating left click event
-   * @private
-   */
-  async _onClickAttributeControl(event) {
-    event.preventDefault();
-    const a = event.currentTarget;
-    const action = a.dataset.action;
-    const attrs = this.object.data.data.attributes;
-    const form = this.form;
-
-    // Add new attribute
-    if (action === "create") {
-      const nk = Object.keys(attrs).length + 1;
-      let newKey = document.createElement("div");
-      newKey.innerHTML = `<input type="text" name="data.attributes.attr${nk}.key" value="attr${nk}"/>`;
-      newKey = newKey.children[0];
-      form.appendChild(newKey);
-      await this._onSubmit(event);
-    }
-
-    // Remove existing attribute
-    else if (action === "delete") {
-      const li = a.closest(".attribute");
-      li.parentElement.removeChild(li);
-      await this._onSubmit(event);
-    }
-  }
-
   /* -------------------------------------------- */
 
   /** @override */
-  _updateObject(event, formData) {
-    // // Handle the free-form attributes list
-/*     const formAttrs = expandObject(formData).data.advantages || {};
-    const attributes = Object.values(formAttrs).reduce((obj, v) => {
-      let k = v["key"].trim();
-      if (/[\s\.]/.test(k))
-        return ui.notifications.error(
-          "Attribute keys may not contain spaces or periods"
-        );
-      delete v["key"];
-      obj[k] = v;
-      return obj;
-    }, {});
-
-    // Remove attributes which are no longer used
-    for (let k of Object.keys(this.object.data.data.advantages)) {
-      if (!formAttrs.hasOwnProperty(k)) formAttrs[`-=${k}`] = null;
-    }
-
-    // Re-combine formData
-    formData = Object.entries(formData)
-      .filter((e) => !e[0].startsWith("data.advantages"))
-      .reduce(
-        (obj, e) => {
-          obj[e[0]] = e[1];
-          return obj;
-        },
-        { id: this.object.id, "data.advantages": formAttrs }
-      );
- */
+  _updateObject(_event, formData) {
     // Update the Actor
     return this.object.update(formData);
   }
 
 
   // local state
-  selectAbility(value) {
-    this.options.selectedAbility = value;
+  getItem(key) {
+    if (key === null) return null;
+    const data = super.getData();
+    const item = Object.values(data.items).find(i => i._id === key);
+    const value = data.data.data.values[item._id];
+    return { ...item, value };
   }
-  unselectAbility() {
-    this.options.selectedAbility = null;
+  getSelectedItemKey() {
+    return this.options.selectedItem;
   }
-  getSelectedAbility() {
-    return this.options.selectedAbility;
+  getSelectedItem() {
+    return this.getItem(this.options.selectedItem);
   }
-  
-  getSelectedAttribute() {
-    return this.options.selectedAttribute;
+  selectItem(itemKey) {
+    this.options.selectedItem = itemKey;
   }
-  selectAttribute(value) {
-    this.options.selectedAttribute = value;
-  }
-  unselectAttributes() {
-    this.options.selectedAttribute = null;
-  }
-
-  setRollStatus(value) {
-    this.options.rollStatus = value;
-  }
-
-  getRollStatus() {
-    return this.options.rollStatus;
-  }
-
-  setRollDifficulty(value) {
-    this.options.rollDifficulty = value;
-    this._render();
-  }
-
-  getRollDifficulty() {
-    return this.options.rollDifficulty ;
+  unselectItems() {
+    this.selectItem(null);
   }
 }

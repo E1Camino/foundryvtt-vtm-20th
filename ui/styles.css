@@ -120,7 +120,7 @@
 .vtm20 .item-list .item-controls {
   flex: 0 0 36px;
 }
-.vtm20 .attributes-header {
+.vtm20 .item-header {
   padding: 5px;
   margin: 5px 0;
   background: rgba(0, 0, 0, 0.05);
@@ -129,18 +129,18 @@
   text-align: center;
   font-weight: bold;
 }
-.vtm20 .attributes-header .attribute-label {
+.vtm20 .item-header .item-label {
   flex: 1.5;
 }
-.vtm20 .attributes-header .attribute-control {
+.vtm20 .item-header .item-control {
   flex: 0 0 20px;
 }
-.vtm20 .attributes-list {
+.vtm20 .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.vtm20 .attributes-list li > * {
+.vtm20 .item-list li > * {
   margin: 0 3px;
   height: 28px;
   line-height: 24px;
@@ -149,7 +149,7 @@
   border-radius: 0;
   border-bottom: 1px solid #aaa;
 }
-.vtm20 .attributes-list a.attribute-control {
+.vtm20 .item-list a.item-control {
   flex: 0 0 20px;
   text-align: center;
   line-height: 28px;
@@ -320,10 +320,8 @@
   border: 1px solid #333;
 }
 
-.vtm20.sheet .attribute-roll-button,
-.vtm20.sheet .advantage-roll-button,
 .vtm20.sheet .item-delete-button,
-.vtm20.sheet .ability-roll-button {
+.vtm20.sheet .item-roll-button {
   background: transparent;
   border: none;
   padding: 0;
@@ -336,25 +334,16 @@
   box-shadow: none;
 }
 
-.vtm20.sheet .attribute-roll-button:hover,
-.vtm20.sheet .advantage-roll-button:hover,
-.vtm20.sheet .ability-roll-button:hover {
+.vtm20.sheet .item-roll-button:hover {
   color: #333;
 }
 
-.vtm20.sheet .selected .attribute-roll-button,
-.vtm20.sheet .radio-input:hover .attribute-roll-button,
-.vtm20.sheet .roll-status-1 .radio-input:hover .ability-roll-button,
-.vtm20.sheet .roll-status-2 .radio-input:hover .ability-roll-button {
+.vtm20.sheet .radio-input:hover .item-roll-button {
   opacity: 1;
   cursor: pointer;
 }
 
-
-.vtm20.sheet .helper--enable-editMode .selected .attribute-roll-button,
-.vtm20.sheet .helper--enable-editMode .radio-input:hover .hidden .attribute-roll-button,
-.vtm20.sheet .helper--enable-editMode .roll-status-1 .radio-input:hover .ability-roll-button,
-.vtm20.sheet .helper--enable-editMode .roll-status-2 .radio-input:hover .ability-roll-button {
+.vtm20.sheet .helper--enable-editMode .radio-input:hover .item-roll-button{
   opacity: 0;
   cursor: unset;
   pointer-events: all;
@@ -363,61 +352,19 @@
   opacity: 1;
 }
 
-
-.vtm20.sheet .attribute-label,
-.vtm20.sheet .roll-status-1 .advantage-label,
-.vtm20.sheet .roll-status-2 .advantage-label,
-.vtm20.sheet .selectable .advantage-label,
-.vtm20.sheet .roll-status-1 .ability-label,
-.vtm20.sheet .roll-status-2 .ability-label,
-.vtm20.sheet .selectable .ability-label {
+.vtm20.sheet .item-label {
   cursor: pointer;
 }
 
-.vtm20.sheet .attribute-label:hover,
-.vtm20.sheet .roll-status-1 .ability-label:hover,
-.vtm20.sheet .roll-status-2 .ability-label:hover {
+.vtm20.sheet .item-label:hover {
   text-shadow: 0 0 4px #808080;
 }
 
-.vtm20.sheet .selected .attribute-label,
-.vtm20.sheet .selected .advantage-label,
-.vtm20.sheet .selected .ability-label {
+.vtm20.sheet .selected .item-label {
   text-shadow: 0 0 4px #e22c00;
 }
-.vtm20.sheet .helper--enable-editModed .selected .attribute-label,
-.vtm20.sheet .helper--enable-editModed .selected .advantage-label,
-.vtm20.sheet .helper--enable-editModed .selected .ability-label {
+.vtm20.sheet .helper--enable-editModed .selected .item-label {
   text-shadow: none;
-}
-
-/* difficulty dialog */
-.vtm20.sheet .difficulty-dialog {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-}
-.vtm20.sheet .difficulty-dialog > div {
-  min-width: 380px;
-  background: white;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid black;
-  box-shadow: 0 0 10px 0 black;
-}
-
-/* difficulty dialog active */
-.vtm20.sheet .roll-status-2 > .primary {
-  position: relative;
-}
-.vtm20.sheet .roll-status-2 .difficulty-dialog {
-  display: flex;
 }
 
 
@@ -430,4 +377,200 @@
 }
 .vtm20.item.sheet .description {
   height: 150px;
+}
+
+ /* The switch - the box around the slider */
+ .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .1s;
+  transition: .1s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .1s;
+  transition: .1s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
+
+
+
+
+
+/**
+* RANGE INPUT
+*/
+
+.synchronize-range {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.synchronize-range > *{
+  margin: 6px;
+  min-width: 22%;
+}
+
+
+/**
+* ADDITIONAL SETTINGS SWITCH
+*/
+.additional-settings-switch .slider i{
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .1s;
+  transition: .1s;
+}
+.additional-settings-switch .slider::before {
+  background-color: transparent;
+}
+
+.additional-settings-switch .slider,
+.additional-settings-switch input:checked + .slider {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+
+.header-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header-row > * {
+  margin: 0 10px;
+}
+
+.additional-settings-switch {
+  align-self: flex-end;
+}
+
+
+/**
+* Apply dice styling to our custom class structures
+*/
+.vampire-roll .dice-rolls .roll.d10 {
+  background-image: url("../icons/svg/d10-grey.svg");
+}
+
+.vampire-roll .dice-rolls {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+  overflow: hidden;
+}
+.vampire-roll .dice-rolls .roll {
+  position: relative;
+  width: 24px;
+  line-height: 24px;
+  float: left;
+  margin-right: 1px;
+  background-image: url("/icons/svg/d6-grey.svg");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+.vampire-roll .dice-rolls .roll.d4 {
+  background-image: url("/icons/svg/d4-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d6 {
+  background-image: url("/icons/svg/d6-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d8 {
+  background-image: url("/icons/svg/d8-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d10 {
+  background-image: url("/icons/svg/d10-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d12 {
+  background-image: url("/icons/svg/d12-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d20 {
+  background-image: url("/icons/svg/d20-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.min {
+  color: #aa0200;
+  filter: sepia(0.5) hue-rotate(-60deg);
+}
+.vampire-roll .dice-rolls .roll.max {
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
+}
+.vampire-roll .dice-rolls .roll.discarded,
+.vampire-roll .dice-rolls .roll.rerolled {
+  filter: sepia(0.5) contrast(0.75) opacity(0.4);
+}
+.vampire-roll .dice-rolls .roll.exploded:before {
+  font-size: 8px;
+  font-family: "Font Awesome 5 Free";
+  content: "\f666";
+  position: absolute;
+  top: -8px;
+  right: 0px;
+}
+.vampire-roll .dice-rolls .roll.success {
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
+}
+.vampire-roll .dice-rolls .roll.failure {
+  color: #aa0200;
+  filter: sepia(0.5) hue-rotate(-60deg);
 }
