@@ -332,8 +332,10 @@
   color: #777;
   opacity: 0;
   box-shadow: none;
+  cursor: pointer;
 }
 
+.vtm20.sheet .item-delete-button:hover,
 .vtm20.sheet .item-roll-button:hover {
   color: #333;
 }
@@ -361,7 +363,7 @@
 }
 
 .vtm20.sheet .selected .item-label {
-  text-shadow: 0 0 4px #e22c00;
+  text-shadow: 0 0 4px #c33737;
 }
 .vtm20.sheet .helper--enable-editModed .selected .item-label {
   text-shadow: none;
