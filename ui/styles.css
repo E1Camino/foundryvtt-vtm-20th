@@ -607,14 +607,13 @@ input:checked + .slider:before {
   pointer-events: none;
   transition-property: opacity, display;
   transition-timing-function: ease-out;
-  transition-delay: 1s;
-  transition-duration: 0.3s;
+  transition-duration: 0s;
   transition-delay: 0s;
 }
 .vtm20.sheet span.item-value:hover span.item-tooltip {
   opacity: 1;
-  transition-duration: 0.3s;
-  transition-delay: 2s;
+  transition-duration: 0.2s;
+  transition-delay: 1s;
 }
 
 .vtm20.sheet span.item-tooltip > * {
