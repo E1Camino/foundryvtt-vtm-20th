@@ -50,28 +50,35 @@ export class VampireActorSheet extends ActorSheet {
 
   _prepareCharacterData(sheetData) {
     const { actor, items } = sheetData;
-    console.log({sheetData});
-    sheetData.data.discipline = {};
-    sheetData.data.virtue = {};
-    sheetData.data.background = {};
-    sheetData.data.skill = {};
-    sheetData.data.talent = {};
-    sheetData.data.knowledge = {};
-    sheetData.data.physical = {};
-    sheetData.data.social = {};
-    sheetData.data.mental = {};
-    sheetData.data.clan = {};
-    sheetData.data.nature = {};
+    console.log({ sheetData });
+    const types = ['discipline', 'virtue', 'background', 'skill', 'talent', 'knowledge', 'physical', 'social', 'mental', 'clan', 'nature'];
+    types.forEach(type => sheetData.data[type] = []);
     const selectedItemKey = this.getSelectedItemKey();
     // iterate through items, allocating containers
     for (const [id, item] of items.entries()) {
       const { _id, type, flags: { core: { sourceId } } } = item;
       const oid = sourceId.split(".").pop();
-      const { description, tooltip } = game.items.get(oid).data;
+      const { description, tooltip, name } = game.items.get(oid).data;
       const value = actor.data.data.values[_id] || 1;
       const selected = _id === selectedItemKey;
-      sheetData.data[type][_id] = { ...item, description, tooltip,  value, selected };
+      sheetData.data[type].push({
+        ...item,
+        description,
+        tooltip,
+        name,
+        value,
+        selected
+      });
     }
+
+    types.forEach(type => {
+      sheetData.data[type] = sheetData.data[type].sort((a, b) => {
+        if (a.name < b.name) { return -1; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      });
+    });
+
   }
 
   /* -------------------------------------------- */
@@ -130,6 +137,25 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+
+    // show tooltips
+    html.find('item-value')
+      .hover(
+        // Hover event
+        (e) => {
+          $(this).data('tiptext', titleText).removeAttr('title');
+          $('<p class="tooltip"></p>').text(titleText).appendTo('body').css('top', (e.pageY - 10) + 'px').css('left', (e.pageX + 20) + 'px').fadeIn('slow');
+        },
+        // Hover off event
+        () => {
+          $(this).attr('title', $(this).data('tiptext'));
+          $('.tooltip').remove();
+        }
+      )
+      .mousemove((e) => { // Mouse move event
+        $('.tooltip').css('top', (e.pageY - 10) + 'px').css('left', (e.pageX + 20) + 'px');
+      }
+    );
 
     // // Delete Inventory Item
     html.find(".item-delete-button").click((ev) => {
@@ -200,7 +226,6 @@ export class VampireActorSheet extends ActorSheet {
     const data = super.getData();
     const item = Object.values(data.items).find(i => i._id === key);
     const value = data.data.data.values[item._id];
-    console.log({key, value})
     return { ...item, value };
   }
   getSelectedItemKey() {
