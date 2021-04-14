@@ -15,7 +15,6 @@ function getRollDataFromHtml(subElement) {
     chatMessageId: chatMessage.attr("data-message-id"),
     actionType: chatMessage.find(".roll-mode input:checked").attr("value"),
     items: chatMessage.find('.attribute-dice-pool').map(function () {
-      console.log(this);
       return { id: $(this).attr("data-item-id"), value: parseInt($(this).attr("data-item-value")) }
     }).get(),
     dicepool: null,

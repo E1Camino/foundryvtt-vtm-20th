@@ -27,7 +27,6 @@ export class VampireActorSheet extends ActorSheet {
           drop: ()=> {console.log("drop start")},
         }
       }],
-      rollDifficulty: 6,
       selectedItem: null,
       editMode: false,
     });
@@ -45,13 +44,13 @@ export class VampireActorSheet extends ActorSheet {
 
     this._prepareCharacterData(data);
     
-    console.log(data);
+    console.log({data});
     return data;
   }
 
   _prepareCharacterData(sheetData) {
     const { actor, items } = sheetData;
-    console.log(actor);
+    console.log({sheetData});
     sheetData.data.discipline = {};
     sheetData.data.virtue = {};
     sheetData.data.background = {};
@@ -131,10 +130,6 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find('.item').find('input[type="radio"]').change(event => {
-      const d = this._get
-      this._onSubmit(event);
-    });
 
     // // Delete Inventory Item
     html.find(".item-delete-button").click((ev) => {
@@ -194,6 +189,7 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   _updateObject(_event, formData) {
     // Update the Actor
+    console.log(formData);
     return this.object.update(formData);
   }
 
@@ -204,6 +200,7 @@ export class VampireActorSheet extends ActorSheet {
     const data = super.getData();
     const item = Object.values(data.items).find(i => i._id === key);
     const value = data.data.data.values[item._id];
+    console.log({key, value})
     return { ...item, value };
   }
   getSelectedItemKey() {
