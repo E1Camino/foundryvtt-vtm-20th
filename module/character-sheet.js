@@ -58,7 +58,6 @@ export class VampireActorSheet extends ActorSheet {
     for (const [id, item] of items.entries()) {
       const { _id, type, flags: { core: { sourceId } } } = item;
       const oid = sourceId.split(".").pop();
-      const { description, tooltip, name } = game.items.get(oid).data;
       const { data: { description, tooltip }, name } = game.items.get(oid).data;
       const value = actor.data.data.values[_id] || 1;
       const selected = _id === selectedItemKey;
