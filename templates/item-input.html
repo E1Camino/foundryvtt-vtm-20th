@@ -3,6 +3,9 @@
     <span class="item-value">
         <span class="item-label">
             {{item.name}}
+            <span class="item-tooltip">
+                {{{item.data.tooltip}}}
+            </span>
         </span>
         <span class="input-min-{{min}}">
             {{#times (calc max "-" min)}}

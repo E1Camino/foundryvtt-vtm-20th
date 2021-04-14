@@ -576,3 +576,48 @@ input:checked + .slider:before {
   color: #aa0200;
   filter: sepia(0.5) hue-rotate(-60deg);
 }
+
+.vtm20.sheet span.item-value {
+  position: relative;
+}
+
+@keyframes fade-tooltip {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+.vtm20.sheet span.item-tooltip{
+  position: absolute;
+  left: -0.2rem;
+  bottom: 1.4rem;
+  background: #333;
+  border-radius: 0.2rem;
+  color: white;
+  width: 200px;
+  cursor: default;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity, display;
+  transition-timing-function: ease-out;
+  transition-delay: 1s;
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+.vtm20.sheet span.item-value:hover span.item-tooltip {
+  opacity: 1;
+  transition-duration: 0.3s;
+  transition-delay: 2s;
+}
+
+.vtm20.sheet span.item-tooltip > * {
+  padding: 0.2rem;
+  margin: 0;
+}
