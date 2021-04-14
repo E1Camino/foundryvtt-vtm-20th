@@ -340,11 +340,13 @@ class DicePoolVTM20 {
     // prepare formula
     const numberOfDice = rollData.dicepool;
     const finalDice = Math.max(numberOfDice + diceModifier, 0);
-    const formula = `${finalDice}d10`;
+    const formula = `${finalDice}d10>${difficulty}`;
     
     // roll dice
     const roll = new Roll(formula).roll();
-    const dice = roll.dice[0].results;
+    // also sort so we have all successes at first and failures at last
+    const dice = roll.dice[0].results.sort((a, b) => b.result - a.result);
+    console.log({roll});
 
     const critFails = dice.filter((d) => d.result === 1).length;
     const wins = dice.filter((d) => d.result >= difficulty).length;
@@ -368,7 +370,6 @@ class DicePoolVTM20 {
     }
 
     const chatData = game.messages.get(chatMessageId).data;
-    console.log(chatData);
 
     const chatMessage = subElement.parents(".chat-message");
     const resultSection = chatMessage.find(".results");
@@ -383,33 +384,35 @@ class DicePoolVTM20 {
         console.log(content);
         resultSection.append($.parseHTML(content));
         resultSection.show();
-        const settingsHider = chatMessage.find(".all-roll-settings");
-        settingsHider.hide();
+        chatMessage.find(".all-roll-settings").hide();
+        chatMessage.find(".additional-settings-switch").hide();
         setTimeout(() => this.updateMessage($(resultSection)), 0);
       });
     }
 
     // render the result
     console.log({dice});
-    roll.render().then((r) => {
-      //chatData.roll = JSON.stringify(r);
-      
-      // Hook into Dice So Nice!
-      if (game.dice3d) {
-        game.dice3d
-          .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
-          .then((displayed) => {
-            // update chat message in order to toggle result section
-            onRollReady({dice: dice.map(d => d.result), degrees})
-          });
-        }
-        // Roll normally, add a dice sound.
-        else {
+    
+    // Hook into Dice So Nice!
+    if (game.dice3d) {
+      game.dice3d
+        .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
+        .then((displayed) => {
           // update chat message in order to toggle result section
-          console.log(roll);
-  //        this.updateMessage(subElement)        
-        //chatData.sound = CONFIG.sounds.dice;
+          onRollReady({
+            difficulty,
+            diceModifier,
+            dice,
+            degrees,
+          })
+        });
       }
-    });
+      // Roll normally, add a dice sound.
+      else {
+        // update chat message in order to toggle result section
+        console.log(roll);
+//        this.updateMessage(subElement)        
+      //chatData.sound = CONFIG.sounds.dice;
+    }
   }
 }

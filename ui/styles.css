@@ -499,3 +499,78 @@ input:checked + .slider:before {
 .additional-settings-switch {
   align-self: flex-end;
 }
+
+
+/**
+* Apply dice styling to our custom class structures
+*/
+.vampire-roll .dice-rolls .roll.d10 {
+  background-image: url("../icons/svg/d10-grey.svg");
+}
+
+.vampire-roll .dice-rolls {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+  overflow: hidden;
+}
+.vampire-roll .dice-rolls .roll {
+  position: relative;
+  width: 24px;
+  line-height: 24px;
+  float: left;
+  margin-right: 1px;
+  background-image: url("/icons/svg/d6-grey.svg");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+.vampire-roll .dice-rolls .roll.d4 {
+  background-image: url("/icons/svg/d4-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d6 {
+  background-image: url("/icons/svg/d6-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d8 {
+  background-image: url("/icons/svg/d8-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d10 {
+  background-image: url("/icons/svg/d10-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d12 {
+  background-image: url("/icons/svg/d12-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.d20 {
+  background-image: url("/icons/svg/d20-grey.svg");
+}
+.vampire-roll .dice-rolls .roll.min {
+  color: #aa0200;
+  filter: sepia(0.5) hue-rotate(-60deg);
+}
+.vampire-roll .dice-rolls .roll.max {
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
+}
+.vampire-roll .dice-rolls .roll.discarded,
+.vampire-roll .dice-rolls .roll.rerolled {
+  filter: sepia(0.5) contrast(0.75) opacity(0.4);
+}
+.vampire-roll .dice-rolls .roll.exploded:before {
+  font-size: 8px;
+  font-family: "Font Awesome 5 Free";
+  content: "\f666";
+  position: absolute;
+  top: -8px;
+  right: 0px;
+}
+.vampire-roll .dice-rolls .roll.success {
+  color: #18520b;
+  filter: sepia(0.5) hue-rotate(60deg);
+}
+.vampire-roll .dice-rolls .roll.failure {
+  color: #aa0200;
+  filter: sepia(0.5) hue-rotate(-60deg);
+}
