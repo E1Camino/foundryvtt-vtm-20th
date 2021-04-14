@@ -7,11 +7,11 @@
         <span class="input-min-{{min}}">
             {{#times (calc max "-" min)}}
                 {{#iff (calc @index "+" ../min) "==" ../item.value}}
-                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number" checked="checked">
+                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} checked="checked">
                     <span></span>
                 {{/iff}}
                 {{#iff (calc @index "+" ../min) "!=" ../item.value}}
-                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} data-dtype="Number">
+                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}}>
                     <span></span>
                 {{/iff}}
             {{/times}}
