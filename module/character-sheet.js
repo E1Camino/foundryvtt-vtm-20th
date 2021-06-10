@@ -206,75 +206,37 @@ export class VampireActorSheet extends ActorSheet {
 
 
     // damage and health buttons
-    html.find('.add-bashing-damage').click((ev) => {
+    const replaceNextZero = (i) => {
       let { health } = this.actor.data.data;
+      if (typeof health ==="string") {
+        health = [0,0,0,0,0,0,0];
+      }
       const idx = health.indexOf(0)
       if (idx !== -1) {
-        health[idx] = 1;
+        health[idx] = i;
       }
       health = health.sort((a, b) => b - a);
       this.actor.update({ data: { health } });
-    })
-    html.find('.add-lethal-damage').click((ev) => {
+    }
+    const reset = (i) => {
       let { health } = this.actor.data.data;
-      const idx = health.indexOf(0)
-      if (idx !== -1) {
-        health[idx] = 2;
+      if (typeof health ==="string") {
+        health = [0,0,0,0,0,0,0];
       }
+      health[i] = 0;
       health = health.sort((a, b) => b - a);
       this.actor.update({ data: { health } });
-    })
-    html.find('.add-aggravated-damage').click((ev) => {
-      let { health } = this.actor.data.data;
-      const idx = health.indexOf(0)
-      if (idx !== -1) {
-        health[idx] = 3;
-      }
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-0 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[0] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-1 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[1] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-2 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[2] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-3 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[3] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-4 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[4] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-5 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[5] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
-    html.find('.health-6 .reset').click(() => {
-      let { health } = this.actor.data.data;
-      health[6] = 0;
-      health = health.sort((a, b) => b - a);
-      this.actor.update({ data: { health } });
-    });
+    }
+    html.find('.add-bashing-damage').click(() => replaceNextZero(1));
+    html.find('.add-lethal-damage').click(() => replaceNextZero(2));
+    html.find('.add-aggravated-damage').click(() => replaceNextZero(3));
+    html.find('.health-0 .reset').click(() => reset(0));
+    html.find('.health-1 .reset').click(() => reset(1));
+    html.find('.health-2 .reset').click(() => reset(2));
+    html.find('.health-3 .reset').click(() => reset(3));
+    html.find('.health-4 .reset').click(() => reset(4));
+    html.find('.health-5 .reset').click(() => reset(5));
+    html.find('.health-6 .reset').click(() => reset(6));
   }
 
   setRollSettings(settings) {
