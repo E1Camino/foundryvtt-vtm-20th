@@ -431,10 +431,12 @@
 .vtm20.sheet .health-input .inputs .row .reset {
   margin-left: 10px;
   opacity: 0;
+  display: none;
   cursor: none;
 }
 .vtm20.sheet .helper--enable-editMode .health-input .inputs .row .reset {
   opacity: 1;
+  display: block;
   cursor: pointer;
 }
 .vtm20.item.sheet {
