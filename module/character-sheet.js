@@ -43,19 +43,28 @@ export class VampireActorSheet extends ActorSheet {
     }
 
     this._prepareCharacterData(data);
-    
-    console.log({data});
     return data;
   }
 
   _prepareCharacterData(sheetData) {
     const { actor, items } = sheetData;
-    console.log({ sheetData });
+    // console.log("hello");
+    // console.log({ sheetData });
+    // console.log(sheetData.data.data)
     const types = ['discipline', 'virtue', 'background', 'skill', 'talent', 'knowledge', 'physical', 'social', 'mental', 'clan', 'nature'];
     types.forEach(type => sheetData.data[type] = []);
     const selectedItemKey = this.getSelectedItemKey();
+
+    // fix some character stats that might be broken because of changing 
+    // character template and incomplete migration process
+
+    if (typeof sheetData.data.data.health === "string") {
+      sheetData.data.data.health = [0, 0, 0, 0, 0, 0, 0];
+    }
+    sheetData.data.data.health = sheetData.data.data.health.sort((a, b) => b -a) 
+
     // iterate through items, allocating containers
-    for (const [id, item] of items.entries()) {
+    for (const [_id, item] of items.entries()) {
       const { _id, type, flags: { core: { sourceId } } } = item;
       const oid = sourceId.split(".").pop();
       const { data: { description, tooltip }, name } = game.items.get(oid).data;
@@ -91,7 +100,6 @@ export class VampireActorSheet extends ActorSheet {
 
 /** @override */
   _handleDropData(event, data) {
-    console.log(data);
     super._handleDropData(event, data)
   }
       
@@ -195,6 +203,78 @@ export class VampireActorSheet extends ActorSheet {
       }
       this.render();
     });
+
+
+    // damage and health buttons
+    html.find('.add-bashing-damage').click((ev) => {
+      let { health } = this.actor.data.data;
+      const idx = health.indexOf(0)
+      if (idx !== -1) {
+        health[idx] = 1;
+      }
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    })
+    html.find('.add-lethal-damage').click((ev) => {
+      let { health } = this.actor.data.data;
+      const idx = health.indexOf(0)
+      if (idx !== -1) {
+        health[idx] = 2;
+      }
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    })
+    html.find('.add-aggravated-damage').click((ev) => {
+      let { health } = this.actor.data.data;
+      const idx = health.indexOf(0)
+      if (idx !== -1) {
+        health[idx] = 3;
+      }
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-0 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[0] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-1 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[1] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-2 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[2] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-3 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[3] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-4 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[4] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-5 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[5] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
+    html.find('.health-6 .reset').click(() => {
+      let { health } = this.actor.data.data;
+      health[6] = 0;
+      health = health.sort((a, b) => b - a);
+      this.actor.update({ data: { health } });
+    });
   }
 
   setRollSettings(settings) {
@@ -215,7 +295,6 @@ export class VampireActorSheet extends ActorSheet {
   /** @override */
   _updateObject(_event, formData) {
     // Update the Actor
-    console.log(formData);
     return this.object.update(formData);
   }
 

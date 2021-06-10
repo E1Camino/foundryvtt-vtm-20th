@@ -41,6 +41,7 @@ Hooks.once("init", async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
+  console.log("stuff");
   Actors.registerSheet(systemHandle, VampireActorSheet, { makeDefault: true });
   //Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(systemHandle, VampireDicePoolSheet, { });
@@ -57,7 +58,11 @@ Hooks.once("init", async function() {
   });
   // Pre-load templates
   loadTemplates([
-    "systems/foundryvtt-vtm-20th/templates/item-input.html",
+    "systems/foundryvtt-vtm-20th/templates/inputs/item-input.html",
+    "systems/foundryvtt-vtm-20th/templates/inputs/path-input.html",
+    "systems/foundryvtt-vtm-20th/templates/inputs/willpower-input.html",
+    "systems/foundryvtt-vtm-20th/templates/inputs/blood-input.html",
+    "systems/foundryvtt-vtm-20th/templates/inputs/health-input.html",
     "systems/foundryvtt-vtm-20th/templates/chat/select.html",
     "systems/foundryvtt-vtm-20th/templates/chat/roll.html",
   ]);
@@ -106,7 +111,7 @@ Hooks.once("init", async function() {
         bool = a <= b;
         break;
       case "!=":
-        bool = a != b;
+        bool = a !== b;
         break;
       default:
         throw "Unknown operator " + operator;

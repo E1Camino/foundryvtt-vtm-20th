@@ -13,10 +13,13 @@
       "sire": "",
       "blood": "",
       "bloodPerRound": "",
-      "health": "",
+      "health": [
+        0,0,0,0,0,0,0
+      ],
       "xp": "",
       "humanity": "",
       "willpower": "",
+      "currentWillpower": "",
       "values": {}
     }
   },
@@ -34,7 +37,8 @@
       "virtue",
       "background",
       "merit_flaw",
-      "macro"
+      "macro",
+      "path"
     ],
     "templates": {
       "base": {
@@ -44,6 +48,9 @@
       },
       "macroProps": {
         "items": []
+      },
+      "pathProps": {
+        "descriptions": []
       }
     },
     "clan": {
@@ -84,6 +91,9 @@
     },
     "macro": {
       "templates": ["base", "macroProps"]
+    },
+    "path": {
+      "templates": ["base", "pathProps"]
     }
   }
 }

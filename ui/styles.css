@@ -236,7 +236,7 @@
 .vtm20.sheet .radio-input label {
   display: flex;
   justify-content: space-between;
-  width: 210px;
+  width: 230px;
   align-items: center;
 }
 .vtm20.sheet .radio-input label > button {
@@ -369,7 +369,74 @@
   text-shadow: none;
 }
 
+/* Health section in the sheet */
+.vtm20.sheet .health-input .damage-buttons {
+  opacity: 0;
+  display: none;
+}
+.vtm20.sheet .helper--enable-editMode  .health-input .damage-buttons {
+  opacity: 1;
+  display: block;
+}
 
+
+.vtm20.sheet .health-input button {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  background: #ddd;
+  border: none;
+  padding: 2px;
+  margin: 0;
+  font-size: 11px;
+  width: 24px;
+  line-height: 18px;
+  color: #777;
+  box-shadow: none;
+  cursor: pointer;
+}
+.vtm20.sheet .health-input button:hover {
+  -webkit-filter: grayscale(100%) contrast(1.75);
+  filter:grayscale(100%) contrast(1.75);
+  background: black;
+  color: white;
+}
+.vtm20.sheet .health-input button.reset:hover {
+  -webkit-filter: grayscale(100%) invert(1);
+  filter:grayscale(100%) invert(1);
+  background: white;
+  color: black;
+}
+.vtm20.sheet .health-input .tooltip {
+  opacity: 0;
+  display: none;
+}
+.vtm20.sheet .health-input .row {
+  padding: 0.22rem;
+  width: 180px;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid #fdfdfd;
+}
+.vtm20.sheet .health-input .inputs .row span {
+  margin-right: auto;
+}
+.vtm20.sheet .health-input .inputs .row .modifier {
+  width: 16px;
+}
+.vtm20.sheet .health-input .inputs .row .value {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  width: 16px;
+}
+.vtm20.sheet .health-input .inputs .row .reset {
+  margin-left: 10px;
+  opacity: 0;
+  cursor: none;
+}
+.vtm20.sheet .helper--enable-editMode .health-input .inputs .row .reset {
+  opacity: 1;
+  cursor: pointer;
+}
 .vtm20.item.sheet {
   background: none;
 }

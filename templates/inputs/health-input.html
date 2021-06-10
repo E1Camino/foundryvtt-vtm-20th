@@ -1,0 +1,94 @@
+<div class="health-input">
+    <div class="row damage-buttons">
+        <button class="add-bashing-damage" title="{{localize 'SHEET.ADD_BASHING'}}">+👊</button>
+        <button class="add-lethal-damage" title="{{localize 'SHEET.ADD_LETHAL'}}">+🗡️</button>
+        <button class="add-aggravated-damage" title="{{localize 'SHEET.ADD_AGGRAVATED'}}">+🔥</button>
+    </div>
+    <div class="inputs">        
+        <div class="row health-0">
+            <span>{{localize 'SHEET.HEALTH_0'}}</span>
+            <div class="modifier"></div>
+            <div class="value">
+                {{#iff health.[0] "==" 0}}⬜{{/iff}}
+                {{#iff health.[0] "==" 1}}👊{{/iff}}
+                {{#iff health.[0] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[0] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_0_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-1">
+            <span>{{localize 'SHEET.HEALTH_1'}}</span>
+            <div class="modifier">-1</div>
+            <div class="value">
+                {{#iff health.[1] "==" 0}}⬜{{/iff}}
+                {{#iff health.[1] "==" 1}}👊{{/iff}}
+                {{#iff health.[1] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[1] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_1_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-2">
+            <span>{{localize 'SHEET.HEALTH_2'}}</span>
+            <div class="modifier">-1</div>
+            <div class="value">
+                {{#iff health.[2] "==" 0}}⬜{{/iff}}
+                {{#iff health.[2] "==" 1}}👊{{/iff}}
+                {{#iff health.[2] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[2] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_2_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-3">
+            <span>{{localize 'SHEET.HEALTH_3'}}</span>
+            <div class="modifier">-2</div>
+            <div class="value">
+                {{#iff health.[3] "==" 0}}⬜{{/iff}}
+                {{#iff health.[3] "==" 1}}👊{{/iff}}
+                {{#iff health.[3] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[3] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_3_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-4">
+            <span>{{localize 'SHEET.HEALTH_4'}}</span>
+            <div class="modifier">-2</div>
+            <div class="value">
+                {{#iff health.[4] "==" 0}}⬜{{/iff}}
+                {{#iff health.[4] "==" 1}}👊{{/iff}}
+                {{#iff health.[4] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[4] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_4_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-5">
+            <span>{{localize 'SHEET.HEALTH_5'}}</span>
+            <div class="modifier">-5</div>
+            <div class="value">
+                {{#iff health.[5] "==" 0}}⬜{{/iff}}
+                {{#iff health.[5] "==" 1}}👊{{/iff}}
+                {{#iff health.[5] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[5] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_5_TOOLTIP'}}</div>
+        </div>
+        <div class="row health-6">
+            <span>{{localize 'SHEET.HEALTH_6'}}</span>
+            <iv class="modifier"></iv>
+            <div class="value">
+                {{#iff health.[6] "==" 0}}⬜{{/iff}}
+                {{#iff health.[6] "==" 1}}👊{{/iff}}
+                {{#iff health.[6] "==" 2}}🗡️{{/iff}}
+                {{#iff health.[6] "==" 3}}🔥{{/iff}}
+            </div>
+            <button class="reset" title="{{localize 'SHEET.RESET_HEALTH'}}">❤️</button>
+            <div class="tooltip">{{localize 'SHEET.HEALTH_6_TOOLTIP'}}</div>
+        </div>
+    </div>
+
+</div>

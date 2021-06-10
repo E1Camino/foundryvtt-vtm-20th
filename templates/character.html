@@ -76,7 +76,7 @@
 							<ul>
 								{{#each data.physical as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -86,7 +86,7 @@
 							<ul>
 								{{#each data.social as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -96,7 +96,7 @@
 							<ul>
 								{{#each data.mental as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -112,7 +112,7 @@
 							<ul>
 								{{#each data.talent as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -122,7 +122,7 @@
 							<ul>
 								{{#each data.skill as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -132,7 +132,7 @@
 							<ul>
 								{{#each data.knowledge as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -148,7 +148,7 @@
 							<ul>
 								{{#each data.discipline as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -158,7 +158,7 @@
 							<ul>
 								{{#each data.background as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
@@ -168,10 +168,29 @@
 							<ul>
 								{{#each data.virtue as |item key|}}
 									<li class="radio-input"> 
-										{{> systems/foundryvtt-vtm-20th/templates/item-input.html item=item min=0 max=5}}
+										{{> systems/foundryvtt-vtm-20th/templates/inputs/item-input.html item=item min=0 max=5}}
 									</li>
 								{{/each}}
 							</ul>
+						</div>
+					</div>
+
+					<div class="sheet-header-big"></div>
+					<div class="row">
+						<div class="column">
+							<h4>{{localize "SHEET.MERITSFLAWS"}}</h4>
+						</div>
+						<div class="column">
+							<h4>{{localize "SHEET.HUMANITYPATH"}}</h4>
+							{{> systems/foundryvtt-vtm-20th/templates/inputs/path-input.html item=data.data.pathItem min=0 max=10}}
+
+							<h4>{{localize "SHEET.WILLPOWER"}}</h4>
+							{{> systems/foundryvtt-vtm-20th/templates/inputs/willpower-input.html min=0 max=10 willpower=data.data.willpower current=data.data.currentWillpower}}
+
+						</div>
+						<div class="column">
+							<h4>{{localize "SHEET.EXPERIENCE"}}</h4>
+							<input name="data.experience" value="{{data.data.experience}}" />
 						</div>
 					</div>
 				</div>
@@ -194,6 +213,18 @@
 			<p class="actor-char">
 				<span>{{localize "CHAR.CONCEPT"}}:</span>
 				<span>{{data.concept}}</span>
+			</p>
+<!-- 			<p class="actor-char">
+				<span>{{localize "SHEET.BLOOD"}}</span>
+				<div>
+					{{> systems/foundryvtt-vtm-20th/templates/inputs/blood-input.html min=0 max=20 blood=data.data.blood }}
+				</div>
+			</p> -->
+			<p class="actor-char">
+				<span>{{localize "SHEET.HEALTH"}}</span>
+				<div>
+					{{> systems/foundryvtt-vtm-20th/templates/inputs/health-input.html health=data.data.health }}
+				</div>
 			</p>
 		</div>
 	</div>
