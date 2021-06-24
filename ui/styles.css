@@ -674,12 +674,12 @@ input:checked + .slider:before {
   transition-timing-function: ease-out;
   transition-duration: 0s;
   transition-delay: 0s;
+  z-index: 15;
 }
 .vtm20.sheet span.item-value:hover span.item-tooltip {
   opacity: 1;
   transition-duration: 0.2s;
   transition-delay: 1s;
-  z-index: 15;
 }
 
 .vtm20.sheet span.item-tooltip > * {
