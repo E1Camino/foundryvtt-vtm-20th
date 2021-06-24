@@ -92,7 +92,9 @@ Hooks.once("init", async function() {
     }
   });
   // Allows {if X = Y} type syntax in html using handlebars
-  Handlebars.registerHelper("iff", function (a, operator, b, opts) {
+  Handlebars.registerHelper("iff", function (v1, operator, v2, opts) {
+    var a = parseInt(v1);
+    var b = parseInt(v2);
     var bool = false;
     switch (operator) {
       case "==":
@@ -111,6 +113,8 @@ Hooks.once("init", async function() {
         bool = a <= b;
         break;
       case "!=":
+        console.log(a);
+        console.log(b);
         bool = a !== b;
         break;
       default:
