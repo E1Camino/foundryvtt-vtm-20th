@@ -2,9 +2,9 @@
   "name": "foundryvtt-vtm-20th",
   "title": "Vampire the masquerade 20th anniversary editon",
   "description": "A comprehensive system for running games of Vampire the Masquerade in the Foundry VTT environment.",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "minimumCoreVersion" : "0.8.0",
-  "compatibleCoreVersion" : "0.8.6",
+  "compatibleCoreVersion" : "0.8.9",
   "templateVersion": 2,
   "author": "elcamino",
   "scripts": [

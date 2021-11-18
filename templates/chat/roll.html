@@ -1,7 +1,7 @@
 <section class="dw-chat-card">
   <div class="cell cell-chat">
     <h2>{{title}}</h2>
-    <div class="hidden-data" data-creator-id="{{user}}" data-actor-id="{{actorId}}" data-initialized="false" data-rolled="false"></div>
+    <div class="hidden-data" data-creator-id="{{user}}" data-actor-id="{{actorId}}" data-initialized="false" data-rolled="false" data-blood-dice="{{bloodDice}}"></div>
     <div class="row header-row">
       {{#each items as |item itemKey|}}
         <span class="attribute-dice-pool" data-item-value={{item.value}} data-item-id={{item._id}}>{{item.name}}</span>
@@ -55,7 +55,7 @@
         </div>
       </div>
       
-      <div class="row dice-count"><em>Anzahl Würfel: <span class="dice-count-value">{{diceNumber}}</span></em></div>
+      <div class="row dice-count"><em>Anzahl Würfel: <span class="dice-count-value"></span></em></div>
       <div class="actions" style="display: flex;">
         <button class="roll-dice-button" title="Roll">
           <i class="fas fa-dice-d20"></i>

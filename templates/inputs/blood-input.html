@@ -1,23 +1,25 @@
-<label for="input-{{item._id}}" class="item {{#iff item.selected "==" true }}selected{{/iff}}" data-item-key={{item._id}}>
-    <button class="item-roll-button"><i class="fa fa-dice-d20"></i></button>
-    <span class="item-value">
-        <span class="item-label">
-            {{item.name}}
-            <span class="item-tooltip">
-                {{{item.tooltip}}}
-            </span>
-        </span>
-        <span class="input-min-{{min}}">
-            {{#times (calc max "-" min)}}
-                {{#iff (calc @index "+" ../min) "==" ../item.value}}
-                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} checked="checked">
-                    <span></span>
-                {{/iff}}
-                {{#iff (calc @index "+" ../min) "!=" ../item.value}}
-                    <input name="data.values.{{../item._id}}" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}}>
-                    <span></span>
-                {{/iff}}
-            {{/times}}
-        </span>
+<label class="item-blood-dice">
+    <span class="input-blood-dice">
+    {{bloodDice}}
+        {{#times (calc max "-" min)}}
+            {{#iff (calc @index "+" ../min) "==" ../bloodDice}}
+                <input name="data.values.bloodDice" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}} checked="checked">
+            {{/iff}}
+            {{#iff (calc @index "+" ../min) "!=" ../bloodDice}}
+                <input name="data.values.bloodDice" type="radio" title={{calc @index "+" ../min}} value={{calc @index "+" ../min}}>
+            {{/iff}}
+            {{#iff (calc @index "+" ../min) "==" 0}}
+                     <svg width=12 height=12>
+                        <circle cx=6 cy=6 r=5 />
+                        <line x1="3" y1="3" x2="9" y2="9" stroke="none" />
+                        <line x1="9" y1="3" x2="3" y2="9" stroke="none" />
+                    </svg>
+            {{else iff (calc @index "+" ../min) "<=" ../bloodDice}}
+                <i class="fa fa-dice-d20 active-blood-dice"></i>
+            
+            {{else iff (calc @index "+" ../min) ">" ../bloodDice}}
+                <i class="fa fa-dice-d20 common-dice"></i>
+            {{/iff}}
+        {{/times}}
     </span>
 </label>

@@ -4,7 +4,30 @@
 
 function updateDiceCount(subElement){
   const rollData = getRollDataFromHtml(subElement);
-  subElement.parents(".message-content").find(".dice-count-value").text(rollData.dicepool + rollData.diceModifier);
+  console.log(rollData);
+  
+  // blood dice can only bas as many as the dice pool allows - any dice leftover in the pool are normal dice
+  var fullDicePool = rollData.dicepool + rollData.diceModifier;
+  fullDicePool = Math.max(fullDicePool, 0);
+  let bloodDice = rollData.bloodDice;
+  bloodDice = Math.max(bloodDice, 0);
+  bloodDice = Math.min(bloodDice, fullDicePool);
+  let commonDice = fullDicePool;
+  commonDice -= rollData.bloodDice;
+
+  // clear old list
+  const message = subElement.parents(".message-content").find(".dice-count-value");
+  message.children().remove();
+  console.log(bloodDice, commonDice);
+  // create red dice for hunger
+  for (i = 0; i < bloodDice; i++) {
+    message.append('<i class="fa fa-dice-d20 active-blood-dice"></i>');
+  }
+  
+  // create normal dice for the remaining ones
+  for (i = 0; i < commonDice; i++) {
+    message.append('<i class="fa fa-dice-d20 common-dice"></i>');
+  }
 }
 // extract actual roll data from html chat message element
 function getRollDataFromHtml(subElement) {
@@ -21,7 +44,8 @@ function getRollDataFromHtml(subElement) {
     actorId: hiddenData.attr("data-actor-id"),
     userId: hiddenData.attr("data-user-id"),
     diceModifier: parseInt(chatMessage.find(".input-dice-modifier .range-value").text()),
-    difficulty: parseInt(chatMessage.find(".input-roll-difficulty .range-value").text()),
+    difficulty: 6,
+    bloodDice: parseInt(hiddenData.attr("data-blood-dice"))
   }
   console.log(rollData.items);
   rollData.dicepool = rollData.items.map(item => item.value).reduce((p, c) => p + c, 0);
@@ -136,6 +160,7 @@ class DicePoolVTM20 {
       strengthItemId: null, // strength Item id IF applicable, otherwise null
       baseDamageDice: 0, // defines bonus damage from weapons. If used weapon is not strength-based, this defines the base damage dice (usually ranged weapons).
       damageDiceModifier: 0, // optional bonus depending on used attack/aimbonuses
+      bloodDice: customData.bloodDice, // amount of dice that are replaced with blood-dice
 
       // common chatmessage settings
       actorId: null,
@@ -299,8 +324,7 @@ class DicePoolVTM20 {
     // example from sheet ( lastRollSettings:{actionType: "attack"})
     const renderData = this.getRenderData(rollData);
     console.log({rollData});
-    console.log({renderData})
-    
+    console.log({ renderData });
 
     const chatData = {
       user: renderData.user,
@@ -324,7 +348,7 @@ class DicePoolVTM20 {
     if (renderData.rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (renderData.rollMode === "blindroll") chatData["blind"] = true;
 
-    console.log(templateData)
+    console.log(templateData);
 
     renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll.html', templateData).then(content => {
       chatData.content = content;
@@ -335,24 +359,59 @@ class DicePoolVTM20 {
   static rollTest(rollData, subElement) {
     const { actorId, actionType, diceModifier, difficulty, chatMessageId } = rollData;
     const actor = game.actors.get(actorId);
-    
+    console.log(actor.data.data.bloodDice);
+
     // prepare formula
-    const numberOfDice = rollData.dicepool;
-    const finalDice = Math.max(numberOfDice + diceModifier, 0);
-    const formula = `${finalDice}d10>${difficulty}`;
+
+    // blood dice can only bas as many as the dice pool allows - any dice leftover in the pool are normal dice
+    var fullDicePool = rollData.dicepool + rollData.diceModifier;
+    fullDicePool = Math.max(fullDicePool, 0);
+    var bloodDice = rollData.bloodDice;
+    bloodDice = Math.max(bloodDice, 0);
+    bloodDice = Math.min(bloodDice, fullDicePool);
+    var commonDice = fullDicePool;
+    commonDice -= rollData.bloodDice;
+
+    //const finalCommonDice = 
+    const formulaBlood = `${bloodDice}dh10>${difficulty}`;
+    const formulaCommon = `${commonDice}dn10>${difficulty}`;
     
     // roll dice
-    const roll = new Roll(formula).roll();
+    const rollBlood = new Roll(formulaBlood).roll();
+    const rollCommon = new Roll(formulaCommon).roll();
     // also sort so we have all successes at first and failures at last
-    const dice = roll.dice[0].results.sort((a, b) => b.result - a.result);
-    console.log({roll});
+    const diceBlood = rollBlood.dice[0].results.sort((a, b) => b.result - a.result);
+    const diceCommon = rollCommon.dice[0].results.sort((a, b) => b.result - a.result);
 
-    const critFails = dice.filter((d) => d.result === 1).length;
-    const wins = dice.filter((d) => d.result >= difficulty).length;
+    // JC_properly define what is a crit, was is a failure, what does it mean to have 1 / 10 on hunger dice
+    const critFails = diceBlood.filter((d) => d.result === 1).length;
+    const wins = diceBlood.filter((d) => d.result >= difficulty).length;
     const isCritFail = wins === 0 && critFails > 0;
     const degrees = wins - critFails;
 
-    // prepare nice messages
+    // we need:
+    // absolute number of degrees of success (common or hunger / complete pairs of 10 the same count as 4)
+
+    // result (degrees of success - difficulty)
+    // 0 or higher == success
+    // -1 or lower == fail
+
+    // at least one 10 pair
+    // at least one hunger 10
+    // (if throw is successful)
+    // -> schmutziger erfolg
+
+    // number of hunger failures
+
+    // at least one hunger failure (1)
+    // (if throw is failure)
+    // -> bestialischer Fehlschlag
+
+    // 0 degrees of success (not a single die on 6 or higher)
+    // -> totaler Fehlschlag
+
+
+    // JC prepare nice messages
     let message = `${actor.name} ${game.i18n.localize("DEGREES.GET")} `;
     let result;
     if (isCritFail) {
@@ -377,10 +436,10 @@ class DicePoolVTM20 {
     hiddenData.attr("data-rolled", "true");
 
     //prepare roll finish function
-    const onRollReady = templateData => {
-      console.log(templateData);
-      renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll-result.html', templateData).then(content => {
-        console.log(content);
+    const renderAsMessage = () => {
+      renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll-result.html', {
+
+      }).then(content => {
         resultSection.append($.parseHTML(content));
         resultSection.show();
         chatMessage.find(".all-roll-settings").hide();
@@ -390,27 +449,23 @@ class DicePoolVTM20 {
     }
 
     // render the result
-    console.log({dice});
+    console.log({diceBlood, diceCommon});
     
     // Hook into Dice So Nice!
     if (game.dice3d) {
-      game.dice3d
-        .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
-        .then((displayed) => {
-          // update chat message in order to toggle result section
-          onRollReady({
-            difficulty,
-            diceModifier,
-            dice,
-            degrees,
-          })
-        });
-      }
-      // Roll normally, add a dice sound.
-      else {
+      game.dice3d.showForRoll(rollBlood, game.user, true, chatData.whisper, chatData.blind)
+      game.dice3d.showForRoll(rollCommon, game.user, true, chatData.whisper, chatData.blind)
+      .then((_commonDisplayed) => {
         // update chat message in order to toggle result section
-        console.log(roll);
-//        this.updateMessage(subElement)        
+        renderAsMessage()
+    })
+    }
+    // Roll normally, add a dice sound.
+    else {
+      // update chat message in order to toggle result section
+      console.log(rollCommon);
+      console.log(rollBlood);
+      //this.updateMessage(subElement)        
       //chatData.sound = CONFIG.sounds.dice;
     }
   }

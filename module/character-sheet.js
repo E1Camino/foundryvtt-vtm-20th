@@ -67,17 +67,20 @@ export class VampireActorSheet extends ActorSheet {
     for (const [_id, item] of items.entries()) {
       const { _id, type, flags: { core: { sourceId } } } = item;
       const oid = sourceId.split(".").pop();
-      const { data: { description, tooltip }, name } = game.items.get(oid).data;
-      const value = actor.data.data.values[_id] || 1;
-      const selected = _id === selectedItemKey;
-      sheetData.data[type].push({
-        ...item,
-        description,
-        tooltip,
-        name,
-        value,
-        selected
-      });
+      const gameItem = game.items.get(oid);
+      if (gameItem !== undefined) {        
+        const { data: { description, tooltip }, name } = gameItem.data;
+        const value = actor.data.data.values[_id] || 1;
+        const selected = _id === selectedItemKey;
+        sheetData.data[type].push({
+          ...item,
+          description,
+          tooltip,
+          name,
+          value,
+          selected
+        });
+      }
     }
 
     types.forEach(type => {
@@ -185,12 +188,19 @@ export class VampireActorSheet extends ActorSheet {
         items: [itemClicked, itemSelected].filter(i => i !== null),
         actionType,
         onRollCallback: (rollSettings) => {
-          this.setRollSettings(rollSettings);f
+          this.setRollSettings(rollSettings);
         },
+        bloodDice: this.actor.data.data.bloodDice
       });
       this.unselectItems();
       this.render();
     });
+
+    // click on blood dice radio buttons
+    html.find(".input-blood-dice input").mouseup(ev => {
+      if (!this.options.editMode) return;
+      this.actor.update({ data: { bloodDice: ev.currentTarget.value } })
+    })
 
     // click on attribute label -> toggle attribute
     html.find('.item-value').mouseup(ev => {

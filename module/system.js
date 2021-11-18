@@ -113,8 +113,6 @@ Hooks.once("init", async function() {
         bool = a <= b;
         break;
       case "!=":
-        console.log(a);
-        console.log(b);
         bool = a !== b;
         break;
       default:

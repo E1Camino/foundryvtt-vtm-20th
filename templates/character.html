@@ -214,12 +214,12 @@
 				<span>{{localize "CHAR.CONCEPT"}}:</span>
 				<span>{{data.concept}}</span>
 			</p>
-<!-- 			<p class="actor-char">
-				<span>{{localize "SHEET.BLOOD"}}</span>
+			<p class="actor-char">
+				<span>{{localize "CHAR.BLOOD"}}:</span>
 				<div>
-					{{> systems/foundryvtt-vtm-20th/templates/inputs/blood-input.html min=0 max=20 blood=data.data.blood }}
+					{{> systems/foundryvtt-vtm-20th/templates/inputs/blood-input.html min=0 max=5 bloodDice=data.data.bloodDice }}
 				</div>
-			</p> -->
+			</p>
 			<p class="actor-char">
 				<span>{{localize "SHEET.HEALTH"}}</span>
 				<div>

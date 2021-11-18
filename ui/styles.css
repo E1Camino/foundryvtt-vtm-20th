@@ -312,6 +312,38 @@
   stroke: #333;
 }
 
+
+.vtm20.sheet .input-blood-dice input[type="radio"]:first-of-type + svg {
+  opacity: 0;
+}
+.vtm20.sheet .helper--enable-editMode .input-blood-dice input[type="radio"]:first-of-type + svg {
+  opacity: 1;
+}
+.vtm20.sheet .input-blood-dice input[type="radio"]:first-of-type + svg circle {
+  fill: #fdfdfd;
+}
+.vtm20.sheet .input-blood-dice input[type="radio"] + svg line {
+  stroke: none;
+  stroke-width: 1;
+}
+.vtm20.sheet .input-blood-dice input[type="radio"]:first-of-type + svg line {
+  stroke: #ddd;
+}
+.vtm20.sheet .input-blood-dice input[type="radio"]:first-of-type + svg:hover line {
+  stroke: #333;
+}
+.vtm20.sheet .helper--enable-editMode .input-blood-dice input[type="radio"]:first-of-type:hover + svg circle {
+  color: #333;
+  stroke: #333;
+}
+
+.vtm20.sheet .input-blood-dice .active-blood-dice::before {
+  color: #aa0200;
+}
+.vtm20.sheet .input-blood-dice .common-dice::before {
+  color: #ccc;
+}
+
 .vtm20.sheet .item-delete-button,
 .vtm20.sheet .item-roll-button {
   background: transparent;
@@ -507,6 +539,15 @@ input:checked + .slider:before {
 
 
 
+/**
+* DICE COUNT
+*/
+.dw-chat-card .active-blood-dice::before {
+  color: #aa0200;
+}
+.dw-chat-card .common-dice::before {
+  color: #555;
+}
 
 
 /**

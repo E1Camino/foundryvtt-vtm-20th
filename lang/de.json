@@ -17,6 +17,7 @@
     "CHAR.GENERATION": "Generation",
     "CHAR.PLAYER": "Spieler",
     "CHAR.CLAN": "Klan",
+    "CHAR.BLOOD": "Hungerwürfel",
     
     "SHEET.PRIMARY": "Allgemein",
     "SHEET.ATTRIBUTES": "Attribute",

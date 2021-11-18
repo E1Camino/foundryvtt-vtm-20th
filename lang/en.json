@@ -17,6 +17,7 @@
     "CHAR.GENERATION": "Generation",
     "CHAR.PLAYER": "Player",
     "CHAR.CLAN": "Clan",
+    "CHAR.BLOOD": "Hunger dice",
     
     "SHEET.PRIMARY": "Primary",
     "SHEET.ATTRIBUTES": "Attributes",
