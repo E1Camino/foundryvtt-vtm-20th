@@ -2,29 +2,44 @@
     <div class="dice-roll">
         <div class="dice-tooltip">
             <section class="tooltip-part">
-                <div>Difficulty <span>{{difficulty}}</span></div>
-                <div>Modifier <span>{{diceModifier}}</span></div>
+                <div>{{actor}} ({{modifierSign}}{{diceModifier}} {{localize "DICEMODIFIER"}})</div>
+                <div>{{localize "DIFFICULTY.DIFFICULTY"}} <span class="difficultyColor">{{difficulty}}</span></div>
+                <p>{{resultText}}</p>
+                <div class="tooltipProvider">{{localize "DEGREES.DEGREES"}} {{degreesOfSuccess}} =
+                    <span class="grey">{{successes}}</span> -
+                    <span class="difficultyColor">{{difficulty}}</span>
+                </div>
             </section>
         </div>
         <div class="dice-result">
             <div class="dice-section">
                 <div class="dice-formula">
                     <div class="dice">
-                        <ol class="dice-rolls">
-                            {{#each dice}}
-                                {{#iff this.result "==" 1}}
-                                    <li class="roll die d10 min">{{this.result}}</li>
-                                {{/iff}}
-                                {{#iff this.result ">=" ../difficulty}}
-                                    <li class="roll die d10 max">{{this.result}}</li>
-                                {{/iff}}
-                                {{#iff this.result ">" 1}}
-                                    {{#iff this.result "<" ../difficulty}}
-                                        <li class="roll die d10">{{this.result}}</li>
-                                    {{/iff}}
-                                {{/iff}}
+                        <div class="dice-rolls stack" style="width: calc(24px * {{critStacks}})">
+                            {{#each diceNormCrits}}
+                                <div class="roll die dn"><img src="modules/vampire5th-dice-roller/images/CriticalSuccessW.webp" /></div>
                             {{/each}}
-                        </ol>
+                            {{#each diceBloodCrits}}
+                                <div class="roll die dh"><img src="modules/vampire5th-dice-roller/images/MessyCriticalB.webp" /></div>
+                            {{/each}}
+                        </div>
+                        <div class="dice-rolls nonstack">
+                            {{#each diceBloodSuccesses}}
+                                <div class="roll die dh"><img src="modules/vampire5th-dice-roller/images/SuccessB.webp" /></div>
+                            {{/each}}
+                            {{#each diceNormSuccesses}}
+                                <div class="roll die dn"><img src="modules/vampire5th-dice-roller/images/SuccessW.webp" /></div>
+                            {{/each}}
+                            {{#each diceNormFails}}
+                                <div class="roll die dn"><img class="trans" src="modules/vampire5th-dice-roller/images/FailureW.webp" /></div>
+                            {{/each}}
+                            {{#each diceBloodFails}}
+                                <div class="roll die dh"><img class="trans" src="modules/vampire5th-dice-roller/images/FailureB.webp" /></div>
+                            {{/each}}
+                            {{#each diceBloodCritfails}}
+                                <div class="roll die dh"><img class="trans" src="modules/vampire5th-dice-roller/images/BestialFailureB.webp" /></div>
+                            {{/each}}
+                        </div>
                     </div>
                 </div>
             </div>

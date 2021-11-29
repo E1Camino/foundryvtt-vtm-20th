@@ -44,8 +44,8 @@ function getRollDataFromHtml(subElement) {
     actorId: hiddenData.attr("data-actor-id"),
     userId: hiddenData.attr("data-user-id"),
     diceModifier: parseInt(chatMessage.find(".input-dice-modifier .range-value").text()),
-    difficulty: 6,
-    bloodDice: parseInt(hiddenData.attr("data-blood-dice"))
+    difficulty: parseInt(chatMessage.find(".input-roll-difficulty .range-value").text()),
+    bloodDice: parseInt(hiddenData.attr("data-blood-dice")),
   }
   console.log(rollData.items);
   rollData.dicepool = rollData.items.map(item => item.value).reduce((p, c) => p + c, 0);
@@ -77,7 +77,7 @@ function initializeMessage(html, messageId) {
   const target3 = $(html).find(".input-roll-difficulty .range-bar");
   target3.attr("value", "11");
   const target4 = $(html).find(".input-roll-difficulty .range-value");
-  target4.text("6");
+  target4.text("3");
 
   // toggle parts
   const attack = html.find(".attack-options");
@@ -150,7 +150,7 @@ class DicePoolVTM20 {
       title: "", // can be multiline, should be changable later on
       actionType: "", // possible options:  "common" "attack" "versus"
       items: [], // item-id's from attribute sheets
-      difficulty: 6,
+      difficulty: 3,
       diceModifier: 0,
       ignoreInjuries: false,
       useWillpower: false,
@@ -323,8 +323,6 @@ class DicePoolVTM20 {
     // Get default values for options, needed in template
     // example from sheet ( lastRollSettings:{actionType: "attack"})
     const renderData = this.getRenderData(rollData);
-    console.log({rollData});
-    console.log({ renderData });
 
     const chatData = {
       user: renderData.user,
@@ -348,8 +346,6 @@ class DicePoolVTM20 {
     if (renderData.rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (renderData.rollMode === "blindroll") chatData["blind"] = true;
 
-    console.log(templateData);
-
     renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll.html', templateData).then(content => {
       chatData.content = content;
       ChatMessage.create(chatData);
@@ -357,14 +353,13 @@ class DicePoolVTM20 {
   }
   
   static rollTest(rollData, subElement) {
-    const { actorId, actionType, diceModifier, difficulty, chatMessageId } = rollData;
+    const { actorId, diceModifier, difficulty, chatMessageId } = rollData;
     const actor = game.actors.get(actorId);
-    console.log(actor.data.data.bloodDice);
 
     // prepare formula
 
     // blood dice can only bas as many as the dice pool allows - any dice leftover in the pool are normal dice
-    var fullDicePool = rollData.dicepool + rollData.diceModifier;
+    var fullDicePool = rollData.dicepool + diceModifier;
     fullDicePool = Math.max(fullDicePool, 0);
     var bloodDice = rollData.bloodDice;
     bloodDice = Math.max(bloodDice, 0);
@@ -373,8 +368,9 @@ class DicePoolVTM20 {
     commonDice -= rollData.bloodDice;
 
     //const finalCommonDice = 
-    const formulaBlood = `${bloodDice}dh10>${difficulty}`;
-    const formulaCommon = `${commonDice}dn10>${difficulty}`;
+    const successValue = 6;
+    const formulaBlood = `${bloodDice}dh10>${successValue}`;
+    const formulaCommon = `${commonDice}dn10>${successValue}`;
     
     // roll dice
     const rollBlood = new Roll(formulaBlood).roll();
@@ -383,11 +379,35 @@ class DicePoolVTM20 {
     const diceBlood = rollBlood.dice[0].results.sort((a, b) => b.result - a.result);
     const diceCommon = rollCommon.dice[0].results.sort((a, b) => b.result - a.result);
 
-    // JC_properly define what is a crit, was is a failure, what does it mean to have 1 / 10 on hunger dice
-    const critFails = diceBlood.filter((d) => d.result === 1).length;
-    const wins = diceBlood.filter((d) => d.result >= difficulty).length;
-    const isCritFail = wins === 0 && critFails > 0;
-    const degrees = wins - critFails;
+    let diceBloodCrits = diceBlood.filter((d) => d.result == 10);
+    let diceNormCrits = diceCommon.filter((d) => d.result == 10);
+    let diceBloodSuccesses = diceBlood.filter((d) => d.result >= successValue && d.result != 10);
+    let diceNormSuccesses = diceCommon.filter((d) => d.result >= successValue && d.result != 10);
+    let diceBloodFails = diceBlood.filter((d) => d.result < successValue && d.result != 1);
+    let diceNormFails = diceCommon.filter((d) => d.result < successValue && d.result);
+    let diceBloodCritfails = diceBlood.filter((d) => d.result == 1);
+
+    //diceBloodCrits = [1,1,1];
+    //diceNormCrits = [1,1,1];
+    //diceBloodSuccesses = [1];
+    //diceNormSuccesses = [1];
+    //diceBloodFails = [1];
+    //diceNormFails = [1];
+    //diceBloodCritfails = [1];
+
+
+    
+    const critBonus = Math.floor((diceBloodCrits.length + diceNormCrits.length) / 2.0);
+    const critStacks = Math.ceil((diceBloodCrits.length + diceNormCrits.length) / 2.0);
+    const successes = diceBloodCrits.length + diceNormCrits.length + diceBloodSuccesses.length + diceNormSuccesses.length + 2 * critBonus;
+    const degreesOfSuccess = successes - difficulty; // degreesOfSuccess >= 0  ==> geschafft
+    const isSuccess = degreesOfSuccess >= 0;
+    const isCommonCrit = isSuccess && critBonus > 0;
+    const isDirtyCrit = isCommonCrit && diceBloodCrits.length > 0;
+    const isBestialFail = !isSuccess && diceBloodCritfails.length > 0;
+    const isTotalFail = (successes === 0);
+
+    
 
     // we need:
     // absolute number of degrees of success (common or hunger / complete pairs of 10 the same count as 4)
@@ -396,25 +416,27 @@ class DicePoolVTM20 {
     // 0 or higher == success
     // -1 or lower == fail
 
+
+    // -> schmutziger erfolg
     // at least one 10 pair
     // at least one hunger 10
     // (if throw is successful)
-    // -> schmutziger erfolg
 
     // number of hunger failures
 
+    // -> bestialischer Fehlschlag
     // at least one hunger failure (1)
     // (if throw is failure)
-    // -> bestialischer Fehlschlag
+    // -> Button anzeigen zum 1d10 Zwang auswürfeln S.208
 
     // 0 degrees of success (not a single die on 6 or higher)
     // -> totaler Fehlschlag
 
+    // show dicepool: All hunger crits, All common crits, red successes, grey successes, hunger fails, grey fails, diceBloodCritfails
+    // addendum: crits get grouped into doubles, shown above eachother
 
-    // JC prepare nice messages
-    let message = `${actor.name} ${game.i18n.localize("DEGREES.GET")} `;
-    let result;
-    if (isCritFail) {
+
+/*     if (isCritFail) {
       message = `${actor.name} ${game.i18n.localize("DEGREES.GETBOTCH")}`;
       result = game.i18n.localize("DEGREES.BOTCH");
     } else if (degrees <= 0) {
@@ -425,21 +447,68 @@ class DicePoolVTM20 {
       const localizeDegree = degrees > 5 ? 5 : degrees;
       const degreeLabel = game.i18n.localize(`DEGREES.${localizeDegree}`);
       result = `${localizeDegree} ${successes}`;
-    }
+    } */
 
+    let resultText = "";
+    if (isTotalFail && isBestialFail)
+      resultText = "Totaler Bestialischer Fehlschlag!";
+    else if (isTotalFail)
+      resultText = "Totaler Fehlschlag!";
+    else if (isBestialFail)
+      resultText = "Bestialischer Fehlschlag!";
+    else if (!isSuccess)
+      resultText = "Gescheitert";
+    else if (isDirtyCrit)
+      resultText = "Schmutziger Triumph!";
+    else if (isSuccess)
+      resultText = "Erfolg";
+    else if (isCommonCrit)
+      resultText = "Kritischer Triumph!";
+    
+    
     const chatData = game.messages.get(chatMessageId).data;
-
     const chatMessage = subElement.parents(".chat-message");
     const resultSection = chatMessage.find(".results");
     // avoid more than one roll
     const hiddenData = chatMessage.find(".hidden-data");
     hiddenData.attr("data-rolled", "true");
 
+    /*
+
+    Bozena Kacinzkova 
+    möp: 4, nerd: 1
+    ------------------
+    Bozena Kacinzkova (-2)
+    Schwierigkeit 4
+    
+    Kritischer Triumph! ?
+    Erfolgsgrad 0 = (x - 4)
+
+    0000000001111030320130
+    */
+
+    const modifierSign = (diceModifier >= 0? "+" : "");
+    const templateData = {
+      actor: actor.name,
+      modifierSign,
+      difficulty,
+      degreesOfSuccess, // degrees of success
+      diceModifier,
+      diceBloodCrits,
+      diceNormCrits,
+      diceBloodSuccesses,
+      diceNormSuccesses,
+      diceBloodFails,
+      diceNormFails,
+      diceBloodCritfails,
+      resultText,
+      successes,
+      critStacks
+    }
+
     //prepare roll finish function
     const renderAsMessage = () => {
-      renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll-result.html', {
-
-      }).then(content => {
+      renderTemplate('systems/foundryvtt-vtm-20th/templates/chat/roll-result.html', templateData).then(content => {
         resultSection.append($.parseHTML(content));
         resultSection.show();
         chatMessage.find(".all-roll-settings").hide();
@@ -449,22 +518,19 @@ class DicePoolVTM20 {
     }
 
     // render the result
-    console.log({diceBlood, diceCommon});
     
     // Hook into Dice So Nice!
     if (game.dice3d) {
-      game.dice3d.showForRoll(rollBlood, game.user, true, chatData.whisper, chatData.blind)
+      game.dice3d.showForRoll(rollBlood, game.user, true, chatData.whisper, chatData.blind);
       game.dice3d.showForRoll(rollCommon, game.user, true, chatData.whisper, chatData.blind)
       .then((_commonDisplayed) => {
         // update chat message in order to toggle result section
-        renderAsMessage()
+        renderAsMessage();
     })
     }
     // Roll normally, add a dice sound.
     else {
       // update chat message in order to toggle result section
-      console.log(rollCommon);
-      console.log(rollBlood);
       //this.updateMessage(subElement)        
       //chatData.sound = CONFIG.sounds.dice;
     }

@@ -18,6 +18,8 @@
     "CHAR.PLAYER": "Player",
     "CHAR.CLAN": "Clan",
     "CHAR.BLOOD": "Hunger dice",
+    "CHAR.BIO": "Biography",
+    "CHAR.GENERAL": "General",
     
     "SHEET.PRIMARY": "Primary",
     "SHEET.ATTRIBUTES": "Attributes",
@@ -34,6 +36,7 @@
     "SHEET.BACKGROUNDS": "Backgrounds",
     "SHEET.VIRTUES": "Virtues",
     "SHEET.EDITMODE": "Edit Mode",
+    "SHEET.GENERAL": "General",
 
     "SHEET.MERITSFLAWS": "Merits/Flaws",
     "SHEET.MERIT": "Merit",
@@ -136,6 +139,7 @@
     "VIRTUES.SELFCONTROLINSTINCT": "Self-Control/Instinct",
     "VIRTUES.COURAGE": "Courage",
 
+    "DIFFICULTY.DIFFICULTY": "Difficulty",
     "DIFFICULTY.WAS": "The difficulty was",
     "DIFFICULTY.2": "very easy",
     "DIFFICULTY.3": "easy",
@@ -147,10 +151,13 @@
     "DIFFICULTY.9": "extremely difficult",
     "DIFFICULTY.10": "almost impossible",
     "DIFFICULTY.CHOOSE": "Choose difficulty",
+    "DIFFICULTY.DICEMOD": "Dice modifier",
     "DIFFICULTY.ROLL": "Roll",
     "DIFFICULTY.CANCEL": "Cancel",
     "DIFFICULTY.SAVE": "Save",
+    "DICEMODIFIER": "Dice",
 
+    "DEGREES.DEGREES": "Degrees",
     "DEGREES.GET": "rolls a",
     "DEGREES.1" : "marginal",
     "DEGREES.2" : "moderate",

@@ -1,7 +1,7 @@
 <form class="{{cssClass}} row" autocomplete="off">
 	<div class="sheet-window">
 		<nav class="sheet-tabs tabs" data-group="primary">
-			<a class="item" data-tab="general">General</a>
+			<a class="item" data-tab="general">{{localize "SHEET.GENERAL"}}</a>
 			<a class="item" data-tab="attributes">{{localize "SHEET.ATTRIBUTES"}}</a>
 		</nav>
 
@@ -9,7 +9,7 @@
 			<div class="tab general" data-group="primary" data-tab="general">
 				<div class="primary">
 					<div class="sheet-header-big">
-						<h2>General</h2>
+						<h2>{{localize "CHAR.GENERAL"}}</h2>
 					</div>
 					<div class="row">
 						<div class="primary-column">
@@ -57,9 +57,9 @@
 					</div>
 
 					<div class="sheet-header-big">
-						<h2>Biography</h2>
+						<h2>{{localize "CHAR.BIO"}}</h2>
 					</div>
-					<div style="flex: 1; width: 100%">
+					<div style="flex: 1; width: 100%" lang="de">
 						{{editor content=data.data.biography target="data.biography" button=true owner=owner editable=editable}}
 					</div>
 				</div>

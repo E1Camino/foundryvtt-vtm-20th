@@ -50,7 +50,7 @@ export class VampireActorSheet extends ActorSheet {
     const { actor, items } = sheetData;
     // console.log("hello");
     // console.log({ sheetData });
-    // console.log(sheetData.data.data)
+    // console.log(sheetData.data.data);
     const types = ['discipline', 'virtue', 'background', 'skill', 'talent', 'knowledge', 'physical', 'social', 'mental', 'clan', 'nature'];
     types.forEach(type => sheetData.data[type] = []);
     const selectedItemKey = this.getSelectedItemKey();
@@ -71,17 +71,20 @@ export class VampireActorSheet extends ActorSheet {
       if (gameItem !== undefined) {        
         const { data: { description, tooltip }, name } = gameItem.data;
         const value = actor.data.data.values[_id] || 1;
-        const selected = _id === selectedItemKey;
+        const selected = _id === selectedItemKey ? 1 : 0;
+        console.log(selected);
+        item.data.selected = selected;
         sheetData.data[type].push({
           ...item,
           description,
           tooltip,
           name,
           value,
-          selected
+          selected,
         });
       }
     }
+    console.log(sheetData);
 
     types.forEach(type => {
       sheetData.data[type] = sheetData.data[type].sort((a, b) => {
@@ -286,6 +289,7 @@ export class VampireActorSheet extends ActorSheet {
     return this.getItem(this.options.selectedItem);
   }
   selectItem(itemKey) {
+    console.log(itemKey);
     this.options.selectedItem = itemKey;
   }
   unselectItems() {

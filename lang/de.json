@@ -18,6 +18,8 @@
     "CHAR.PLAYER": "Spieler",
     "CHAR.CLAN": "Klan",
     "CHAR.BLOOD": "Hungerwürfel",
+    "CHAR.BIO": "Biographie",
+    "CHAR.GENERAL": "Allgemein",
     
     "SHEET.PRIMARY": "Allgemein",
     "SHEET.ATTRIBUTES": "Attribute",
@@ -33,7 +35,8 @@
     "SHEET.DISCIPLINES": "Disziplinen",
     "SHEET.BACKGROUNDS": "Hintergründe",
     "SHEET.VIRTUES": "Tugenden",
-    "SHEET.EDITMODE": "Bearbeiten Modus",
+    "SHEET.EDITMODE": "Bearbeiten",
+    "SHEET.GENERAL": "Allgemeines",
 
     "SHEET.MERITSFLAWS": "Vorzüge/Schwächen",
     "SHEET.MERIT": "Vorzug",
@@ -137,6 +140,7 @@
     "VIRTUES.SELFCONTROLINSTINCT": "Selbsbeherrschung",
     "VIRTUES.COURAGE": "Mut",
 
+    "DIFFICULTY.DIFFICULTY": "Schwierigkeit",
     "DIFFICULTY.WAS": "Die Aufgabe war",
     "DIFFICULTY.2": "sehr leicht",
     "DIFFICULTY.3": "leicht",
@@ -148,22 +152,30 @@
     "DIFFICULTY.9": "äußerst schwierig",
     "DIFFICULTY.10": "fast unmöglich",
     "DIFFICULTY.CHOOSE": "Schwierigkeit wählen",
+    "DIFFICULTY.DICEMOD": "Würfelanzahl ändern",
     "DIFFICULTY.ROLL": "Würfeln",
     "DIFFICULTY.CANCEL": "Abbrechen",
     "DIFFICULTY.SAVE": "Speichern",
+    "DICEMODIFIER": "Würfel",
 
+    "DEGREES.DEGREES": "Erfolgsgrad",
     "DEGREES.GET": "erzielt einen",
-    "DEGREES.1" : "knappen",
+/*    "DEGREES.1" : "knappen",
     "DEGREES.2" : "bescheidenen",
     "DEGREES.3" : "vollen",
-    "DEGREES.4" : "außergewöhnlichen",
-    "DEGREES.5" : "phänomenalen",
+    "DEGREES.4" : "großartigen",
+    "DEGREES.5" : "fantastischen",*/
     "DEGREES.GETFAILURE" : "<b>scheitert</b> bei dem Versuch",
     "DEGREES.FAILURE" : "gescheitert",
-    "DEGREES.GETBOTCH": "legt einen <b>sauberen Patzer</b> hin",
-    "DEGREES.BOTCH": "sauberer Patzer",
-    "DEGREES.SUCCESS": "Erfolg",
-    "DEGREES.SUCCESSES": "Erfolge",
+    "DEGREES.GETBOTCH": "erzielt einen <b>bestialischen Fehlschlag</b>",
+    "DEGREES.BOTCH": "bestialischer Fehlschlag",
+    "DEGREES.SUCCESS": "<b>Erfolg</b>",
+    "DEGREES.SUCCESSES": "<b>Erfolge</b>",
+    "DEGREES.TRIUMPH": "schmutziger Triumph",
+    "DEGREES.GETTRIUMPH": "erzielt einen <b>schmutzigen Triumph</b>",
+    "DEGREES.CRIT": "kritischer Triumph",
+    "DEGREES.GETCRIT": "erzielt einen <b>kritischen Triumph</b>",
+
 
     "Vampire": "Vampir"
 }

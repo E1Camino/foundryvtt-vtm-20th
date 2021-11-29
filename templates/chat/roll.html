@@ -4,7 +4,7 @@
     <div class="hidden-data" data-creator-id="{{user}}" data-actor-id="{{actorId}}" data-initialized="false" data-rolled="false" data-blood-dice="{{bloodDice}}"></div>
     <div class="row header-row">
       {{#each items as |item itemKey|}}
-        <span class="attribute-dice-pool" data-item-value={{item.value}} data-item-id={{item._id}}>{{item.name}}</span>
+        <span class="attribute-dice-pool" data-item-value={{item.value}} data-item-id={{item._id}}>{{item.name}} ({{item.value}})</span>
       {{/each}}
       <label class="switch should-update-on-change synchronize-switch-state additional-settings-switch">
         <i class="fas fa-cogs"></i>
@@ -28,12 +28,12 @@
       <div class="common-options">
         <div>
           <div class="input-roll-difficulty synchronize-range">
-            <span>Difficulty</span>
+            <span>{{localize "DIFFICULTY.CHOOSE"}}</span>
             <input class="range-bar" type="range" step="1" min="0" max="10" value="1" name="difficulty">
             <p class="range-value roll-difficulty">20</p>
           </div>
           <div class="input-dice-modifier synchronize-range">
-            <span>Dice modifier</span>
+            <span>{{localize "DIFFICULTY.DICEMOD"}}</span>
             <input class="range-bar" type="range" step="1" min="-5" max="5" value="0" name="dicemodifier">
             <p class="range-value dice-modifier">20</p>
           </div>
